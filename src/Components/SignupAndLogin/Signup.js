@@ -29,7 +29,7 @@ function Signup() {
         noValidate
         autoComplete="off"
       >
-        <div className="signup-div">
+        <div className="signup-div" style={{justifyContent:"center",display:"flex",alignContent:"center"}}>
           <form onSubmit={handleSubmit(onsubmit)}>
             <div className="form-control">
               <TextField
@@ -238,6 +238,7 @@ function Signup() {
               style={{
                 borderRadius: 10,
                 backgroundColor: "#7EDD6F",
+                justifyContent:"center"
               }}
               variant="contained"
               type="submit"

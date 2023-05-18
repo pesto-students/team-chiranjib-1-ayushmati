@@ -25,7 +25,7 @@ function Login() {
         noValidate
         autoComplete="off"
       >
-        <div className="signup-div">
+        <div className="signup-div" style={{justifyContent:"center",display:"flex",alignContent:"center"}}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control">
               <TextField

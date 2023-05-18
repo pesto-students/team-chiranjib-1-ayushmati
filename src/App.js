@@ -4,6 +4,7 @@ import Login from "./Components/SignupAndLogin/Login"
 import NoRoute from "./Components/NoRoute";
 import AboutUs from "./Components/AboutUs/AboutUs";
 import ContactUs from "./Components/ContactUs/ContactUs";
+import ReceptionistDashboard from "./Components/UserDashboards/Receptionist/ReceptionistDashboard";
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 
 
@@ -17,6 +18,7 @@ function App() {
       <Route path="/login" element={<Login/>}/>
       <Route path = "/aboutus" element={<AboutUs/>}/>
       <Route path="/contactus" element={<ContactUs/>}/>
+      <Route path="/receptionistDashboard" element={<ReceptionistDashboard/>}/>
       <Route path="*" element = {<NoRoute/>}/>
     </Routes>
   </Router>
