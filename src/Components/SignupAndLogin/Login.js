@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import NavigationBar from "../NavgationBar/NavigationBar";
+import {Link} from "react-router-dom";
+import "./login.css"
 
 function Login() {
   const {
@@ -18,62 +19,73 @@ function Login() {
   return (
     <>
       <NavigationBar />
-      <Box
-        sx={{
-          "& .MuiTextField-root": { m: 1, width: "40ch" },
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <div className="signup-div" style={{justifyContent:"center",display:"flex",alignContent:"center"}}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="loginouter">
+          <div
+            className="login-inner-div"
+          >
+            <form  className="login-form" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control">
-              <TextField
-                id="User-Number-Id"
-                label="Doctor lisence No/Employee Id*"
-                placeholder="APH123456"
-                variant="standard"
-                {...register("userID", {
-                  required: {
-                    value: true,
-                    message: "User Number is required",
-                  },
-                })}
-                error={!!errors.userID}
-                helperText={errors?.userID?.message}
-              />
+              <h1>LOGIN</h1>
             </div>
+              <div className="form-control">
+                <TextField
+                  id="User-Number-Id"
+                  label="Doctor lisence No/Employee Id*"
+                  placeholder="APH123456"
+                  variant="standard"
+                  {...register("userID", {
+                    required: {
+                      value: true,
+                      message: "User Number is required",
+                    },
+                  })}
+                  error={!!errors.userID}
+                  helperText={errors?.userID?.message}
+                />
+              </div>
 
-            <div className="form-control">
-              <TextField
-                id="Password-Id"
-                label="Password *"
-                type="password"
-                variant="standard"
-                {...register("password", {
-                  required: {
-                    value: true,
-                    message: "password is required",
-                  },
-                })}
-                error={!!errors.password}
-                helperText={errors?.password?.message}
-              />
-            </div>
+              <div className="form-control">
+                <TextField
+                  id="Password-Id"
+                  label="Password *"
+                  type="password"
+                  variant="standard"
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "password is required",
+                    },
+                  })}
+                  error={!!errors.password}
+                  helperText={errors?.password?.message}
+                />
+              </div>
+              <div className="form-control-password">
+              <Link className="signup-link" to="/signup"> forgot password?</Link> 
+              </div>
 
-            <Button
-              style={{
-                borderRadius: 10,
-                backgroundColor: "#7EDD6F",
-              }}
-              variant="contained"
-              type="submit"
-            >
-              Login
-            </Button>
-          </form>
-        </div>
-      </Box>
+              <div className="form-control">
+              <Button
+                sx={{
+                  borderRadius: 8,
+                  backgroundColor: "#7EDD6F",
+                  paddingLeft:'60px',
+                  paddingRight:'60px'
+                }}
+                variant="contained"
+                type="submit"
+              >
+                Login
+              </Button>
+              
+              </div>  
+              <div className="form-control">
+              <Link className="signup-link" to="/signup"> Not a member? Register here</Link> 
+              </div>
+                   
+            </form>
+          </div>
+      </div>
     </>
   );
 }
