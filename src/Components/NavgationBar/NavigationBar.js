@@ -56,6 +56,7 @@ function NavigationBar() {
         >
           CONTACT US
         </Button>
+        
         <Button
         component={Link}
         to={"/aboutus"}
@@ -72,7 +73,38 @@ function NavigationBar() {
           ABOUT US
         </Button>
 
-        
+        <Button
+        component={Link}
+        to={"/patientRegistration"}
+          sx={{
+            color: "black",
+            fontSize: "20px",
+            margin: "4px",
+            alignItems: "center",
+            flexGrow: 1,
+            font: "inherit",
+            borderRadius: 6,
+          }}
+        >
+          New Patient Registration
+        </Button>
+
+        <Button
+        component={Link}
+        to={"/receptionist"}
+          sx={{
+            color: "black",
+            fontSize: "20px",
+            margin: "4px",
+            alignItems: "center",
+            flexGrow: 1,
+            font: "inherit",
+            borderRadius: 6,
+          }}
+        >
+        Patient List
+        </Button>
+          
         <Button
           component={Link}
           to={"/login"}
