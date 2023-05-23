@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { stateList, countryList, roleList, townCityList } from "./OptionList";
+import { stateList, countryList, roleList, townCityList } from "../../master/MasterList";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
@@ -7,10 +7,10 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
-import NavigationBar from "../NavgationBar/NavigationBar";
-import "./signup.css";
+import NavigationBar from "../../navgation/NavigationBar";
+import "../../authenticate/signup.css";
 
-function Signup() {
+function PatientRegistration() {
   const {
     register,
     handleSubmit,
@@ -294,4 +294,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default PatientRegistration;
