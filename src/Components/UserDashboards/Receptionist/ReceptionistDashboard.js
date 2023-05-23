@@ -7,6 +7,12 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NavigationBar from "../../NavgationBar/NavigationBar";
 
+import PatientList from './PatientList';
+
+import "../../../css/common.css";
+import { padding } from "@mui/system";
+import { left } from "@popperjs/core";
+
 function createData(
   MRN,
   patientName,
@@ -30,41 +36,17 @@ const rows = [
     "B1",
     "12/04/2023",
     "Admitted"
-  ),
-  createData(
-    "MRN-1010221",
-    "M s Dhoni",
-    35,
-    "General Ward",
-    "Room 2",
-    "B1",
-    "13/04/2023",
-    "Admitted"
-  ),
-  createData(
-    "MRN-1010222",
-    "Leo",
-    35,
-    "General Ward",
-    "Room 1",
-    "B2",
-    "14/04/2023",
-    "Discharged"
-  ),
-  createData(
-    "MRN-1010223",
-    "Ronaldo",
-    40,
-    "ICU Ward",
-    "Room 2",
-    "B2",
-    "15/04/2023",
-    "Admitted"
-  ),
+  )
+  
 ];
+
+
+
 
 export default function ReceptionistDashboard() {
   return (
+
+    /*
     <>
       <NavigationBar />
       <TableContainer component={Paper}>
@@ -103,5 +85,18 @@ export default function ReceptionistDashboard() {
         </Table>
       </TableContainer>
     </>
+  */
+
+    
+    <>
+      <NavigationBar />
+      <div className="common-backgroud">
+
+        <PatientList />
+      </div>
+      
+      
+    </>
+
   );
 }
