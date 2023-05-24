@@ -1,3 +1,15 @@
+const genderList = [
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
+  { value: "TransGender", label: "TransGender" },
+];
+
+const maritalStatusList = [
+  { value: "Single", label: "Single" },
+  { value: "Married", label: "Married" },
+  { value: "Divorced", label: "Divorced" },
+];
+
 const roleList = [
     { value: "Doctor", label: "Doctor" },
     { value: "Nurse", label: "Nurse" },
@@ -18,4 +30,4 @@ const roleList = [
     { value: "Chennai", label: "Chennai" },
   ];
 
-  export {roleList,countryList,stateList,townCityList}
+  export {genderList, maritalStatusList, roleList,countryList,stateList,townCityList}

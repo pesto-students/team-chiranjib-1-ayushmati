@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
-import { stateList, countryList, roleList, townCityList } from "../../master/MasterList";
+import { genderList, maritalStatusList, stateList, countryList, roleList, townCityList } from "../../master/MasterList";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
+
+
+
 
 import NavigationBar from "../../navgation/NavigationBar";
 import "../../authenticate/signup.css";
@@ -24,80 +27,120 @@ function PatientRegistration() {
 
   return (
     <>
-      <NavigationBar />
-      <div className="signup-outer-div">
-        <div className="signup-inner-div">
-          <Box
-            sx={{
-              "& .MuiTextField-root": { p: "10px", width: "50ch" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <form onSubmit={handleSubmit(onsubmit)}>
-            <div className="form-control">
-              <h1 className="login-text">SIGNUP</h1>
+      <NavigationBar/>
+      <div className="common-backgroud">
+        <form onSubmit={handleSubmit(onsubmit)}>
+          <Stack spacing={4} direction="row">
+            <div>
+              <TextField
+                id="patientName"
+                label="Patient Name *"
+                placeholder="Joe Doe"
+                variant="standard"
+                {...register("patientName", {
+                  required: {
+                    value: true,
+                    message: "Patient Name is required",
+                  },
+                })}
+                error={!!errors.patientName}
+                helperText={errors?.patientName?.message}
+              />
             </div>
-              <div className="sign-up-elements-div">
-                <TextField
-                  className="signup-text-field"
-                  id="outlined-required"
-                  label="Hospital Name *"
-                  placeholder="Apollo Hospital"
+            
+            <div>
+              DOB
+            </div>
+
+            <div>
+              <TextField
+                  id="sex"
+                  select
+                  label="Sex *"
                   variant="standard"
-                  {...register("hospital", {
+                  defaultValue=""
+                  {...register("sex", {
                     required: {
                       value: true,
-                      message: "Hospital Name is required",
+                      message: "Gender is required",
                     },
                   })}
-                  error={!!errors.hospital}
-                  helperText={errors?.hospital?.message}
-                />
-              </div>
+                  error={!!errors.sex}
+                  helperText={errors?.sex?.message}
+              >
+              
+              {genderList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+              ))}
+              </TextField>
+            </div>
 
-              <Stack spacing={2} direction="row">
-                <div className="sign-up-elements-div">
-                  <TextField
-                    className="signup-text-field"
-                    id="outlined-select-currency"
-                    select
-                    label="Role *"
-                    variant="standard"
-                    defaultValue=""
-                    {...register("role", {
-                      required: {
-                        value: true,
-                        message: "Role is required",
-                      },
-                    })}
-                    error={!!errors.role}
-                    helperText={errors?.role?.message}
-                  >
-                    {roleList.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </div>
-                <div className="sign-up-elements-div">
-                  <TextField
-                    className="signup-text-field"
-                    id="User-Number-Id"
-                    label="Doctor lisence No/Employee Id*"
-                    placeholder="APH123456"
-                    variant="standard"
-                    {...register("userID", {
-                      required: {
-                        value: true,
-                        message: "User Number is required",
-                      },
-                    })}
-                    error={!!errors.userID}
-                    helperText={errors?.userID?.message}
-                  />
-                </div>
+            <div>
+              <TextField
+                  id="maritalStatus"
+                  select
+                  label="Marital Status *"
+                  variant="standard"
+                  defaultValue=""
+                  {...register("maritalStatus", {
+                    required: {
+                      value: true,
+                      message: "Marital Status is required",
+                    },
+                  })}
+                  error={!!errors.maritalStatus}
+                  helperText={errors?.maritalStatus?.message}
+              >
+              
+              {maritalStatusList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+              ))}
+              </TextField>
+            </div>
+          </Stack>    
+          
+          <Stack spacing={2} direction="row">
+            <div>
+              <TextField
+                id="contactNo"
+                select
+                label="Contact No *"
+                variant="standard"
+                defaultValue=""
+                {...register("contactNo", {
+                  required: {
+                    value: true,
+                    message: "Contact No. is required",
+                  },
+                })}
+                error={!!errors.contactNo}
+                helperText={errors?.contactNo?.message}
+              />
+            </div>
+
+            <div>
+              <TextField
+                id="emergContactNo"
+                select
+                label="Emrg. Contact No *"
+                variant="standard"
+                defaultValue=""
+                {...register("emergContactNo", {
+                  required: {
+                    value: true,
+                    message: "Emrg. Contact No. is required",
+                  },
+                })}
+                error={!!errors.emergContactNo}
+                helperText={errors?.emergContactNo?.message}
+              />
+            </div>
+
+                
               </Stack>
 
               <Stack spacing={2} direction="row">
@@ -287,9 +330,9 @@ function PatientRegistration() {
               </Link>
             </div>
             </form>
-          </Box>
+          
         </div>
-      </div>
+      
     </>
   );
 }

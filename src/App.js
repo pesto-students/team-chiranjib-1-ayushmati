@@ -4,8 +4,8 @@ import Login from "./component/authenticate/Login"
 import NoRoute from "./component/NoRoute";
 import AboutUs from "./component/aboutUs/AboutUs";
 import ContactUs from "./component/contactUs/ContactUs";
-import ReceptionistDashboard from "./component/dashboard/Receptionist/ReceptionistDashboard";
-import PatientRegistration from "./component/dashboard/Receptionist/PatientRegistration";
+import ReceptionistDashboard from "./component/dashboard/reception/ReceptionistDashboard";
+import PatientRegistration from "./component/dashboard/reception/PatientRegistration";
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 
 
