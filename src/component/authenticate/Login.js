@@ -4,16 +4,53 @@ import Button from "@mui/material/Button";
 import NavigationBar from "../navgation/NavigationBar";
 import { Link } from "react-router-dom";
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const path = "http://localhost:5000/authenticate/login";
+    const body={
+        emailID:data.userID,
+        password:data.password,
+    }
+    const obj = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    };
+
+    try{
+        const response = await fetch(path, obj)
+        const res = await response.json();
+        console.log(res);
+        sessionStorage.setItem('token', JSON.stringify(res.token));
+        sessionStorage.setItem('role', JSON.stringify(res.user.role))
+
+        if(res.user.role ==="Receptionist"){
+          navigate("/receptionist")
+        }
+        else if(res.user.role ==="Doctor"){
+          navigate("/doctor")
+        }
+        else if(res.user.role ==="Nurse"){
+          navigate ("/nurse")
+        }
+  
+      }
+      catch(error){
+        console.error(error)
+      }
+
+    
   };
 
   return (

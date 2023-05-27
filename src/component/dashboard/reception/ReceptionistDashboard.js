@@ -6,12 +6,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import NavigationBar from "../../navgation/NavigationBar";
-
+import { useState, useEffect } from "react";
+import Login from "../../authenticate/Login";
 import PatientList from './PatientList';
-
 import "../../../css/common.css";
 import { padding } from "@mui/system";
 import { left } from "@popperjs/core";
+import { useNavigate } from "react-router-dom";
+
 
 function createData(
   MRN,
@@ -44,9 +46,19 @@ const rows = [
 
 
 export default function ReceptionistDashboard() {
+  const tokenString = sessionStorage.getItem('token');
+  const userToken = JSON.parse(tokenString);
+  const navigate = useNavigate();
+
+  useEffect (()=>{
+    if(!userToken) {
+      navigate("/login")
+    }
+  },[])
+
   return (
 
-    /*
+  
     <>
       <NavigationBar />
       <TableContainer component={Paper}>
@@ -85,18 +97,18 @@ export default function ReceptionistDashboard() {
         </Table>
       </TableContainer>
     </>
-  */
+
 
     
-    <>
-      <NavigationBar />
-      <div className="common-backgroud">
+    // <>
+    //   <NavigationBar />
+    //   {/* <div className="common-backgroud">
 
-        <PatientList />
-      </div>
+    //     <PatientList />
+    //   </div> */}
       
       
-    </>
+    // </>
 
   );
 }

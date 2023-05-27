@@ -18,8 +18,31 @@ function Signup() {
     watch,
   } = useForm();
 
-  const onsubmit = (data) => {
-    console.log(data);
+  const onsubmit = async(data) => {
+      const path = "http://localhost:5000/authenticate/signup";
+      const body={
+          emailID:data.emailId,
+          password:data.password,
+          hospitalName:data.hospital, 
+          docID_empID:data.userID, 
+          role:data.role, 
+          firstName:data.firstName, 
+          lastName:data.lastName 
+      }
+      const obj = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      };
+  
+      try{
+          const response = await fetch(path, obj)
+          const res = await response.json();
+          console.log(res);
+        }
+        catch(error){
+          console.error(error)
+        }
   };
 
   return (

@@ -6,10 +6,6 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
-
-
-
-
 import NavigationBar from "../../navgation/NavigationBar";
 import "../../authenticate/signup.css";
 

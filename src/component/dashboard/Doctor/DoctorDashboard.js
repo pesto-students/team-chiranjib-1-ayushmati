@@ -1,14 +1,13 @@
-
-function NurseDashboard(){
+function DoctorDashboard(){
 
     return (
         <div>
             <h1>
-              NurseDashboard
+              DoctorDashboard
             </h1>
             
         </div>
     )
 }
 
-export default NurseDashboard;
+export default DoctorDashboard;
