@@ -30,4 +30,17 @@ const roleList = [
     { value: "Chennai", label: "Chennai" },
   ];
 
-  export {genderList, maritalStatusList, roleList,countryList,stateList,townCityList}
+  const bloodGrpList = [
+    { value: "A+", label: "A+" },
+    { value: "A-", label: "A-" },
+    { value: "B+", label: "B+" },
+    { value: "B-", label: "B-" },
+    { value: "AB+", label: "AB+" },
+    { value: "AB-", label: "AB-" },
+    { value: "O+", label: "O+" },
+    { value: "O-", label: "O-" }
+  ];
+  
+
+
+  export {genderList, maritalStatusList, roleList,countryList,stateList,townCityList, bloodGrpList}

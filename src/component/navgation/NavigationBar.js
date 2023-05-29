@@ -75,7 +75,7 @@ function NavigationBar() {
 
         <Button
         component={Link}
-        to={"/patientRegistration"}
+        to={`/patientRegistration/0`}
           sx={{
             color: "black",
             fontSize: "20px",
