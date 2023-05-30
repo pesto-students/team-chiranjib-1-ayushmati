@@ -4,11 +4,16 @@ import Button from "@mui/material/Button";
 import NavigationBar from "../navgation/NavigationBar";
 import { Link } from "react-router-dom";
 import "./login.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import { userStateUpdate } from "../../action";
+import { useDispatch , useSelector} from "react-redux";
 
 function Login() {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const role = useSelector((state) => state.role);
+
 
   const {
     register,
@@ -17,7 +22,7 @@ function Login() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const path = "http://localhost:5000/authenticate/login";
+    const path = "http://localhost:8080/authenticate/login";
     const body={
         emailID:data.userID,
         password:data.password,
@@ -32,17 +37,20 @@ function Login() {
         const response = await fetch(path, obj)
         const res = await response.json();
         console.log(res);
-        sessionStorage.setItem('token', JSON.stringify(res.token));
-        sessionStorage.setItem('role', JSON.stringify(res.user.role))
+        
+        dispatch( userStateUpdate({ token: res.token,user:res.user}))
 
-        if(res.user.role ==="Receptionist"){
+        if(res.user.role ==="receptionist"){
           navigate("/receptionist")
         }
-        else if(res.user.role ==="Doctor"){
+        else if(res.user.role ==="doctor"){
           navigate("/doctor")
         }
-        else if(res.user.role ==="Nurse"){
+        else if(res.user.role ==="nurse"){
           navigate ("/nurse")
+        }
+        else {
+          console.log("didnt enter other if")
         }
   
       }

@@ -13,6 +13,7 @@ import "../../../css/common.css";
 import { padding } from "@mui/system";
 import { left } from "@popperjs/core";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 function createData(
@@ -50,11 +51,17 @@ export default function ReceptionistDashboard() {
   const userToken = JSON.parse(tokenString);
   const navigate = useNavigate();
 
+  const token = useSelector((state) => state.token);
+
   useEffect (()=>{
-    if(!userToken) {
+    if(token==="") {
       navigate("/login")
     }
   },[])
+
+  if(token===""){
+    navigate("/")
+  }
 
   return (
 

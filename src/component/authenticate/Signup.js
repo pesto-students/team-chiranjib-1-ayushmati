@@ -19,7 +19,7 @@ function Signup() {
   } = useForm();
 
   const onsubmit = async(data) => {
-      const path = "http://localhost:5000/authenticate/signup";
+      const path = "http://localhost:8080/authenticate/signup";
       const body={
           emailID:data.emailId,
           password:data.password,
