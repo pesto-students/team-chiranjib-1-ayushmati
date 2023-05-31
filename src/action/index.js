@@ -5,3 +5,10 @@ export const userStateUpdate =(value) =>{
         user:value.user
     };
 };
+
+export const userLogOut =(value) =>{
+    return {
+        type:'USERLOGOUT'
+    };
+};
+

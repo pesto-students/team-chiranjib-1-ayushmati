@@ -1,19 +1,17 @@
 import { useForm } from "react-hook-form";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import NavigationBar from "../navgation/NavigationBar";
 import { Link } from "react-router-dom";
 import "./login.css";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { userStateUpdate } from "../../action";
-import { useDispatch , useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Login() {
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const role = useSelector((state) => state.role);
-
 
   const {
     register,
@@ -23,42 +21,35 @@ function Login() {
 
   const onSubmit = async (data) => {
     const path = "http://localhost:8080/authenticate/login";
-    const body={
-        emailID:data.userID,
-        password:data.password,
-    }
+    const body = {
+      emailID: data.userID,
+      password: data.password,
+    };
     const obj = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     };
 
-    try{
-        const response = await fetch(path, obj)
-        const res = await response.json();
-        console.log(res);
-        
-        dispatch( userStateUpdate({ token: res.token,user:res.user}))
+    try {
+      const response = await fetch(path, obj);
+      const res = await response.json();
+      console.log(res);
 
-        if(res.user.role ==="receptionist"){
-          navigate("/receptionist")
-        }
-        else if(res.user.role ==="doctor"){
-          navigate("/doctor")
-        }
-        else if(res.user.role ==="nurse"){
-          navigate ("/nurse")
-        }
-        else {
-          console.log("didnt enter other if")
-        }
-  
-      }
-      catch(error){
-        console.error(error)
-      }
+      dispatch(userStateUpdate({ token: res.token, user: res.user }));
 
-    
+      if (res.user.role === "Receptionist") {
+        navigate("/receptionist");
+      } else if (res.user.role === "Doctor") {
+        navigate("/doctor");
+      } else if (res.user.role === "Nurse") {
+        navigate("/nurse");
+      } else {
+        console.log("didnt enter other if");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -71,9 +62,10 @@ function Login() {
               <h1 className="login-text">LOGIN</h1>
             </div>
             <div className="form-control">
-              <TextField className="signup-text-field"
+              <TextField
+                className="signup-text-field"
                 id="User-Number-Id"
-                label="Doctor lisence No/Employee Id*"
+                label="Email ID *"
                 placeholder="APH123456"
                 variant="standard"
                 {...register("userID", {
@@ -88,7 +80,8 @@ function Login() {
             </div>
 
             <div className="form-control">
-              <TextField className="signup-text-field"
+              <TextField
+                className="signup-text-field"
                 id="Password-Id"
                 label="Password *"
                 type="password"

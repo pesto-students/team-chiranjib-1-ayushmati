@@ -28,9 +28,17 @@ const userLoginReducer =( state=initalState, action)=>{
                         userId:action.user.userId
                     }
                 )
+
+            case 'USERLOGOUT':
+                console.log("inside logout")
+
+                return (initalState)
+                
             default:
                 return initalState
         }
 }
+
+
 
 export default userLoginReducer;

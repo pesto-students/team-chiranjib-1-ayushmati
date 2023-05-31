@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import logo from "./logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ProfileMenu from "./profile";
 
 function NavigationBar() {
   const emailId = useSelector((state) => state.emailId);
@@ -48,7 +49,7 @@ function NavigationBar() {
           NEW HOSPITAL
         </Button>
 
-        {token === ""? (
+        {token === "" ? (
           <>
             <Button
               component={Link}
@@ -105,7 +106,7 @@ function NavigationBar() {
           <></>
         )}
 
-        {role === "doctor" || role === "nurse" ? (
+        {role === "Doctor" || role === "Nurse" ? (
           <Button
             component={Link}
             to={"/receptionist"}
@@ -161,10 +162,20 @@ function NavigationBar() {
               SIGN UP
             </Button>
           </>
-        ) : (<div style={{flexGrow:1,display:"flex",flexDirection:"column",alignItems:"end",backgroundColor: '#DAF1FF'}}>
-          <p style={{ color: "black",padding:'1px',margin:'2px' }}> Hi {firstName}!</p>
-          <p style={{ color: "black", padding:'1px',margin:'2px'}}> {role}</p>
-        </div>
+        ) : (
+          <div style={{
+            borderRadius:"50px 0px 0px 50px",
+            flexGrow: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "end",
+            backgroundColor: "#2790C2",
+          }}>
+
+            <ProfileMenu/>
+
+          </div>
+
           
         )}
       </Toolbar>
@@ -173,3 +184,28 @@ function NavigationBar() {
 }
 
 export default NavigationBar;
+
+
+
+
+
+
+
+{/* <div
+            style={{
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "end",
+              backgroundColor: "#DAF1FF",
+            }}
+          >
+            <p style={{ color: "black", padding: "1px", margin: "2px" }}>
+              {" "}
+              Hi {firstName}!
+            </p>
+            <p style={{ color: "black", padding: "1px", margin: "2px" }}>
+              {" "}
+              {role}
+            </p>
+          </div> */}

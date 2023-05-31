@@ -16,9 +16,6 @@ function NurseDashboard() {
       }
     },[])
   
-    if(token===""){
-      navigate("/")
-    }
   
   return (
     <>
