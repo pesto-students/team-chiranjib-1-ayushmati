@@ -5,10 +5,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import NavigationBar from "../../navgation/NavigationBar";
+import NavigationBar from "../../navgation/navigation-bar";
 import { useState, useEffect } from "react";
-import Login from "../../authenticate/Login";
-import PatientList from './PatientList';
+import Login from "../../authenticate/login";
+import PatientList from './patient-list';
 import "../../../css/common.css";
 import { padding } from "@mui/system";
 import { left } from "@popperjs/core";
@@ -68,7 +68,7 @@ export default function ReceptionistDashboard() {
   
     <>
       <NavigationBar />
-      <TableContainer component={Paper}>
+      {/* <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -103,19 +103,17 @@ export default function ReceptionistDashboard() {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </> */}
 
 
     
-    // <>
-    //   <NavigationBar />
-    //   {/* <div className="common-backgroud">
+    { <div className="common-backgroud">
 
-    //     <PatientList />
-    //   </div> */}
+    <PatientList />
+    </div>}
       
       
-    // </>
+    </>
 
   );
 }

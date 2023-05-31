@@ -1,7 +1,7 @@
-import "./HomePage.css";
-import nurseImage from "./NurseImage.png";
+import "./home-page.css";
+import nurseImage from "../../images/nurse.png";
 import Button from "@mui/material/Button";
-import NavigationBar from "../navgation/NavigationBar";
+import NavigationBar from "../navgation/navigation-bar";
 import { Link } from "react-router-dom";
 
 function HomePage() {

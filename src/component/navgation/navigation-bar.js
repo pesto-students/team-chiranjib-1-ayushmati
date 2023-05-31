@@ -1,7 +1,7 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import logo from "./logo.png";
+import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileMenu from "./profile";

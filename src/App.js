@@ -1,13 +1,13 @@
-import HomePage from "./component/home/HomePage";
-import Signup from "./component/authenticate/Signup"
-import Login from "./component/authenticate/Login"
-import NoRoute from "./component/NoRoute";
-import AboutUs from "./component/aboutUs/AboutUs";
-import ContactUs from "./component/contactUs/ContactUs";
-import ReceptionistDashboard from "./component/dashboard/Reception/ReceptionistDashboard";
-import PatientRegistration from "./component/dashboard/Reception/PatientRegistration";
-import DoctorDashboard from "./component/dashboard/Doctor/DoctorDashboard";
-//import NurseDashboard from "./component/dashboard/Nurse/NurseDashboard";
+import HomePage from "./component/home/home-page";
+import Signup from "./component/authenticate/sign-up"
+import Login from "./component/authenticate/login"
+import NoRoute from "./component/no-route";
+import AboutUs from "./component/aboutUs/about-us";
+import ContactUs from "./component/contactUs/contact-us";
+import ReceptionistDashboard from "./component/dashboard/reception/reception-dashboard";
+import PatientRegistration from "./component/dashboard/reception/patient-registration";
+import DoctorDashboard from "./component/dashboard/doctor/doctor-dashboard";
+import NurseDashboard from "./component/dashboard/nurse/nurse-dashboard";
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 
 

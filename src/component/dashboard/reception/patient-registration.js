@@ -6,15 +6,15 @@ import {
   countryList,
   townCityList,
   bloodGrpList,
-} from "../../master/MasterList";
+} from "../../master/master-list";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
-import NavigationBar from "../../navgation/NavigationBar";
-import "../../authenticate/signup.css";
+import NavigationBar from "../../navgation/navigation-bar";
+import "../../authenticate/sign-up.css";
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";

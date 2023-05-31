@@ -1,27 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import DataTable from "react-data-table-component";
-import "../../../css/patientTable.css";
+import "../../../css/patient-table.css";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import TextField from "@mui/material/TextField";
-
-
-
-/*
-const data = [
-  { mrn: 'MRN-101022', patientName: 'Sagar Behare', age: 28, ward: 'General Ward',room: 'Room 1', 
-    bed: 'B 1', admissionDate: '12/04/2023', status: 'Admitted'},
-  { mrn: 'MRN-101022', patientName: 'Sagar Behare', age: 28, ward: 'General Ward',room: 'Room 1', 
-    bed: 'B 1', admissionDate: '12/04/2023', status: 'Admitted'},
-  { mrn: 'MRN-101022', patientName: 'Sagar Behare', age: 28, ward: 'General Ward',room: 'Room 1', 
-    bed: 'B 1', admissionDate: '12/04/2023', status: 'Admitted'},
-  { mrn: 'MRN-101022', patientName: 'Sagar Behare', age: 28, ward: 'General Ward',room: 'Room 1', 
-    bed: 'B 1', admissionDate: '12/04/2023', status: 'Admitted'},
-  { mrn: 'MRN-101022', patientName: 'Sagar Behare', age: 28, ward: 'General Ward',room: 'Room 1', 
-    bed: 'B 1', admissionDate: '12/04/2023', status: 'Discharged'}
-];
-*/
 
 const columns = [
   {
