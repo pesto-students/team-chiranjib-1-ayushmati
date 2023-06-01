@@ -5,6 +5,8 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import TextField from "@mui/material/TextField";
+import { API_URL } from '../../../utils/constant';
+
 
 const columns = [
   {
@@ -123,7 +125,12 @@ const PatientList = () => {
 
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:8080/patientRegistration/listPatient')
+
+    console.log('API_URL : '+ API_URL);
+
+    axios.get(API_URL+'/patientRegistration/listPatient')
+
+
       .then(response => {
         setData(response.data);
       })

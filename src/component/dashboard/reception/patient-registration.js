@@ -20,6 +20,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from '../../../utils/constant';
 
 function PatientRegistration() {
   const [patientID, setPatientID] = useState("");
@@ -48,18 +49,21 @@ function PatientRegistration() {
   const [bed, setBed] = useState("");
   const [admissionDate, setAdmissionDate] = useState("");
 
-  const { id } = useParams();
+  const {id}  = useParams();
+  //const { '*': id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("id ::: " + id);
-
-    if (id != 0 && id != "") {
-      axios
-        .get(`http://localhost:8080/patientRegistration/getPatient/${id}`)
+    if(id) {
+      
+      axios.get(API_URL+`/patientRegistration/getPatient/${id}`)
         .then((res) => {
           setPatientID(id);
           setPatientName(res.data.patientName);
+
+           console.log('res.data.patientName :: ' + res.data.patientName ); 
+
+
           setDateOfBirth(res.data.dateOfBirth);
           setSex(res.data.sex);
           setMaritalStatus(res.data.maritalStatus);
@@ -70,9 +74,6 @@ function PatientRegistration() {
           setCity(res.data.city);
           setPincode(res.data.pincode);
           setAddress(res.data.address);
-
-          console.log(res.data.primaryDoctor);
-
           setPrimaryDoctor(res.data.primaryDoctor);
           setWeight(res.data.weight);
           setHeight(res.data.height);
@@ -84,16 +85,13 @@ function PatientRegistration() {
           setBed(res.data.ward);
           setAdmissionDate(res.data.admissionDate);
         });
+    } else {
+      console.log('new patient registration........ test....................');
     }
 
     const getPrimaryDoctorList = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/user/listActiveDoctor"
-        ); // Replace with your API endpoint
-
-        console.log(response.data);
-
+        const response = await axios.get(API_URL+"/user/listActiveDoctor"); 
         setPrimaryDoctorList(response.data);
       } catch (error) {
         console.error(error);
@@ -103,17 +101,21 @@ function PatientRegistration() {
 
     const getDiseaseList = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/disease/listDisease"
-        ); // Replace with your API endpoint
-        console.log(response.data);
-
+        const response = await axios.get(API_URL+"/disease/listDisease");
         setDiseaseList(response.data);
       } catch (error) {
         console.error(error);
       }
     };
     getDiseaseList();
+  }, [id]);
+
+
+  useEffect(() => {
+  //  fetchData();
+  
+  console.log('test.........................................');
+
   }, []);
 
   const {
@@ -146,6 +148,7 @@ function PatientRegistration() {
   };
   */
 
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -176,7 +179,7 @@ function PatientRegistration() {
     try {
       if (patientID === "") {
         axios
-          .post(`http://localhost:8080/patientRegistration/createPatient`, {
+          .post(API_URL+`/patientRegistration/createPatient`, {
             newPatient: newPatient,
           })
           .then((res) => {
@@ -189,16 +192,12 @@ function PatientRegistration() {
             }
           });
       } else {
-        console.log("update called..");
-
         axios
           .put(
-            `http://localhost:8080/patientRegistration/updatePatient/${patientID}`,
+            API_URL+`/patientRegistration/updatePatient/${patientID}`,
             { newPatient: newPatient }
           )
           .then((res) => {
-            console.log(res.data);
-
             navigate("/receptionist");
           });
 
@@ -209,6 +208,9 @@ function PatientRegistration() {
       // Handle error, such as displaying an error message
     }
   }
+
+
+  
 
   return (
     <>

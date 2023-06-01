@@ -89,7 +89,7 @@ function NavigationBar() {
         {role === "Receptionist" ? (
           <Button
             component={Link}
-            to={"/patientRegistration/0"}
+            to={"/patientRegistration/"}
             sx={{
               color: "black",
               fontSize: "20px",

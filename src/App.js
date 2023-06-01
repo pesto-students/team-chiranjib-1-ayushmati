@@ -24,7 +24,15 @@ function App() {
       <Route path="/contactus" element={<ContactUs/>}/>
       <Route path="/receptionist" element={<ReceptionistDashboard/>}/>
       <Route path="/doctor" element={<DoctorDashboard/>}/>
-      <Route path="patientRegistration/:id" element={<PatientRegistration/>}/>
+      
+      {/* <Route path="/patientRegistration/*" element={<PatientRegistration />} />
+       */}
+
+      <Route path="/patientRegistration" element={<PatientRegistration />} />
+      <Route path="/patientRegistration/:id" element={<PatientRegistration />} />
+       
+
+
       <Route path="*" element = {<NoRoute/>}/>
     </Routes>
   </Router>
