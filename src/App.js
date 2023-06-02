@@ -10,6 +10,7 @@ import DoctorDashboard from "./component/dashboard/doctor/doctor-dashboard";
 import NurseDashboard from "./component/dashboard/nurse/nurse-dashboard";
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import wrapper from "./component/layoutHOC/layout";
+import PatientRegistrationTest from "./component/dashboard/reception/patient-registration-1";
 
 
 
@@ -32,6 +33,7 @@ function App() {
       <Route path="/doctor" element={<DoctorDashboardWrapper/>}/>
       <Route path="/patientRegistration" element={<PatientRegistrationWrapper />} />
       <Route path="/patientRegistration/:id" element={<PatientRegistrationWrapper />} />
+      <Route path="/patientRegistrationTest" element ={<PatientRegistrationTest/>} />
       <Route path="*" element = {<NoRoute/>}/>
     </Routes>
   </Router>

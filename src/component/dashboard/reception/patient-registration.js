@@ -93,6 +93,7 @@ function PatientRegistration() {
       try {
         const response = await axios.get(API_URL+"/user/listActiveDoctor"); 
         setPrimaryDoctorList(response.data);
+        console.log(primaryDoctorList)
       } catch (error) {
         console.error(error);
       }
@@ -426,6 +427,7 @@ function PatientRegistration() {
               label="Primary Doctor *"
               placeholder="Joe Doe"
               variant="standard"
+              defaultValue=""
               select
               /*  {...register("patientName", {
                         required: {

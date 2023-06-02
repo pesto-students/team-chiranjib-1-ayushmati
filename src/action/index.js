@@ -6,7 +6,7 @@ export const userStateUpdate =(value) =>{
     };
 };
 
-export const userLogOut =(value) =>{
+export const userLogOut =() =>{
     return {
         type:'USERLOGOUT'
     };
