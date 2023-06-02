@@ -47,27 +47,13 @@ const rows = [
 
 
 export default function ReceptionistDashboard() {
-  const tokenString = sessionStorage.getItem('token');
-  const userToken = JSON.parse(tokenString);
-  const navigate = useNavigate();
 
-  const token = useSelector((state) => state.token);
-
-  useEffect (()=>{
-    if(token==="") {
-      navigate("/login")
-    }
-  },[])
-
-  if(token===""){
-    navigate("/")
-  }
+  
 
   return (
 
   
     <>
-      <NavigationBar />
       {/* <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

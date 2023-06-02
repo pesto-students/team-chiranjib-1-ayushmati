@@ -9,10 +9,16 @@ import PatientRegistration from "./component/dashboard/reception/patient-registr
 import DoctorDashboard from "./component/dashboard/doctor/doctor-dashboard";
 import NurseDashboard from "./component/dashboard/nurse/nurse-dashboard";
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+import wrapper from "./component/layoutHOC/layout";
 
 
 
 function App() {
+
+  const ReceptionistDashboardWrapper = wrapper(ReceptionistDashboard);
+  const PatientRegistrationWrapper = wrapper(PatientRegistration);
+  const DoctorDashboardWrapper = wrapper(DoctorDashboard)
+
   return(
   <>
   <Router>
@@ -22,17 +28,10 @@ function App() {
       <Route path="/login" element={<Login/>}/>
       <Route path = "/aboutus" element={<AboutUs/>}/>
       <Route path="/contactus" element={<ContactUs/>}/>
-      <Route path="/receptionist" element={<ReceptionistDashboard/>}/>
-      <Route path="/doctor" element={<DoctorDashboard/>}/>
-      
-      {/* <Route path="/patientRegistration/*" element={<PatientRegistration />} />
-       */}
-
-      <Route path="/patientRegistration" element={<PatientRegistration />} />
-      <Route path="/patientRegistration/:id" element={<PatientRegistration />} />
-       
-
-
+      <Route path="/receptionist" element={<ReceptionistDashboardWrapper/>}/>
+      <Route path="/doctor" element={<DoctorDashboardWrapper/>}/>
+      <Route path="/patientRegistration" element={<PatientRegistrationWrapper />} />
+      <Route path="/patientRegistration/:id" element={<PatientRegistrationWrapper />} />
       <Route path="*" element = {<NoRoute/>}/>
     </Routes>
   </Router>

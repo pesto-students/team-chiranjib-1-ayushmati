@@ -1,19 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import reportWebVitals from './report-web-vitals';
-import App from './app';
-import { legacy_createStore as createStore } from "redux";
-import userLoginReducer from './reducers/userReducers';
-import { Provider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import reportWebVitals from "./report-web-vitals";
+import App from "./App";
+import { Provider } from "react-redux";
+import store, { persistor } from "./store/store";
+import { PersistGate } from "redux-persist/integration/react";
 
-const store = createStore(userLoginReducer)
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <App/>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

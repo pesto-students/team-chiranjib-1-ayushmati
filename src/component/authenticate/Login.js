@@ -33,10 +33,14 @@ function Login() {
 
     try {
       const response = await fetch(path, obj);
+      console.log(response.status)
       const res = await response.json();
       console.log(res);
 
-      dispatch(userStateUpdate({ token: res.token, user: res.user }));
+      if(response.status === 200){
+        localStorage.setItem('token', JSON.stringify(res.token));
+
+      dispatch(userStateUpdate({token : res.token,user: res.user }));
 
       if (res.user.role === "Receptionist") {
         navigate("/receptionist");
@@ -46,6 +50,8 @@ function Login() {
         navigate("/nurse");
       } else {
         console.log("didnt enter other if");
+      }
+
       }
     } catch (error) {
       console.error(error);

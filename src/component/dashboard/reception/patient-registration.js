@@ -214,7 +214,6 @@ function PatientRegistration() {
 
   return (
     <>
-      <NavigationBar />
       <div className="common-backgroud">
         <h2>Personal Details</h2>
         <form onSubmit={handleSubmit}>

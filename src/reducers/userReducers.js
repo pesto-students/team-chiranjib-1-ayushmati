@@ -1,9 +1,11 @@
+import { TroubleshootOutlined } from "@mui/icons-material"
+
 const initalState = {
-    token:"",
     emailId:"",
     role:"",
     firstName:"",
-    userId:""
+    userId:"",
+    isAuthenticated: false
 }
 
 const userLoginReducer =( state=initalState, action)=>{
@@ -22,16 +24,16 @@ const userLoginReducer =( state=initalState, action)=>{
                 return (
                     {...initalState,
                         emailId:action.user.emailID,
-                        token:action.token,
                         role:action.user.role,
                         firstName:action.user.firstName,
-                        userId:action.user.userId
+                        userId:action.user.userId,
+                        isAuthenticated:true
                     }
                 )
 
             case 'USERLOGOUT':
                 console.log("inside logout")
-
+                localStorage.removeItem('token')
                 return (initalState)
                 
             default:
