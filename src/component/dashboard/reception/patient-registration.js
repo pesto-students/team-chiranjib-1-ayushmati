@@ -60,11 +60,14 @@ function PatientRegistration() {
         .then((res) => {
           setPatientID(id);
           setPatientName(res.data.patientName);
+          console.log(patientName)
 
            console.log('res.data.patientName :: ' + res.data.patientName ); 
+           
 
 
           setDateOfBirth(res.data.dateOfBirth);
+          
           setSex(res.data.sex);
           setMaritalStatus(res.data.maritalStatus);
           setContactNo(res.data.contactNo);

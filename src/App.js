@@ -34,6 +34,7 @@ function App() {
       <Route path="/patientRegistration" element={<PatientRegistrationWrapper />} />
       <Route path="/patientRegistration/:id" element={<PatientRegistrationWrapper />} />
       <Route path="/patientRegistrationTest" element ={<PatientRegistrationTest/>} />
+      <Route path="/patientRegistrationTest/:id" element={<PatientRegistrationTest />} />
       <Route path="*" element = {<NoRoute/>}/>
     </Routes>
   </Router>

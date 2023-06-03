@@ -21,47 +21,84 @@ import "./patient-registration.css";
 import { useEffect } from "react";
 import { useState } from "react";
 
-
-
 function PatienRegistrationTest() {
-    const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
-    const [diseaseList, setDiseaseList] = useState([]);
+  const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
+  const [diseaseList, setDiseaseList] = useState([]);
 
-    useEffect(()=>{
-        const getPrimaryDoctorList = async () => {
-            try {
-              const response = await axios.get(API_URL+"/user/listActiveDoctor"); 
-               setPrimaryDoctorList(response.data);
-               console.log(response.data)
-            } catch (error) {
-              console.error(error);
-            }
-          };
-          getPrimaryDoctorList();
-      
-          const getDiseaseList = async () => {
-            try {
-              const response = await axios.get(API_URL+"/disease/listDisease");
-              setDiseaseList(response.data);
-            // diseaseList = {...response.data}
-            } catch (error) {
-              console.error(error);
-            }
-          };
-          getDiseaseList();
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (id) {
+
+      const getPatientData = async ()=>{
+        const response = await axios.get(API_URL + `/patientRegistration/getPatient/${id}`)
+        console.log(response.data)
+        setValue('patientName',response.data.patientName)
+        setValue('dateOfBirth',response.data.dateOfBirth)
+        setValue('sex',response.data.sex)
+        setValue('maritalStatus',response.data.maritalStatus)
+        setValue('contactNo',response.data.contactNo)
+        setValue('emergContactNo',response.data.emergContactNo)
+        setValue('country',response.data.country)
+        setValue('state',response.data.state)
+        setValue('city',response.data.city)
+        setValue('addresponses',response.data.addresponses)
+        setValue('primaryDoctor',response.data.primaryDoctor)
+        setValue('weight',response.data.weight)
+        setValue('height',response.data.height)
+        setValue('bloodGrp',response.data.bloodGrp)
+        setValue('symtoms',response.data.symtoms)
+        setValue('disease',response.data.disease)
+        setValue('room',response.data.room)
+        setValue('bed',response.data.bed)
+        setValue('admissionDate',response.data.admissionDate)
+
+      }
+      getPatientData();
+     
+      }
+    },[]);
+
+  useEffect(() => {
+    const getPrimaryDoctorList = async () => {
+      try {
+        const response = await axios.get(API_URL + "/user/listActiveDoctor");
+        setPrimaryDoctorList(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getPrimaryDoctorList();
+
+    const getDiseaseList = async () => {
+      try {
+        const response = await axios.get(API_URL + "/disease/listDisease");
+        setDiseaseList(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getDiseaseList();
+  }, []);
+
   
-    },[])
-
-  const onsubmit = (data) => {
-    console.log(data);
-  };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
+    setValue
   } = useForm();
+
+
+  const onsubmit = async (data) =>{
+    console.log(data)
+  }
+
 
   return (
     <>
@@ -77,6 +114,7 @@ function PatienRegistrationTest() {
                   label="Patient Name *"
                   placeholder="Joe Doe"
                   variant="standard"
+                  
                   fullWidth
                   {...register("patientName", {
                     required: {
@@ -84,6 +122,7 @@ function PatienRegistrationTest() {
                       message: "Patient Name is required",
                     },
                   })}
+                  value={watch('patientName')|| ''}
                   error={!!errors.patientName}
                   helperText={errors?.patientName?.message}
                 />
@@ -102,6 +141,7 @@ function PatienRegistrationTest() {
                       message: "Date Of Birth is required",
                     },
                   })}
+                  value={watch('dateOfBirth')|| ''}
                   error={!!errors.dateOfBirth}
                   helperText={errors?.dateOfBirth?.message}
                 />
@@ -113,7 +153,6 @@ function PatienRegistrationTest() {
                   label="Sex *"
                   variant="standard"
                   className="patient-reg-text-field"
-                  defaultValue=""
                   fullWidth
                   {...register("sex", {
                     required: {
@@ -121,6 +160,7 @@ function PatienRegistrationTest() {
                       message: "Gender is required",
                     },
                   })}
+                  value={watch('sex')|| ''}
                   error={!!errors.sex}
                   helperText={errors?.sex?.message}
                 >
@@ -138,13 +178,13 @@ function PatienRegistrationTest() {
                   fullWidth
                   label="Marital Status *"
                   variant="standard"
-                  defaultValue=""
                   {...register("maritalStatus", {
                     required: {
                       value: true,
                       message: "Marital Status is required",
                     },
                   })}
+                  value={watch('maritalStatus')|| ''}
                   error={!!errors.maritalStatus}
                   helperText={errors?.maritalStatus?.message}
                 >
@@ -162,7 +202,6 @@ function PatienRegistrationTest() {
                   id="contactNo"
                   label="Contact No *"
                   variant="standard"
-                  defaultValue=""
                   fullWidth
                   {...register("contactNo", {
                     required: {
@@ -170,6 +209,7 @@ function PatienRegistrationTest() {
                       message: "Contact No. is required",
                     },
                   })}
+                  value={watch('contactNo')|| ''}
                   error={!!errors.contactNo}
                   helperText={errors?.contactNo?.message}
                 />
@@ -181,8 +221,8 @@ function PatienRegistrationTest() {
                   variant="standard"
                   placeholder="9012348651"
                   fullWidth
-                  defaultValue=""
                   {...register("emergContactNo")}
+                  value={watch('emergContactNo')|| ''}
                 />
               </Stack>
               <Stack spacing={2} direction="row">
@@ -193,8 +233,8 @@ function PatienRegistrationTest() {
                   select
                   label="Country"
                   variant="standard"
-                  defaultValue=""
                   {...register("country")}
+                  value={watch('country')|| ''}
                 >
                   {countryList.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -210,8 +250,8 @@ function PatienRegistrationTest() {
                   label="State"
                   fullWidth
                   variant="standard"
-                  defaultValue=""
                   {...register("state")}
+                  value={watch('state')|| ''}
                 >
                   {stateList.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -228,8 +268,8 @@ function PatienRegistrationTest() {
                   label="Town/City"
                   fullWidth
                   variant="standard"
-                  defaultValue=""
-                  {...register("townCity")}
+                  {...register("city")}
+                  value={watch('city')|| ''}
                 >
                   {townCityList.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -244,6 +284,7 @@ function PatienRegistrationTest() {
                   variant="standard"
                   fullWidth
                   {...register("pincode")}
+                  value={watch('pincode')|| ''}
                 />
               </Stack>
 
@@ -254,6 +295,7 @@ function PatienRegistrationTest() {
                 variant="standard"
                 fullWidth
                 {...register("address")}
+                value={watch('address')|| ''}
               />
             </div>
             <div className="patient-reg-details-div">
@@ -265,7 +307,6 @@ function PatienRegistrationTest() {
                   label="Primary Doctor *"
                   placeholder="Joe Doe"
                   variant="standard"
-                  defaultValue=""
                   select
                   {...register("primaryDoctor", {
                     required: {
@@ -273,14 +314,19 @@ function PatienRegistrationTest() {
                       message: "primary Doctor is required",
                     },
                   })}
+                  value={watch('primaryDoctor')|| ''}
                   error={!!errors.primaryDoctor}
                   helperText={errors?.primaryDoctor?.message}
                 >
-                  {primaryDoctorList.map((option) => (
-                    <MenuItem key={option._id} value={option.firstName}>
+                  {primaryDoctorList.length > 0 ? (
+                primaryDoctorList.map((option) => (
+                  <MenuItem key={option._id} value={option.firstName}>
                     {option.firstName}
-                    </MenuItem>
-                  ))}
+                  </MenuItem>
+                ))
+              ) : (
+                <></>
+              )}
                 </TextField>
 
                 <TextField
@@ -291,6 +337,7 @@ function PatienRegistrationTest() {
                   label="Weight"
                   placeholder="50kg"
                   {...register("weight")}
+                  value={watch('weight')|| ''}
                 />
 
                 <TextField
@@ -299,9 +346,9 @@ function PatienRegistrationTest() {
                   id="height"
                   label="Height"
                   variant="standard"
-                  defaultValue=""
                   placeholder="50cm"
                   {...register("height")}
+                  value={watch('height')|| ''}
                 />
 
                 <TextField
@@ -311,13 +358,13 @@ function PatienRegistrationTest() {
                   select
                   label="Blood Grp *"
                   variant="standard"
-                  defaultValue=""
-                  {...register("bloodGroup", {
+                  {...register("bloodGrp", {
                     required: {
                       value: true,
                       message: " Blood Group is required",
                     },
                   })}
+                  value={watch('bloodGrp')|| ''}
                   error={!!errors.bloodGroup}
                   helperText={errors?.bloodGroup?.message}
                 >
@@ -336,8 +383,8 @@ function PatienRegistrationTest() {
                   id="symtoms"
                   label="Symtoms *"
                   variant="standard"
-                  defaultValue=""
                   {...register("symtoms")}
+                  value={watch('symtoms')|| ''}
                 />
 
                 <TextField
@@ -346,7 +393,6 @@ function PatienRegistrationTest() {
                   fullWidth
                   label="Disease *"
                   variant="standard"
-                  defaultValue=""
                   select
                   {...register("disease", {
                     required: {
@@ -354,17 +400,19 @@ function PatienRegistrationTest() {
                       message: "disease is required",
                     },
                   })}
+                  value={watch('disease')|| ''}
                   error={!!errors.disease}
                   helperText={errors?.disease?.message}
                 >
-                  {diseaseList.map((option) => (
-                      <MenuItem
-                        key={option.value}
-                        value={option.value}
-                      >
-                        {option.value}
-                      </MenuItem>
-                    ))}
+                 {diseaseList.length > 0 ? (
+                diseaseList.map((option) => (
+                  <MenuItem key={option.diseaseName} value={option.diseaseName}>
+                    {option.diseaseName}
+                  </MenuItem>
+                ))
+              ) : (
+                <></>
+              )}
                 </TextField>
               </Stack>
 
@@ -373,31 +421,28 @@ function PatienRegistrationTest() {
                   className="patient-reg-text-field"
                   id="ward"
                   fullWidth
-                  select
                   label="Ward *"
                   variant="standard"
-                  defaultValue=""
                   {...register("ward")}
+                  value={watch('ward')|| ''}
                 />
 
                 <TextField
                   id="room"
                   fullWidth
-                  select
                   label="Room *"
                   variant="standard"
-                  defaultValue=""
                   {...register("room")}
+                  value={watch('room')|| ''}
                 />
 
                 <TextField
                   id="bed"
-                  select
                   fullWidth
                   label="Bed *"
                   variant="standard"
-                  defaultValue=""
                   {...register("bed")}
+                  value={watch('bed')|| ''}
                 />
               </Stack>
 
@@ -410,6 +455,7 @@ function PatienRegistrationTest() {
                   variant="standard"
                   label="Admission Date *"
                   {...register("admissionDate")}
+                  value={watch('admissionDate')|| ''}
                 />
               </Stack>
             </div>
