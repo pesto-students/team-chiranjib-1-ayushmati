@@ -13,90 +13,59 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
-import NavigationBar from "../../navgation/navigation-bar";
-import "../../authenticate/sign-up.css";
-
-import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from '../../../utils/constant';
+import { API_URL } from "../../../utils/constant";
+import "./patient-registration.css";
+import { useEffect } from "react";
+import { useState } from "react";
 
-function PatientRegistration() {
-  const [patientID, setPatientID] = useState("");
-  const [patientName, setPatientName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [sex, setSex] = useState("");
-  const [maritalStatus, setMaritalStatus] = useState("");
-  const [contactNo, setContactNo] = useState("");
-  const [emergContactNo, setEmergContactNo] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [pincode, setPincode] = useState("");
-  const [address, setAddress] = useState("");
-
-  const [primaryDoctor, setPrimaryDoctor] = useState();
+function PatienRegistration() {
   const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
-  const [weight, setWeight] = useState("");
-  const [height, setHeight] = useState("");
-  const [bloodGrp, setBloodGrp] = useState("");
-  const [symtoms, setSymtoms] = useState("");
-  const [disease, setDisease] = useState("");
   const [diseaseList, setDiseaseList] = useState([]);
-  const [ward, setWard] = useState("");
-  const [room, setRoom] = useState("");
-  const [bed, setBed] = useState("");
-  const [admissionDate, setAdmissionDate] = useState("");
 
-  const {id}  = useParams();
-  //const { '*': id } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(id) {
-      
-      axios.get(API_URL+`/patientRegistration/getPatient/${id}`)
-        .then((res) => {
-          setPatientID(id);
-          setPatientName(res.data.patientName);
-          console.log(patientName)
+    if (id) {
 
-           console.log('res.data.patientName :: ' + res.data.patientName ); 
-           
+      const getPatientData = async ()=>{
+        const response = await axios.get(API_URL + `/patientRegistration/getPatient/${id}`)
+        console.log(response.data)
+        setValue('patientName',response.data.patientName)
+        setValue('dateOfBirth',response.data.dateOfBirth)
+        setValue('sex',response.data.sex)
+        setValue('maritalStatus',response.data.maritalStatus)
+        setValue('contactNo',response.data.contactNo)
+        setValue('emergContactNo',response.data.emergContactNo)
+        setValue('country',response.data.country)
+        setValue('state',response.data.state)
+        setValue('city',response.data.city)
+        setValue('addresponses',response.data.addresponses)
+        setValue('primaryDoctor',response.data.primaryDoctor)
+        setValue('weight',response.data.weight)
+        setValue('height',response.data.height)
+        setValue('bloodGrp',response.data.bloodGrp)
+        setValue('symtoms',response.data.symtoms)
+        setValue('disease',response.data.disease)
+        setValue('room',response.data.room)
+        setValue('bed',response.data.bed)
+        setValue('admissionDate',response.data.admissionDate)
 
+      }
+      getPatientData();
+     
+      }
+    },[]);
 
-          setDateOfBirth(res.data.dateOfBirth);
-          
-          setSex(res.data.sex);
-          setMaritalStatus(res.data.maritalStatus);
-          setContactNo(res.data.contactNo);
-          setEmergContactNo(res.data.emergContactNo);
-          setCountry(res.data.country);
-          setState(res.data.state);
-          setCity(res.data.city);
-          setPincode(res.data.pincode);
-          setAddress(res.data.address);
-          setPrimaryDoctor(res.data.primaryDoctor);
-          setWeight(res.data.weight);
-          setHeight(res.data.height);
-          setBloodGrp(res.data.bloodGrp);
-          setSymtoms(res.data.symtoms);
-          setDisease(res.data.disease);
-          setWard(res.data.ward);
-          setRoom(res.data.ward);
-          setBed(res.data.ward);
-          setAdmissionDate(res.data.admissionDate);
-        });
-    } else {
-      console.log('new patient registration........ test....................');
-    }
-
+  useEffect(() => {
     const getPrimaryDoctorList = async () => {
       try {
-        const response = await axios.get(API_URL+"/user/listActiveDoctor"); 
+        const response = await axios.get(API_URL + "/user/listActiveDoctor");
         setPrimaryDoctorList(response.data);
-        console.log(primaryDoctorList)
+        console.log(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -105,91 +74,42 @@ function PatientRegistration() {
 
     const getDiseaseList = async () => {
       try {
-        const response = await axios.get(API_URL+"/disease/listDisease");
+        const response = await axios.get(API_URL + "/disease/listDisease");
         setDiseaseList(response.data);
       } catch (error) {
         console.error(error);
       }
     };
     getDiseaseList();
-  }, [id]);
-
-
-  useEffect(() => {
-  //  fetchData();
-  
-  console.log('test.........................................');
-
   }, []);
 
-  const {
-    register,
-    formState: { errors },
-    watch,
-  } = useForm();
+  
 
-  /*const {
+  const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    reset,
+    setValue
   } = useForm();
 
-  const onsubmit = (data) => {
-    data.preventDefault();
 
-    console.log('on submit called...');
-    const {id , value} = data.target;
-    if(id === "patientName"){
-        //setFirstName(value);
-
-
-    console.log(value);
-
-    }
-
-    console.log(patientName);
-  };
-  */
-
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    const newPatient = {
-      patientName,
-      dateOfBirth,
-      sex,
-      maritalStatus,
-      contactNo,
-      emergContactNo,
-      country,
-      state,
-      city,
-      pincode,
-      address,
-      primaryDoctor,
-      weight,
-      height,
-      bloodGrp,
-      symtoms,
-      disease,
-      ward,
-      room,
-      bed,
-      admissionDate,
-    };
+  const onsubmit = async (data) =>{
+    console.log(data)
+    const newPatientdata = {newPatient:data}
+    console.log(newPatientdata.newPatient)
+    console.log(id)
 
     try {
-      if (patientID === "") {
+      if (!id) {
         axios
           .post(API_URL+`/patientRegistration/createPatient`, {
-            newPatient: newPatient,
+            newPatient: newPatientdata.newPatient,
           })
           .then((res) => {
             if (res.status === 201) {
-              setPatientID(res.data.patientID);
-
+              console.log("patient details created successfully")
               navigate("/receptionist");
             } else {
               Promise.reject();
@@ -198,10 +118,11 @@ function PatientRegistration() {
       } else {
         axios
           .put(
-            API_URL+`/patientRegistration/updatePatient/${patientID}`,
-            { newPatient: newPatient }
+            API_URL+`/patientRegistration/updatePatient/${id}`,
+            { newPatient: data}
           )
           .then((res) => {
+            console.log("patient details updated successfully")
             navigate("/receptionist");
           });
 
@@ -211,426 +132,391 @@ function PatientRegistration() {
       console.error(err);
       // Handle error, such as displaying an error message
     }
+   
+    
   }
 
 
-  
-
   return (
     <>
-      <div className="common-backgroud">
-        <h2>Personal Details</h2>
-        <form onSubmit={handleSubmit}>
-          <Stack spacing={4} direction="row">
-            <TextField
-              id="patientName"
-              value={patientName}
-              onChange={(e) => setPatientName(e.target.value)}
-              label="Patient Name *"
-              placeholder="Joe Doe"
-              variant="standard"
-              /*{...register("patientName", {
-                  required: {
-                    value: true,
-                    message: "Patient Name is required",
-                  },
-                })}
-                error={!!errors.patientName}
-                helperText={errors?.patientName?.message}*/
-            />
+      <div className="patient-reg-outer-div">
+        <div className="patient-reg-inner-div">
+          <form onSubmit={handleSubmit(onsubmit)}>
+            <div className="patient-reg-details-div">
+              <h2>Personal Details</h2>
+              <Stack spacing={2} direction="row">
+                <TextField
+                  className="patient-reg-text-field"
+                  id="patientName"
+                  label="Patient Name *"
+                  placeholder="Joe Doe"
+                  variant="standard"
+                  
+                  fullWidth
+                  {...register("patientName", {
+                    required: {
+                      value: true,
+                      message: "Patient Name is required",
+                    },
+                  })}
+                  value={watch('patientName')|| ''}
+                  error={!!errors.patientName}
+                  helperText={errors?.patientName?.message}
+                />
 
-            <TextField
-              id="dateOfBirth"
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
-              type="date"
-              variant="standard"
-              label="Date Of Birth *"
-              //placeholder="DD/MM/YYYY"
-
-              //onChange={e => setDateOfBirth(e.target.value)}
-              //value={dateOfBirth}
-              //InputLabelProps={{
-              //  shrink: false,
-              //}}
-
-              /* {...register("dateOfBirth", {
-                  required: {
-                    value: true,
-                    message: "Date Of Birth is required",
-                  },
-                })} 
-
-                //error={!!errors.dateOfBirth}
-                //helperText={errors?.dateOfBirth?.message}*/
-            />
-
-            <TextField
-              id="sex"
-              value={sex}
-              onChange={(e) => setSex(e.target.value)}
-              select
-              label="Sex *"
-              variant="standard"
-              defaultValue=""
-              /*{...register("sex", {
+                <TextField
+                  id="dateOfBirth"
+                  InputLabelProps={{ shrink: true }}
+                  type="date"
+                  fullWidth
+                  variant="standard"
+                  label="Date Of Birth *"
+                  className="patient-reg-text-field"
+                  {...register("dateOfBirth", {
+                    required: {
+                      value: true,
+                      message: "Date Of Birth is required",
+                    },
+                  })}
+                  value={watch('dateOfBirth')|| ''}
+                  error={!!errors.dateOfBirth}
+                  helperText={errors?.dateOfBirth?.message}
+                />
+              </Stack>
+              <Stack direction="row" spacing={2}>
+                <TextField
+                  id="sex"
+                  select
+                  label="Sex *"
+                  variant="standard"
+                  className="patient-reg-text-field"
+                  fullWidth
+                  {...register("sex", {
                     required: {
                       value: true,
                       message: "Gender is required",
                     },
                   })}
+                  value={watch('sex')|| ''}
                   error={!!errors.sex}
-                  helperText={errors?.sex?.message}*/
-            >
-              {genderList.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+                  helperText={errors?.sex?.message}
+                >
+                  {genderList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
 
-            <TextField
-              id="maritalStatus"
-              value={maritalStatus}
-              onChange={(e) => setMaritalStatus(e.target.value)}
-              select
-              label="Marital Status *"
-              variant="standard"
-              defaultValue=""
-              /*{...register("maritalStatus", {
+                <TextField
+                  id="maritalStatus"
+                  className="patient-reg-text-field"
+                  select
+                  fullWidth
+                  label="Marital Status *"
+                  variant="standard"
+                  {...register("maritalStatus", {
                     required: {
                       value: true,
                       message: "Marital Status is required",
                     },
                   })}
-                  //error={!!errors.maritalStatus}
-                  //helperText={errors?.maritalStatus?.message}*/
-            >
-              {maritalStatusList.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Stack>
+                  value={watch('maritalStatus')|| ''}
+                  error={!!errors.maritalStatus}
+                  helperText={errors?.maritalStatus?.message}
+                >
+                  {maritalStatusList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Stack>
 
-          <Stack spacing={2} direction="row">
-            <TextField
-              id="contactNo"
-              value={contactNo}
-              onChange={(e) => setContactNo(e.target.value)}
-              label="Contact No *"
-              variant="standard"
-              defaultValue=""
-              /*{...register("contactNo", {
-                  required: {
-                    value: true,
-                    message: "Contact No. is required",
-                  },
-                })}
-                error={!!errors.contactNo}
-                helperText={errors?.contactNo?.message}*/
-            />
+              <Stack spacing={2} direction="row">
+                <TextField
+                  className="patient-reg-text-field"
+                  id="contactNo"
+                  label="Contact No *"
+                  variant="standard"
+                  fullWidth
+                  {...register("contactNo", {
+                    required: {
+                      value: true,
+                      message: "Contact No. is required",
+                    },
+                  })}
+                  value={watch('contactNo')|| ''}
+                  error={!!errors.contactNo}
+                  helperText={errors?.contactNo?.message}
+                />
 
-            <TextField
-              id="emergContactNo"
-              value={emergContactNo}
-              onChange={(e) => setEmergContactNo(e.target.value)}
-              label="Emrg. Contact No *"
-              variant="standard"
-              defaultValue=""
-              /*{...register("emergContactNo", {
-                  required: {
-                    value: true,
-                    message: "Emrg. Contact No. is required",
-                  },
-                })}
-                //error={!!errors.emergContactNo}
-                //helperText={errors?.emergContactNo?.message}*/
-            />
-          </Stack>
-          <Stack spacing={2} direction="row">
-            <TextField
-              id="country"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              select
-              label="Country"
-              variant="standard"
-              defaultValue=""
-              //{...register("country")}
-            >
-              {countryList.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+                <TextField
+                  className="patient-reg-text-field"
+                  id="emergContactNo"
+                  label="Emrg. Contact No *"
+                  variant="standard"
+                  placeholder="9012348651"
+                  fullWidth
+                  {...register("emergContactNo")}
+                  value={watch('emergContactNo')|| ''}
+                />
+              </Stack>
+              <Stack spacing={2} direction="row">
+                <TextField
+                  className="patient-reg-text-field"
+                  fullWidth
+                  id="country"
+                  select
+                  label="Country"
+                  variant="standard"
+                  {...register("country")}
+                  value={watch('country')|| ''}
+                >
+                  {countryList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
 
-            <TextField
-              id="state"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-              select
-              label="State"
-              variant="standard"
-              defaultValue=""
-              //{...register("state")}
-            >
-              {stateList.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Stack>
-          <Stack spacing={2} direction="row">
-            <TextField
-              id="city"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              select
-              label="Town/City"
-              variant="standard"
-              defaultValue=""
-              //{...register("townCity")}
-            >
-              {townCityList.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-            <TextField
-              id="pincode"
-              value={pincode}
-              onChange={(e) => setPincode(e.target.value)}
-              label="Pincode"
-              placeholder="000123"
-              variant="standard"
-              //{...register("pincode")}
-            />
-          </Stack>
+                <TextField
+                  id="state"
+                  className="patient-reg-text-field"
+                  select
+                  label="State"
+                  fullWidth
+                  variant="standard"
+                  {...register("state")}
+                  value={watch('state')|| ''}
+                >
+                  {stateList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Stack>
+              <Stack spacing={2} direction="row">
+                <TextField
+                  className="patient-reg-text-field"
+                  id="city"
+                  select
+                  label="Town/City"
+                  fullWidth
+                  variant="standard"
+                  {...register("city")}
+                  value={watch('city')|| ''}
+                >
+                  {townCityList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  id="pincode"
+                  label="Pincode"
+                  placeholder="000123"
+                  variant="standard"
+                  fullWidth
+                  {...register("pincode")}
+                  value={watch('pincode')|| ''}
+                />
+              </Stack>
 
-          <TextField
-            id="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            label="Address"
-            placeholder="Joe Doe"
-            variant="standard"
-            fullWidth
-          />
-
-          <Stack spacing={4} direction="row">
-            <TextField
-              id="primaryDoctor"
-              value={primaryDoctor}
-              onChange={(e) => setPrimaryDoctor(e.target.value)}
-              label="Primary Doctor *"
-              placeholder="Joe Doe"
-              variant="standard"
-              defaultValue=""
-              select
-              /*  {...register("patientName", {
-                        required: {
-                          value: true,
-                          message: "Patient Name is required",
-                        },
-                      })}
-                      //error={!!errors.patientName}
-                      //helperText={errors?.patientName?.message} */
-            >
-              {primaryDoctorList.length > 0 ? (
+              <TextField
+                id="address"
+                label="Address"
+                placeholder="Joe Doe"
+                variant="standard"
+                fullWidth
+                {...register("address")}
+                value={watch('address')|| ''}
+              />
+            </div>
+            <div className="patient-reg-details-div">
+              <h2>Clinical Details</h2>
+              <Stack spacing={2} direction="row">
+                <TextField
+                  fullWidth
+                  id="primaryDoctor"
+                  label="Primary Doctor *"
+                  placeholder="Joe Doe"
+                  variant="standard"
+                  select
+                  {...register("primaryDoctor", {
+                    required: {
+                      value: true,
+                      message: "primary Doctor is required",
+                    },
+                  })}
+                  value={watch('primaryDoctor')|| ''}
+                  error={!!errors.primaryDoctor}
+                  helperText={errors?.primaryDoctor?.message}
+                >
+                  {primaryDoctorList.length > 0 ? (
                 primaryDoctorList.map((option) => (
                   <MenuItem key={option._id} value={option.firstName}>
                     {option.firstName}
                   </MenuItem>
                 ))
               ) : (
-                <></>
+                []
               )}
-            </TextField>
+                </TextField>
 
-            <TextField
-              id="weight"
-              value={weight}
-              onChange={(e) => setWeight(e.target.value)}
-              variant="standard"
-              label="Weight"
-              //placeholder="DD/MM/YYYY"
+                <TextField
+                  fullWidth
+                  className="patient-reg-text-field"
+                  id="weight"
+                  variant="standard"
+                  label="Weight"
+                  placeholder="50kg"
+                  {...register("weight")}
+                  value={watch('weight')|| ''}
+                />
 
-              //onChange={e => setDateOfBirth(e.target.value)}
-              //value={dateOfBirth}
-              //InputLabelProps={{
-              //  shrink: false,
-              //}}
+                <TextField
+                  fullWidth
+                  className="patient-reg-text-field"
+                  id="height"
+                  label="Height"
+                  variant="standard"
+                  placeholder="50cm"
+                  {...register("height")}
+                  value={watch('height')|| ''}
+                />
 
-              /* {...register("dateOfBirth", {
-                        required: {
-                          value: true,
-                          message: "Date Of Birth is required",
-                        },
-                      })} 
+                <TextField
+                  className="patient-reg-text-field"
+                  fullWidth
+                  id="bloodGrp"
+                  select
+                  label="Blood Grp *"
+                  variant="standard"
+                  {...register("bloodGrp", {
+                    required: {
+                      value: true,
+                      message: " Blood Group is required",
+                    },
+                  })}
+                  value={watch('bloodGrp')|| ''}
+                  error={!!errors.bloodGroup}
+                  helperText={errors?.bloodGroup?.message}
+                >
+                  {bloodGrpList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Stack>
 
-                      //error={!!errors.dateOfBirth}
-                      //helperText={errors?.dateOfBirth?.message}*/
-            />
+              <Stack spacing={2} direction="row">
+                <TextField
+                  className="patient-reg-text-field"
+                  fullWidth
+                  id="symtoms"
+                  label="Symtoms *"
+                  variant="standard"
+                  {...register("symtoms")}
+                  value={watch('symtoms')|| ''}
+                />
 
-            <TextField
-              id="height"
-              value={height}
-              onChange={(e) => setHeight(e.target.value)}
-              label="Height"
-              variant="standard"
-              defaultValue=""
-              /*{...register("sex", {
-                        required: {
-                          value: true,
-                          message: "Gender is required",
-                        },
-                      })}
-                      error={!!errors.sex}
-                      helperText={errors?.sex?.message}*/
-            />
-
-            <TextField
-              id="bloodGrp"
-              value={bloodGrp}
-              onChange={(e) => setBloodGrp(e.target.value)}
-              select
-              label="Blood Grp *"
-              variant="standard"
-              defaultValue=""
-              /*{...register("maritalStatus", {
-                        required: {
-                          value: true,
-                          message: "Marital Status is required",
-                        },
-                      })}
-                      //error={!!errors.maritalStatus}
-                      //helperText={errors?.maritalStatus?.message}*/
-            >
-              {bloodGrpList.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Stack>
-
-          <Stack spacing={2} direction="row">
-            <TextField
-              id="symtoms"
-              value={symtoms}
-              onChange={(e) => setSymtoms(e.target.value)}
-              label="Symtoms *"
-              variant="standard"
-              defaultValue=""
-              /*{...register("contactNo", {
-                      required: {
-                        value: true,
-                        message: "Contact No. is required",
-                      },
-                    })}
-                    error={!!errors.contactNo}
-                    helperText={errors?.contactNo?.message}*/
-            />
-
-            <TextField
-              id="disease"
-              value={disease}
-              onChange={(e) => setDisease(e.target.value)}
-              label="Disease *"
-              variant="standard"
-              defaultValue=""
-              select
-              /*{...register("emergContactNo", {
-                      required: {
-                        value: true,
-                        message: "Emrg. Contact No. is required",
-                      },
-                    })}
-                    //error={!!errors.emergContactNo}
-                    //helperText={errors?.emergContactNo?.message}*/
-            >
-              {diseaseList.length > 0 ? (
+                <TextField
+                  className="patient-reg-text-field"
+                  id="disease"
+                  fullWidth
+                  label="Disease *"
+                  variant="standard"
+                  select
+                  {...register("disease", {
+                    required: {
+                      value: true,
+                      message: "disease is required",
+                    },
+                  })}
+                  value={watch('disease')|| ''}
+                  error={!!errors.disease}
+                  helperText={errors?.disease?.message}
+                >
+                 {diseaseList.length > 0 ? (
                 diseaseList.map((option) => (
                   <MenuItem key={option.diseaseName} value={option.diseaseName}>
                     {option.diseaseName}
                   </MenuItem>
                 ))
               ) : (
-                <></>
+                []
               )}
-            </TextField>
-          </Stack>
+                </TextField>
+              </Stack>
 
-          <Stack spacing={3} direction="row">
-            <TextField
-              id="ward"
-              value={ward}
-              onChange={(e) => setWard(e.target.value)}
-              select
-              label="Ward *"
-              variant="standard"
-              defaultValue=""
-              //{...register("country")}
-            />
+              <Stack spacing={3} direction="row">
+                <TextField
+                  className="patient-reg-text-field"
+                  id="ward"
+                  fullWidth
+                  label="Ward *"
+                  variant="standard"
+                  {...register("ward")}
+                  value={watch('ward')|| ''}
+                />
 
-            <TextField
-              id="room"
-              value={room}
-              onChange={(e) => setRoom(e.target.value)}
-              select
-              label="Room *"
-              variant="standard"
-              defaultValue=""
-              //{...register("state")}
-            />
+                <TextField
+                  id="room"
+                  fullWidth
+                  label="Room *"
+                  variant="standard"
+                  {...register("room")}
+                  value={watch('room')|| ''}
+                />
 
-            <TextField
-              id="bed"
-              value={bed}
-              onChange={(e) => setBed(e.target.value)}
-              select
-              label="Bed *"
-              variant="standard"
-              defaultValue=""
-              //{...register("state")}
-            />
-          </Stack>
+                <TextField
+                  id="bed"
+                  fullWidth
+                  label="Bed *"
+                  variant="standard"
+                  {...register("bed")}
+                  value={watch('bed')|| ''}
+                />
+              </Stack>
 
-          <Stack spacing={2} direction="row">
-            <TextField
-              id="admissionDate"
-              value={admissionDate}
-              onChange={(e) => setAdmissionDate(e.target.value)}
-              type="date"
-              variant="standard"
-              label="Admission Date *"
-            />
-          </Stack>
+              <Stack spacing={2} direction="row">
+                <TextField
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                  id="admissionDate"
+                  type="date"
+                  variant="standard"
+                  label="Admission Date *"
+                  {...register("admissionDate")}
+                  value={watch('admissionDate')|| ''}
+                />
+              </Stack>
+            </div>
 
-          <div className="signup-btn">
-            <Button
-              sx={{
-                borderRadius: 20,
-                backgroundColor: "#7EDD6F",
-                justifyContent: "center",
-                paddingLeft: "60px",
-                paddingRight: "60px",
-              }}
-              variant="contained"
-              type="submit"
-            >
-              Register Now
-            </Button>
-          </div>
-        </form>
+            <div className="signup-btn">
+              <Button
+                sx={{
+                  borderRadius: 20,
+                  backgroundColor: "#7EDD6F",
+                  justifyContent: "center",
+                  paddingLeft: "60px",
+                  paddingRight: "60px",
+                }}
+                variant="contained"
+                type="submit"
+              >
+                Register Now
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );
 }
 
-export default PatientRegistration;
+export default PatienRegistration;

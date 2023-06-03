@@ -108,6 +108,26 @@ function NavigationBar() {
           <></>
         )}
 
+{role === "Receptionist" ? (
+          <Button
+            component={Link}
+            to={"/receptionist/"}
+            sx={{
+              color: "black",
+              fontSize: "20px",
+              margin: "4px",
+              alignItems: "center",
+              flexGrow: 1,
+              font: "inherit",
+              borderRadius: 6,
+            }}
+          >
+            My dashboard
+          </Button>
+        ) : (
+          <></>
+        )}
+
         {role === "Doctor" || role === "Nurse" ? (
           <Button
             component={Link}
