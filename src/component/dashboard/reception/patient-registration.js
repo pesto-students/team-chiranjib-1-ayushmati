@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import moment from 'moment';
 import {
   genderList,
   maritalStatusList,
@@ -35,7 +36,7 @@ function PatienRegistration() {
         const response = await axios.get(API_URL + `/patientRegistration/getPatient/${id}`)
         console.log(response.data)
         setValue('patientName',response.data.patientName)
-        setValue('dateOfBirth',response.data.dateOfBirth)
+        setValue('dateOfBirth',moment(response.data.dateOfBirth).format('YYYY-MM-DD'))
         setValue('sex',response.data.sex)
         setValue('maritalStatus',response.data.maritalStatus)
         setValue('contactNo',response.data.contactNo)
@@ -52,7 +53,7 @@ function PatienRegistration() {
         setValue('disease',response.data.disease)
         setValue('room',response.data.room)
         setValue('bed',response.data.bed)
-        setValue('admissionDate',response.data.admissionDate)
+        setValue('admissionDate',moment(response.data.admissionDate).format('YYYY-MM-DD'))
 
       }
       getPatientData();
@@ -90,7 +91,6 @@ function PatienRegistration() {
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
     setValue
   } = useForm();
 
@@ -126,11 +126,9 @@ function PatienRegistration() {
             navigate("/receptionist");
           });
 
-        // Handle the response as needed
       }
     } catch (err) {
       console.error(err);
-      // Handle error, such as displaying an error message
     }
    
     

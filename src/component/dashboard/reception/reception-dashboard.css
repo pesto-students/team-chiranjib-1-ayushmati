@@ -1,0 +1,19 @@
+.reception-table-outer-div{
+    background-color: #DAF1FF;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.reception-table-inner-div{
+    width: 90%;
+    border-radius: 600px;
+    box-shadow: 0 4px 8px 0 rgba(20, 20, 20, 0.17), 0 6px 20px 0 rgba(5, 5, 5, 0.17);
+}
+.admitted-status-div {
+    background-color: #7EDD6F;
+    border-radius: 0%;
+    padding-left: 25px;
+    padding-top: 5px;
+}
