@@ -9,7 +9,6 @@ import ProfileMenu from "./profile";
 function NavigationBar() {
   const emailId = useSelector((state) => state.emailId);
   const role = useSelector((state) => state.role);
-  // const token = useSelector((state) => state.token);
   const firstName = useSelector((state) => state.firstName);
 
   const token = localStorage.getItem('token');

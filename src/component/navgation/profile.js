@@ -38,12 +38,12 @@ export default function ProfileMenu() {
         onClick={handleClick}
       >
         <div style={{display:"flex", flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
-        <div style={{display:"flex", flexDirection:"column"}}>
+        <div style={{display:"flex", flexDirection:"column",paddingRight:'2%'}}>
           <p style={{ color: "white", padding: "1px", margin: "2px" }}>
             {" "}
             Hi,{firstName}!
           </p>
-          <p style={{ color: "white", padding: "1px", margin: "2px" }}>
+          <p style={{ color: "white", padding: "1px", margin: "2px" ,fontSize:"10px"}}>
             {" "}
             {role}
           </p>

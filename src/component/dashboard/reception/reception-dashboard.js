@@ -5,101 +5,124 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import NavigationBar from "../../navgation/navigation-bar";
 import { useState, useEffect } from "react";
-import Login from "../../authenticate/login";
-import PatientList from './patient-list';
-import "../../../css/common.css";
-import { padding } from "@mui/system";
-import { left } from "@popperjs/core";
+import PatientList from "./patient-list";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-
-function createData(
-  MRN,
-  patientName,
-  age,
-  ward,
-  room,
-  bed,
-  admissionDate,
-  status
-) {
-  return { MRN, patientName, age, ward, room, bed, admissionDate, status };
-}
-
-const rows = [
-  createData(
-    "MRN-1010220",
-    "Virat Kholi",
-    28,
-    "General Ward",
-    "Room 1",
-    "B1",
-    "12/04/2023",
-    "Admitted"
-  )
-  
-];
-
-
-
+import axios from "axios";
+import { API_URL } from "../../../utils/constant";
+import moment from "moment";
+import "./reception-dashboard.css";
+import TextField from "@mui/material/TextField";
+import TableFooter from "@mui/material/TableFooter";
+import TablePagination from "@mui/material/TablePagination";
+import SearchBar from "material-ui-search-bar";
 
 export default function ReceptionistDashboard() {
 
+  const [filterText, setFilterText] = useState("");
+  const [rows,setRow]= useState([]);
+
+  const filteredData = rows.filter((item) =>
+    item.patientName.toLowerCase().includes(filterText.toLowerCase())
+  );
+
+  const handleFilter = (event) => {
+    setFilterText(event.target.value);
+  };
+
   
+  useEffect(() => {
+    console.log("API_URL : " + API_URL);
+
+    axios
+      .get(API_URL + "/patientRegistration/listPatient")
+
+      .then((response) => {
+        console.log(response.data);
+        setRow(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
 
   return (
-
-  
     <>
-      {/* <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>MRN</TableCell>
-              <TableCell align="right">Patient Name</TableCell>
-              <TableCell align="right">Age</TableCell>
-              <TableCell align="right">Ward</TableCell>
-              <TableCell align="right">Room No</TableCell>
-              <TableCell align="right">Bed</TableCell>
-              <TableCell align="right">Admission Date</TableCell>
-              <TableCell align="right">Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.MRN}
-                </TableCell>
-                <TableCell align="right">{row.patientName}</TableCell>
-                <TableCell align="right">{row.age}</TableCell>
-                <TableCell align="right">{row.ward}</TableCell>
-                <TableCell align="right">{row.room}</TableCell>
-                <TableCell align="right">{row.bed}</TableCell>
-                <TableCell align="right">{row.admissionDate}</TableCell>
-                <TableCell align="right">{row.status} </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </> */}
+      <div className="reception-table-outer-div">
+      <TextField sx={{size:'10px',margin:'50px 0 50px 0',background:'white',width:'40%'}}
+        value={filterText}
+        onChange={handleFilter}
+        label="Search Name"
+        placeholder="Search Name"
+        variant="outlined"
+      />
+        <div className="reception-table-inner-div">
+          
+          <TableContainer sx={{ borderRadius: "30px" }} component={Paper}>
+            <Table
+              sx={{ minWidth: 400 }}
+              size="small"
+              aria-label="a dense table"
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 5 },
+                },
+              }}
+              pageSizeOptions={[5, 10]}
+            >
+              <TableHead>
+                <TableRow sx={{ background: "#4545453e" }}>
+                  <TableCell align="center">MRN</TableCell>
+                  <TableCell align="center">PATIENT NAME</TableCell>
+                  <TableCell align="center">WARD</TableCell>
+                  <TableCell align="center">ROOM NO</TableCell>
+                  <TableCell align="center">BED</TableCell>
+                  <TableCell align="center">STATUS</TableCell>
+                  <TableCell align="center">ADMISSION DATE</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody sx={{ background: "#f1f1f1b6" }}>
+                {filteredData.map((row) => (
+                  <TableRow key={row._id}>
+                    <TableCell
+                      sx={{
+                        fontStyle: "oblique",
+                        fontSize: "15px",
+                        fontWeight: "fontWeightMedium",
+                      }}
+                      align="center"
+                      component="a"
+                      href={`/patientRegistration/${row._id}`}
+                    >
+                      {row.mrn}{" "}
+                    </TableCell>
 
+                    <TableCell align="center">{row.patientName}</TableCell>
+                    <TableCell align="center">{row.ward}</TableCell>
+                    <TableCell align="center">{row.room}</TableCell>
+                    <TableCell align="center">{row.bed}</TableCell>
 
-    
-    { <div className="common-backgroud">
+                    {row.status === "ADMITTED" ? (
+                      <TableCell sx={{ color: "white" }} align="center">
+                        <p className="admitted-status-div">{row.status} </p>
+                      </TableCell>
+                    ) : (
+                      <TableCell sx={{ color: "white" }} align="center">
+                        <p className="discharged-status-div">{row.status} </p>
+                      </TableCell>
+                    )}
 
-    <PatientList />
-    </div>}
-      
-      
+                    <TableCell align="center">
+                      {moment(row.admissionDate).format("YYYY-MM-DD")}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      </div>
     </>
-
   );
 }
