@@ -42,6 +42,8 @@ function Login() {
 
       dispatch(userStateUpdate({token : res.token,user: res.user }));
 
+      setTimeout(()=>{},2500)
+
       if (res.user.role === "Receptionist") {
         navigate("/receptionist");
       } else if (res.user.role === "Doctor") {

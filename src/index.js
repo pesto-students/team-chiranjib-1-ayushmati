@@ -6,6 +6,9 @@ import App from "./App";
 import { Provider } from "react-redux";
 import store, { persistor } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
+import axios from "axios";
+
+axios.defaults.headers.common['x-access-token'] = JSON.parse(localStorage.getItem('token')) ;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -127,10 +127,10 @@ function NavigationBar() {
           <></>
         )}
 
-        {role === "Doctor" || role === "Nurse" ? (
+        {role === "Doctor" ? (
           <Button
             component={Link}
-            to={"/receptionist"}
+            to={"/doctor"}
             sx={{
               color: "black",
               fontSize: "20px",
@@ -146,6 +146,25 @@ function NavigationBar() {
         ) : (
           <></>
         )}
+        {/* {role === "Nurse" ? (
+          <Button
+            component={Link}
+            to={"/nurse"}
+            sx={{
+              color: "black",
+              fontSize: "20px",
+              margin: "4px",
+              alignItems: "center",
+              flexGrow: 1,
+              font: "inherit",
+              borderRadius: 6,
+            }}
+          >
+            Patient List
+          </Button>
+        ) : (
+          <></>
+        )} */}
 
         {!token ? (
           <>
