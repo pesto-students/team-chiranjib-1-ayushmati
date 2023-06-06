@@ -80,6 +80,8 @@ export default function ReceptionistDashboardTest() {
                   <TableCell align="center">BED</TableCell>
                   <TableCell align="center">STATUS</TableCell>
                   <TableCell align="center">ADMISSION DATE</TableCell>
+                  <TableCell align="center">PRIMARY DOC</TableCell>
+
                 </TableRow>
               </TableHead>
               <TableBody sx={{ background: "#f1f1f1b6" }}>
@@ -116,6 +118,7 @@ export default function ReceptionistDashboardTest() {
                     <TableCell align="center">
                       {moment(row.admissionDate).format("YYYY-MM-DD")}
                     </TableCell>
+                    <TableCell align="center">{row.primaryDoctor}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

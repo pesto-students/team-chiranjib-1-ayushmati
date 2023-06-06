@@ -88,7 +88,7 @@ export default function DoctorDashboard() {
                       }}
                       align="center"
                       component="a"
-                      href={`/patientRegistration/${row._id}`}
+                      href={`/patientTaskUpdate/${row._id}`}
                     >
                       {row.mrn}{" "}
                     </TableCell>

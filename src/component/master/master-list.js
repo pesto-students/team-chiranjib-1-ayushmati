@@ -1,3 +1,16 @@
+const medicineList = [
+  {value:"Aptiom",label:"Aptiom"},
+  {value:"xyz",label:"xyz"},
+  {value:"abc",lable:"abc"},
+]
+
+
+const medicineTypeList = [
+  {value:"Tablet", label:"Tablet"},
+  {value:"Injection",label:"Injection"}
+]
+
+
 
 const genderList = [
   { value: "Male", label: "Male" },
@@ -44,4 +57,4 @@ const roleList = [
   
 
 
-  export {genderList, maritalStatusList, roleList,countryList,stateList,townCityList, bloodGrpList}
+  export {genderList, maritalStatusList, roleList,countryList,stateList,townCityList, bloodGrpList,medicineTypeList,medicineList}

@@ -51,6 +51,7 @@ function PatienRegistration() {
         setValue('bloodGrp',response.data.bloodGrp)
         setValue('symtoms',response.data.symtoms)
         setValue('disease',response.data.disease)
+        setValue('ward',response.data.ward)
         setValue('room',response.data.room)
         setValue('bed',response.data.bed)
         setValue('admissionDate',moment(response.data.admissionDate).format('YYYY-MM-DD'))
