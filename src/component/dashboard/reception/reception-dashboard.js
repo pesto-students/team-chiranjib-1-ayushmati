@@ -50,7 +50,7 @@ export default function ReceptionistDashboardTest() {
   return (
     <>
       <div className="reception-table-outer-div">
-      <TextField sx={{size:'10px',margin:'50px 0 50px 0',background:'white',width:'40%'}}
+      <TextField sx={{size:'10px',margin:'50px 0 50px 50%',background:'white',width:'40%'}}
         value={filterText}
         onChange={handleFilter}
         label="Search Name"

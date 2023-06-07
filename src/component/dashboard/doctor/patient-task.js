@@ -17,6 +17,7 @@ import {
 } from "../../master/master-list";
 import Autocomplete from "@mui/material/Autocomplete";
 import TaskComponent from "./task-component";
+import DoctorPatientTable from "./doctor-patient-table";
 
 export default function PatientTask() {
   const [patientData, setPatientData] = useState();
@@ -307,7 +308,8 @@ export default function PatientTask() {
                 </div>
               </form>
             </div>
-            <TaskComponent id={id}/>        
+            <TaskComponent id={id}/>
+            <DoctorPatientTable id={id}/>       
           </div>
         </>
       ) : (
