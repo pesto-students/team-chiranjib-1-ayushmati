@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../utils/constant";
 
 function Signup() {
   const [hospitalList, setHospitalList] = useState([]);
@@ -30,7 +31,7 @@ function Signup() {
     const getHospitalList = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/registration/listHospital"
+          API_URL+"/registration/listHospital"
         );
         console.log(response.data);
 
@@ -55,7 +56,7 @@ function Signup() {
 
   const onsubmit = async (data) => {
     console.log(data);
-    const path = "http://localhost:8080/authenticate/signup";
+    const path = API_URL+"/authenticate/signup";
     const body = {
       emailID: data.emailId,
       password: data.password,

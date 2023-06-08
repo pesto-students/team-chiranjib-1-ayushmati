@@ -29,11 +29,32 @@ export default function TaskComponent(props) {
     watch: watch2,
     setValue: setValue2,
     control: control2,
+    reset:reset2
   } = useForm();
 
   const onTaskSubmit = (data) => {
     console.log(data);
-  };
+    try {
+      data.patientID = id
+        axios
+          .post(API_URL+`/patientTask/createPatientTask`, {
+            newTask: data
+          })
+          .then((res) => {
+            if (res.status === 201) {
+              console.log("patient task created successfully")
+            } else {
+              Promise.reject();
+            }
+          });
+      } 
+      catch (err) {
+        console.error(err);
+      }
+
+      reset2({})
+    }
+
 
   useEffect(() => {
     const getPrimaryNurseList = async () => {
@@ -102,8 +123,8 @@ export default function TaskComponent(props) {
           <Stack spacing={2} direction="row">
             <TextField
               fullWidth
-              id="primaryDoctor"
-              label="Primary Doctor *"
+              id="primary Nurse"
+              label="Primary Nurse *"
               placeholder="Joe Doe"
               variant="standard"
               select
@@ -130,23 +151,11 @@ export default function TaskComponent(props) {
               className="patient-reg-text-field"
               id="medicineComment"
               variant="standard"
-              label="Medicine Comment"
+              label="Doctor Instructions"
               placeholder="Before/After breakfast"
-              {...register2("medicineComment")}
-              value={watch2("medicineComment") || ""}
+              {...register2("doctorInstructions")}
+              value={watch2("doctorInstructions") || ""}
             />
-            {/* <Controller
-              render={(props) => (
-                <TextField
-                  {...register2("inTakeTime")}
-                  {...props}
-                  type="datetime-local"
-                  label="Intake time"
-                />
-              )}
-              name="dummyDate"
-              control={control2}
-            ></Controller> */}
             <TextField
                   id="MedIntakeTime"
                   InputLabelProps={{ shrink: true }}
