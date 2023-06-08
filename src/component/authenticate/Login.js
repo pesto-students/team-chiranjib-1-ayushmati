@@ -7,6 +7,7 @@ import "./login.css";
 import { useNavigate } from "react-router-dom";
 import { userStateUpdate } from "../../action";
 import { useDispatch, useSelector } from "react-redux";
+import { API_URL } from "../../utils/constant";
 
 function Login() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Login() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const path = "http://localhost:8080/authenticate/login";
+    const path = API_URL+"/authenticate/login";
     const body = {
       emailID: data.userID,
       password: data.password,
