@@ -25,16 +25,16 @@ function NavigationBar() {
       <Toolbar>
         <img src={logo} alt="this is logo " />
 
-        <NavLink exact to="/" activeStyle={{ color:'#5754a8',fontSize:"5px" }}>
+        {/* <NavLink exact to="/" activeStyle={{ color:'#5754a8',fontSize:"5px" }}>
         <IconButton>
     <Typography>Home</Typography>
   </IconButton>
         </NavLink>
         <NavLink  to="/contactus" activeStyle={{ color:'#5754a8' }} >
             ContactUs
-        </NavLink>
+        </NavLink> */}
 
-        {/* <Button
+        <Button
           component={Link}
           to={"/"}
           sx={{
@@ -48,9 +48,9 @@ function NavigationBar() {
           }}
         >
           Home
-        </Button> */}
+        </Button>
 
-        {/* <Button
+        <Button
           sx={{
             color: "black",
             fontSize: "20px",
@@ -62,7 +62,7 @@ function NavigationBar() {
           }}
         >
           NEW HOSPITAL
-        </Button> */}
+        </Button>
 
         {!token ? (
           <>
