@@ -5,6 +5,10 @@ import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileMenu from "./profile";
+import Typography from '@mui/material/Typography';
+import { IconButton } from "@mui/material";
+
+import { NavLink } from "react-router-dom";
 
 function NavigationBar() {
   const emailId = useSelector((state) => state.emailId);
@@ -21,7 +25,16 @@ function NavigationBar() {
       <Toolbar>
         <img src={logo} alt="this is logo " />
 
-        <Button
+        <NavLink exact to="/" activeStyle={{ color:'#5754a8',fontSize:"5px" }}>
+        <IconButton>
+    <Typography>Home</Typography>
+  </IconButton>
+        </NavLink>
+        <NavLink  to="/contactus" activeStyle={{ color:'#5754a8' }} >
+            ContactUs
+        </NavLink>
+
+        {/* <Button
           component={Link}
           to={"/"}
           sx={{
@@ -35,8 +48,9 @@ function NavigationBar() {
           }}
         >
           Home
-        </Button>
-        <Button
+        </Button> */}
+
+        {/* <Button
           sx={{
             color: "black",
             fontSize: "20px",
@@ -48,7 +62,7 @@ function NavigationBar() {
           }}
         >
           NEW HOSPITAL
-        </Button>
+        </Button> */}
 
         {!token ? (
           <>

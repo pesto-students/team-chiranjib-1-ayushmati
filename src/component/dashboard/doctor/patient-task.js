@@ -18,6 +18,7 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import TaskComponent from "./task-component";
 import DoctorPatientTable from "./doctor-patient-table";
+import Loader from "../../master/loader";
 
 export default function PatientTask() {
   const [patientData, setPatientData] = useState();
@@ -314,7 +315,7 @@ export default function PatientTask() {
         </>
       ) : (
         <>
-          <h1>Loading...</h1>
+          <Loader/>
         </>
       )}
     </>
