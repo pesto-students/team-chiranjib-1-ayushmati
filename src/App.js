@@ -13,6 +13,8 @@ import wrapper from "./component/layoutHOC/layout";
 import PatientRegistrationTest from "./component/dashboard/reception/patient-registration";
 import ReceptionistDashboardTest from "./component/dashboard/reception/reception-dashboard";
 import PatientTask from "./component/dashboard/doctor/patient-task";
+import NurseDashboardTest from "./component/dashboard/nurse/nurse-dashboard-new";
+
 
 
 
@@ -37,6 +39,8 @@ function App() {
       <Route path="/patientRegistration" element={<PatientRegistrationWrapper />} />
       <Route path="/patientRegistration/:id" element={<PatientRegistrationWrapper />} />
       <Route path= "/patientTaskUpdate/:id" element={<PatientTaskWrapper/>}/>
+      <Route path = "/nurse" element={<NurseDashboard/>}/>
+      <Route path = "/nurseDashTest" element={<NurseDashboardTest/>}/>
       {/* <Route path="/receptionistDashboard" element = {<ReceptionistDashboardTestWrapper/>}/> */}
       {/* <Route path="/patientRegistrationTest" element ={<PatientRegistrationTest/>} />
       <Route path="/patientRegistrationTest/:id" element={<PatientRegistrationTest />} /> */}
