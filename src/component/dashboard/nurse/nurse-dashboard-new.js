@@ -1,6 +1,7 @@
 import MaterialTable from "material-table";
 import { Button, ThemeProvider, createTheme } from "@mui/material";
 import tableIcons from "../../master/MaterialTableIcons";
+import NusrsePop from "./pop-up-componet";
 
 export default function NurseDashboardTest() {
   const defaultMaterialTheme = createTheme();
@@ -66,18 +67,19 @@ export default function NurseDashboardTest() {
       field: "status",
       // render: (rowData) => <Button> {rowData.status}</Button>,
       render: (rowData) => {
-        if (rowData.status == "Pending") {
-          return <Button sx={{backgroundColor:"#E57C23",color:"white"}}> {rowData.status}</Button>;
-        } else if (rowData.status == "Done") {
-          return <Button sx={{backgroundColor:"#54B435",color:"white"}}> {rowData.status}</Button>;
-        } else if (rowData.status == "On Alert")
-          return <Button sx={{backgroundColor:"#FC2947",color:"white"}}> {rowData.status}</Button>;
+        return(
+            <>
+        <NusrsePop data={rowData} />
+        </>
+        )
       },
     },
   ];
   return (
     <>
-      <ThemeProvider theme={defaultMaterialTheme}>
+    <div style={{width:'100%',display:'flex', alignItems:'center',justifyContent:'center'}}>
+    <div style={{width:'90%',alignItems:'center',justifyContent:'center',marginTop:"50px"}} >
+    <ThemeProvider theme={defaultMaterialTheme}>
         <MaterialTable
           icons={tableIcons}
           title={"NurseDashboard"}
@@ -85,12 +87,16 @@ export default function NurseDashboardTest() {
           data={data}
           options={{
             headerStyle: {
-              backgroundColor: "#01579b",
+              backgroundColor: "#27a2ee",
               color: "#FFF",
             },
           }}
         />
       </ThemeProvider>
+    </div>
+    </div>
+   
+      
     </>
   );
 }

@@ -24,6 +24,7 @@ function App() {
   const PatientRegistrationWrapper = wrapper(PatientRegistration);
   const DoctorDashboardWrapper = wrapper(DoctorDashboard);
   const PatientTaskWrapper = wrapper(PatientTask);
+  const NurseDashboardWrapper = wrapper(NurseDashboardTest);
 
   return(
   <>
@@ -40,7 +41,7 @@ function App() {
       <Route path="/patientRegistration/:id" element={<PatientRegistrationWrapper />} />
       <Route path= "/patientTaskUpdate/:id" element={<PatientTaskWrapper/>}/>
       <Route path = "/nurse" element={<NurseDashboard/>}/>
-      <Route path = "/nurseDashTest" element={<NurseDashboardTest/>}/>
+      <Route path = "/nurseDashTest" element={<NurseDashboardWrapper/>}/>
       {/* <Route path="/receptionistDashboard" element = {<ReceptionistDashboardTestWrapper/>}/> */}
       {/* <Route path="/patientRegistrationTest" element ={<PatientRegistrationTest/>} />
       <Route path="/patientRegistrationTest/:id" element={<PatientRegistrationTest />} /> */}

@@ -209,7 +209,7 @@ function NavigationBar() {
             display: "flex",
             flexDirection: "column",
             alignItems: "end",
-            backgroundColor: "#2790C2",
+            backgroundColor: "#27a2ee",
           }}>
 
             <ProfileMenu/>
