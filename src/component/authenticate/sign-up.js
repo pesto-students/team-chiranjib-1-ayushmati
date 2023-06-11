@@ -22,7 +22,10 @@ import { API_URL } from "../../utils/constant";
 
 function Signup() {
   const [hospitalList, setHospitalList] = useState([]);
-  const [isRegister,setIsRegister] = useState(false)
+  const [wardList, setWardList] = useState([]);
+  
+  const [isRegister,setIsRegister] = useState(false);
+  const [isWardNameRequired, setIsWardNameRequired] = useState(false);
 
 
   const navigate = useNavigate();
@@ -57,6 +60,7 @@ function Signup() {
   const onsubmit = async (data) => {
     console.log(data);
     const path = API_URL+"/authenticate/signup";
+    
     const body = {
       emailID: data.emailId,
       password: data.password,
@@ -65,6 +69,11 @@ function Signup() {
       role: data.role,
       firstName: data.firstName,
       lastName: data.lastName,
+      country: data.country,
+      state: data.state,
+      city: data.city,
+      pincode: data.pincode,
+      wardName: data.wardName
     };
     const obj = {
       method: "POST",
@@ -92,7 +101,24 @@ function Signup() {
     }
   };
 
-  console.log(hospitalList);
+  const loadWard = async (hospitalName) => {
+    console.log('selected hospital ::: ' + hospitalName);
+    try {
+      const response = await axios.get(API_URL + `/wardsDetails/listWardByHospital/${hospitalName}`)
+      console.log(response.data);
+      setWardList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const setWardRequired = async (role) => {
+    if(role === 'Nurse') {
+      setIsWardNameRequired(true);
+    } else {
+      setIsWardNameRequired(false);
+    }
+  }
 
   return (
     <>
@@ -110,36 +136,37 @@ function Signup() {
               <div className="form-control">
                 <h1 className="login-text">SIGNUP</h1>
               </div>
-              <div className="sign-up-elements-div">
-                <TextField
-                  className="signup-text-field"
-                  id="outlined-required"
-                  label="Hospital Name *"
-                  placeholder="Apollo Hospital"
-                  variant="standard"
-                  select
-                  {...register("hospital", {
-                    required: {
-                      value: true,
-                      message: "Hospital Name is required",
-                    },
-                  })}
-                >
-
-                  {hospitalList.length > 0 ? (
-                    hospitalList.map((option) => (
-                      <MenuItem key={option.hospitalName} value={option.hospitalName}>
-                        {option.hospitalName}
-                      </MenuItem>
-                    ))
-                  ) : (
-                    <></>
-                  )}
-
-                </TextField>
-              </div>
 
               <Stack spacing={2} direction="row">
+                <div className="sign-up-elements-div">
+                  <TextField
+                    className="signup-text-field"
+                    id="outlined-required"
+                    label="Hospital Name *"
+                    placeholder="Apollo Hospital"
+                    variant="standard"
+                    select
+                    {...register("hospital", {
+                      required: {
+                        value: true,
+                        message: "Hospital Name is required",
+                      },
+                    })}
+                  >
+
+                    {hospitalList.length > 0 ? (
+                      hospitalList.map((option) => (
+                        <MenuItem key={option.hospitalName} value={option.hospitalName} onClick={() => loadWard(option.hospitalName)}>
+                          {option.hospitalName}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+
+                  </TextField>
+                </div>
+
                 <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
@@ -158,12 +185,17 @@ function Signup() {
                     helperText={errors?.role?.message}
                   >
                     {roleList.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
+                      <MenuItem key={option.value} value={option.value} onClick={() => setWardRequired(option.value)} >
                         {option.label}
                       </MenuItem>
                     ))}
                   </TextField>
                 </div>
+
+              </Stack>
+
+
+              <Stack spacing={2} direction="row">
                 <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
@@ -181,6 +213,38 @@ function Signup() {
                     helperText={errors?.userID?.message}
                   />
                 </div>
+
+                {isWardNameRequired &&       
+                <div className="sign-up-elements-div">
+                  <TextField
+                    className="signup-text-field"
+                    label="Ward Name *"
+                    placeholder="General Ward"
+                    variant="standard"
+                    select
+                    {...register("wardName", {
+                      required: {
+                        value: isWardNameRequired,
+                        message: "Ward Name is required",
+                      },
+                    })}
+                    error={!!errors.wardName}
+                    helperText={errors?.wardName?.message}
+                  >
+                    {wardList.length > 0 ? (
+                      wardList.map((option) => (
+                        <MenuItem key={option.wardName} value={option.wardName}>
+                          {option.wardName}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+
+                  </TextField>
+                </div>
+                }
+
               </Stack>
 
               <Stack spacing={2} direction="row">
