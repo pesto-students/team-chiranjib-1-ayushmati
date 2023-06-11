@@ -1,6 +1,7 @@
 .loader {
    display: flex;
     margin-left: 45%;
+    margin-top: 20%;
     z-index: 1;
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */

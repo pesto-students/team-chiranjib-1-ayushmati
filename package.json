@@ -60,5 +60,9 @@
   },
   "devDependencies": {
     "react-router-dom": "^6.11.2"
+  },
+  
+  "resolutions": {
+    "react-double-scrollbar": "https://github.com/IniterWorker/react-double-scrollbar.git"
   }
 }
