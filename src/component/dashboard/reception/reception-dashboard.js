@@ -31,12 +31,14 @@ export default function ReceptionistDashboardTest() {
     setFilterText(event.target.value);
   };
 
-  
+  const hospitalName = localStorage.getItem('hospitalName');
+
   useEffect(() => {
     console.log("API_URL : " + API_URL);
+    console.log("hospital name" + hospitalName )
 
     axios
-      .get(API_URL + "/patientRegistration/listPatient")
+      .get(API_URL + `/patientRegistration/listPatient/${hospitalName}`)
 
       .then((response) => {
         console.log(response.data);

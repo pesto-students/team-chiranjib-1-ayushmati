@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import moment from 'moment';
+import moment from "moment";
 import {
   genderList,
   maritalStatusList,
@@ -25,47 +25,59 @@ import { useState } from "react";
 function PatienRegistration() {
   const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
   const [diseaseList, setDiseaseList] = useState([]);
+  const [wardList, setWardList] = useState([]);
+  const [roomList, setRoomList] = useState([]);
+  const [bedList, setBedList] = useState([]);
 
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const hospitalName = localStorage.getItem("hospitalName");
+
   useEffect(() => {
     if (id) {
-
-      const getPatientData = async ()=>{
-        const response = await axios.get(API_URL + `/patientRegistration/getPatient/${id}`)
-        console.log(response.data)
-        setValue('patientName',response.data.patientName)
-        setValue('dateOfBirth',moment(response.data.dateOfBirth).format('YYYY-MM-DD'))
-        setValue('sex',response.data.sex)
-        setValue('maritalStatus',response.data.maritalStatus)
-        setValue('contactNo',response.data.contactNo)
-        setValue('emergContactNo',response.data.emergContactNo)
-        setValue('country',response.data.country)
-        setValue('state',response.data.state)
-        setValue('city',response.data.city)
-        setValue('addresponses',response.data.addresponses)
-        setValue('primaryDoctor',response.data.primaryDoctor)
-        setValue('weight',response.data.weight)
-        setValue('height',response.data.height)
-        setValue('bloodGrp',response.data.bloodGrp)
-        setValue('symtoms',response.data.symtoms)
-        setValue('disease',response.data.disease)
-        setValue('ward',response.data.ward)
-        setValue('room',response.data.room)
-        setValue('bed',response.data.bed)
-        setValue('admissionDate',moment(response.data.admissionDate).format('YYYY-MM-DD'))
-
-      }
+      const getPatientData = async () => {
+        const response = await axios.get(
+          API_URL + `/patientRegistration/getPatient/${id}`
+        );
+        console.log(response.data);
+        setValue("patientName", response.data.patientName);
+        setValue(
+          "dateOfBirth",
+          moment(response.data.dateOfBirth).format("YYYY-MM-DD")
+        );
+        setValue("sex", response.data.sex);
+        setValue("maritalStatus", response.data.maritalStatus);
+        setValue("contactNo", response.data.contactNo);
+        setValue("emergContactNo", response.data.emergContactNo);
+        setValue("country", response.data.country);
+        setValue("state", response.data.state);
+        setValue("city", response.data.city);
+        setValue("addresponses", response.data.addresponses);
+        setValue("primaryDoctor", response.data.primaryDoctor);
+        setValue("weight", response.data.weight);
+        setValue("height", response.data.height);
+        setValue("bloodGrp", response.data.bloodGrp);
+        setValue("symtoms", response.data.symtoms);
+        setValue("disease", response.data.disease);
+        setValue("ward", response.data.ward);
+        setValue("room", response.data.room);
+        setValue("bed", response.data.bed);
+        setValue(
+          "admissionDate",
+          moment(response.data.admissionDate).format("YYYY-MM-DD")
+        );
+      };
       getPatientData();
-     
-      }
-    },[]);
+    }
+  }, []);
 
   useEffect(() => {
     const getPrimaryDoctorList = async () => {
       try {
-        const response = await axios.get(API_URL + "/user/listActiveDoctor");
+        const response = await axios.get(
+          API_URL + `/user/listActiveDoctor/${hospitalName}`
+        );
         setPrimaryDoctorList(response.data);
         console.log(response.data);
       } catch (error) {
@@ -83,34 +95,82 @@ function PatienRegistration() {
       }
     };
     getDiseaseList();
+
+    const getWardList = async () => {
+      try {
+        console.log(hospitalName);
+
+        const response = await axios.get(
+          API_URL + `/wardsDetails/listWardByHospital/${hospitalName}`
+        );
+
+        setWardList(response.data);
+
+        console.log("wards details ::: " + response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getWardList();
   }, []);
 
-  
+  const getRoomList = async (wardName) => {
+    try {
+      const response = await axios.get(
+        API_URL +
+          `/wardsDetails/listRoomByHospitalNWard/${hospitalName}/${wardName}`
+      );
+
+      console.log("rooms :::: " + response.data);
+
+      setRoomList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getBedList = async (roomNo) => {
+    try {
+      const wardName = watch("ward") || "";
+
+      const response = await axios.get(
+        API_URL +
+          `/wardsDetails/listBedByHospitalNWardNRoom/${hospitalName}/${wardName}/${roomNo}`
+      );
+
+      setBedList(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-    setValue
+    setValue,
   } = useForm();
 
+  // const hospitalName = localStorage.getItem('hospitalName');
 
-  const onsubmit = async (data) =>{
-    console.log(data)
-    const newPatientdata = {newPatient:data}
-    console.log(newPatientdata.newPatient)
-    console.log(id)
+  const onsubmit = async (data) => {
+    data.hospitalName = hospitalName;
+    console.log(data);
+    const newPatientdata = { newPatient: data };
+    console.log(newPatientdata.newPatient);
+    console.log(id);
 
     try {
       if (!id) {
         axios
-          .post(API_URL+`/patientRegistration/createPatient`, {
+          .post(API_URL + `/patientRegistration/createPatient`, {
             newPatient: newPatientdata.newPatient,
           })
           .then((res) => {
             if (res.status === 201) {
-              console.log("patient details created successfully")
+              console.log("patient details created successfully");
               navigate("/receptionist");
             } else {
               Promise.reject();
@@ -118,23 +178,18 @@ function PatienRegistration() {
           });
       } else {
         axios
-          .put(
-            API_URL+`/patientRegistration/updatePatient/${id}`,
-            { newPatient: data}
-          )
+          .put(API_URL + `/patientRegistration/updatePatient/${id}`, {
+            newPatient: data,
+          })
           .then((res) => {
-            console.log("patient details updated successfully")
+            console.log("patient details updated successfully");
             navigate("/receptionist");
           });
-
       }
     } catch (err) {
       console.error(err);
     }
-   
-    
-  }
-
+  };
 
   return (
     <>
@@ -150,7 +205,6 @@ function PatienRegistration() {
                   label="Patient Name *"
                   placeholder="Joe Doe"
                   variant="standard"
-                  
                   fullWidth
                   {...register("patientName", {
                     required: {
@@ -158,7 +212,7 @@ function PatienRegistration() {
                       message: "Patient Name is required",
                     },
                   })}
-                  value={watch('patientName')|| ''}
+                  value={watch("patientName") || ""}
                   error={!!errors.patientName}
                   helperText={errors?.patientName?.message}
                 />
@@ -177,7 +231,7 @@ function PatienRegistration() {
                       message: "Date Of Birth is required",
                     },
                   })}
-                  value={watch('dateOfBirth')|| ''}
+                  value={watch("dateOfBirth") || ""}
                   error={!!errors.dateOfBirth}
                   helperText={errors?.dateOfBirth?.message}
                 />
@@ -196,7 +250,7 @@ function PatienRegistration() {
                       message: "Gender is required",
                     },
                   })}
-                  value={watch('sex')|| ''}
+                  value={watch("sex") || ""}
                   error={!!errors.sex}
                   helperText={errors?.sex?.message}
                 >
@@ -220,7 +274,7 @@ function PatienRegistration() {
                       message: "Marital Status is required",
                     },
                   })}
-                  value={watch('maritalStatus')|| ''}
+                  value={watch("maritalStatus") || ""}
                   error={!!errors.maritalStatus}
                   helperText={errors?.maritalStatus?.message}
                 >
@@ -245,7 +299,7 @@ function PatienRegistration() {
                       message: "Contact No. is required",
                     },
                   })}
-                  value={watch('contactNo')|| ''}
+                  value={watch("contactNo") || ""}
                   error={!!errors.contactNo}
                   helperText={errors?.contactNo?.message}
                 />
@@ -258,7 +312,7 @@ function PatienRegistration() {
                   placeholder="9012348651"
                   fullWidth
                   {...register("emergContactNo")}
-                  value={watch('emergContactNo')|| ''}
+                  value={watch("emergContactNo") || ""}
                 />
               </Stack>
               <Stack spacing={2} direction="row">
@@ -270,7 +324,7 @@ function PatienRegistration() {
                   label="Country"
                   variant="standard"
                   {...register("country")}
-                  value={watch('country')|| ''}
+                  value={watch("country") || ""}
                 >
                   {countryList.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -287,7 +341,7 @@ function PatienRegistration() {
                   fullWidth
                   variant="standard"
                   {...register("state")}
-                  value={watch('state')|| ''}
+                  value={watch("state") || ""}
                 >
                   {stateList.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -305,7 +359,7 @@ function PatienRegistration() {
                   fullWidth
                   variant="standard"
                   {...register("city")}
-                  value={watch('city')|| ''}
+                  value={watch("city") || ""}
                 >
                   {townCityList.map((option) => (
                     <MenuItem key={option.value} value={option.value}>
@@ -320,7 +374,7 @@ function PatienRegistration() {
                   variant="standard"
                   fullWidth
                   {...register("pincode")}
-                  value={watch('pincode')|| ''}
+                  value={watch("pincode") || ""}
                 />
               </Stack>
 
@@ -331,7 +385,7 @@ function PatienRegistration() {
                 variant="standard"
                 fullWidth
                 {...register("address")}
-                value={watch('address')|| ''}
+                value={watch("address") || ""}
               />
             </div>
             <div className="patient-reg-details-div">
@@ -350,19 +404,17 @@ function PatienRegistration() {
                       message: "primary Doctor is required",
                     },
                   })}
-                  value={watch('primaryDoctor')|| ''}
+                  value={watch("primaryDoctor") || ""}
                   error={!!errors.primaryDoctor}
                   helperText={errors?.primaryDoctor?.message}
                 >
-                  {primaryDoctorList.length > 0 ? (
-                primaryDoctorList.map((option) => (
-                  <MenuItem key={option._id} value={option.firstName}>
-                    {option.firstName}
-                  </MenuItem>
-                ))
-              ) : (
-                []
-              )}
+                  {primaryDoctorList.length > 0
+                    ? primaryDoctorList.map((option) => (
+                        <MenuItem key={option._id} value={option.firstName}>
+                          {option.firstName}
+                        </MenuItem>
+                      ))
+                    : []}
                 </TextField>
 
                 <TextField
@@ -373,7 +425,7 @@ function PatienRegistration() {
                   label="Weight"
                   placeholder="50kg"
                   {...register("weight")}
-                  value={watch('weight')|| ''}
+                  value={watch("weight") || ""}
                 />
 
                 <TextField
@@ -384,7 +436,7 @@ function PatienRegistration() {
                   variant="standard"
                   placeholder="50cm"
                   {...register("height")}
-                  value={watch('height')|| ''}
+                  value={watch("height") || ""}
                 />
 
                 <TextField
@@ -400,7 +452,7 @@ function PatienRegistration() {
                       message: " Blood Group is required",
                     },
                   })}
-                  value={watch('bloodGrp')|| ''}
+                  value={watch("bloodGrp") || ""}
                   error={!!errors.bloodGroup}
                   helperText={errors?.bloodGroup?.message}
                 >
@@ -420,7 +472,7 @@ function PatienRegistration() {
                   label="Symtoms *"
                   variant="standard"
                   {...register("symtoms")}
-                  value={watch('symtoms')|| ''}
+                  value={watch("symtoms") || ""}
                 />
 
                 <TextField
@@ -436,19 +488,20 @@ function PatienRegistration() {
                       message: "disease is required",
                     },
                   })}
-                  value={watch('disease')|| ''}
+                  value={watch("disease") || ""}
                   error={!!errors.disease}
                   helperText={errors?.disease?.message}
                 >
-                 {diseaseList.length > 0 ? (
-                diseaseList.map((option) => (
-                  <MenuItem key={option.diseaseName} value={option.diseaseName}>
-                    {option.diseaseName}
-                  </MenuItem>
-                ))
-              ) : (
-                []
-              )}
+                  {diseaseList.length > 0
+                    ? diseaseList.map((option) => (
+                        <MenuItem
+                          key={option.diseaseName}
+                          value={option.diseaseName}
+                        >
+                          {option.diseaseName}
+                        </MenuItem>
+                      ))
+                    : []}
                 </TextField>
               </Stack>
 
@@ -457,29 +510,65 @@ function PatienRegistration() {
                   className="patient-reg-text-field"
                   id="ward"
                   fullWidth
+                  select
                   label="Ward *"
                   variant="standard"
                   {...register("ward")}
-                  value={watch('ward')|| ''}
-                />
-
+                  value={watch("ward") || ""}
+                >
+                  {wardList.length > 0
+                    ? wardList.map((option) => (
+                        <MenuItem
+                          key={option.wardName}
+                          value={option.wardName}
+                          onClick={() => getRoomList(option.wardName)}
+                        >
+                          {option.wardName}
+                        </MenuItem>
+                      ))
+                    : []}
+                </TextField>
                 <TextField
                   id="room"
                   fullWidth
+                  select
                   label="Room *"
                   variant="standard"
                   {...register("room")}
-                  value={watch('room')|| ''}
-                />
+                  value={watch("room") || ""}
+                >
+                  {roomList.length > 0
+                    ? roomList[0].rooms.map((option) => (
+                        <MenuItem
+                          key={option.roomNo}
+                          value={option.roomNo}
+                          onClick={() => getBedList(option.roomNo)}
+                        >
+                          {option.roomNo}
+                        </MenuItem>
+                      ))
+                    : []}
+                </TextField>
 
                 <TextField
                   id="bed"
                   fullWidth
+                  select
                   label="Bed *"
                   variant="standard"
                   {...register("bed")}
-                  value={watch('bed')|| ''}
-                />
+                  value={watch("bed") || ""}
+                >
+                  {bedList.length > 0
+                    ? bedList[0].rooms.map((option, roomIndex) =>
+                        option.beds.map((bed) => (
+                          <MenuItem key={bed.bedNo} value={bed.bedNo}>
+                            {bed.bedNo}
+                          </MenuItem>
+                        ))
+                      )
+                    : []}
+                </TextField>
               </Stack>
 
               <Stack spacing={2} direction="row">
@@ -491,7 +580,7 @@ function PatienRegistration() {
                   variant="standard"
                   label="Admission Date *"
                   {...register("admissionDate")}
-                  value={watch('admissionDate')|| ''}
+                  value={watch("admissionDate") || ""}
                 />
               </Stack>
             </div>

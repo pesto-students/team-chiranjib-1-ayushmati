@@ -10,6 +10,7 @@ const initalState = {
   isAuthenticated: false,
 };
 
+
 const userLoginReducer = (state = initalState, action) => {
   console.log("inside reducer");
   console.log(action.user);
@@ -35,6 +36,7 @@ const userLoginReducer = (state = initalState, action) => {
       localStorage.removeItem("token");
       axios
         .post(API_URL + "/authenticate/logout");
+        
 
       return initalState;
 

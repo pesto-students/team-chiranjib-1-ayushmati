@@ -17,6 +17,7 @@ import TextField from "@mui/material/TextField";
 export default function DoctorDashboard() {
   const [filterText, setFilterText] = useState("");
   const [rows,setRow]= useState([]);
+  const hospitalName = localStorage.getItem('hospitalName');
 
   const filteredData = rows.filter((item) =>
     item.patientName.toLowerCase().includes(filterText.toLowerCase())
@@ -31,7 +32,7 @@ export default function DoctorDashboard() {
     console.log("API_URL : " + API_URL);
 
     axios
-      .get(API_URL + "/patientRegistration/listPatient")
+      .get(API_URL + `/patientRegistration/listPatient/${hospitalName}`)
 
       .then((response) => {
         console.log(response.data);

@@ -24,6 +24,7 @@ export default function PatientTask() {
   const [patientData, setPatientData] = useState();
   const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
   const [diseaseList, setDiseaseList] = useState([]);
+  const hospitalName = localStorage.getItem('hospitalName');
   // const [medicineList, setmedicineList] = useState([]);
 
   const { id } = useParams();
@@ -54,7 +55,7 @@ export default function PatientTask() {
   useEffect(() => {
     const getPrimaryDoctorList = async () => {
       try {
-        const response = await axios.get(API_URL + "/user/listActiveDoctor");
+        const response = await axios.get(API_URL + `/user/listActiveDoctor/${hospitalName}`);
         setPrimaryDoctorList(response.data);
         console.log(response.data);
       } catch (error) {

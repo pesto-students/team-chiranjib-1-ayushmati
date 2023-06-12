@@ -55,11 +55,12 @@ export default function TaskComponent(props) {
       reset2({})
     }
 
+    const hospitalName = localStorage.getItem('hospitalName');
 
   useEffect(() => {
     const getPrimaryNurseList = async () => {
       try {
-        const response = await axios.get(API_URL + "/user/listActiveNurse");
+        const response = await axios.get(API_URL + `/user/listActiveNurse/${hospitalName}`);
         setPrimaryNurseList(response.data);
         console.log(response.data);
       } catch (error) {

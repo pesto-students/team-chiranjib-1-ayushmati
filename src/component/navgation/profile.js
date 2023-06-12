@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useDispatch } from "react-redux";
 import { userLogOut } from "../../action";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ProfileMenu() {
@@ -13,6 +14,7 @@ export default function ProfileMenu() {
   const token = useSelector((state) => state.token);
   const firstName = useSelector((state) => state.firstName);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -26,6 +28,8 @@ export default function ProfileMenu() {
   const handleLogOut = () =>{
     setAnchorEl(null);
     dispatch(userLogOut());
+    navigate("/")
+    
   }
 
   return (

@@ -123,16 +123,18 @@ const tableStyles = {
     },
   },
 ];*/
+const hospitalName = localStorage.getItem('hospitalName');
 
 const PatientList = () => {
   const [filterText, setFilterText] = useState("");
 
   const [data, setData] = useState([]);
   useEffect(() => {
+    console.log("hospital name" + hospitalName )
     console.log("API_URL : " + API_URL);
 
     axios
-      .get(API_URL + "/patientRegistration/listPatient")
+      .get(API_URL + `/patientRegistration/listPatient/${hospitalName}`)
 
       .then((response) => {
         setData(response.data);
