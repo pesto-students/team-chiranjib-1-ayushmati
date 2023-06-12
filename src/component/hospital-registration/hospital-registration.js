@@ -4,6 +4,11 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { API_URL } from "../../utils/constant";
+import { stateList, countryList, townCityList } from "../master/master-list";
+import NavigationBar from "../navgation/navigation-bar";
 
 function HospitalRegistration() {
   const {
@@ -13,27 +18,51 @@ function HospitalRegistration() {
     watch,
   } = useForm();
 
-  const onsubmit = (data) => {
+  const navigate = useNavigate();
+
+  const onsubmit = async (data) => {
     console.log(data);
+
+
+
+    
+    const newHospitalData = { newHospital: data };
+    try {
+        axios
+          .post(API_URL + `/registration/createHospital`, {
+            newHospital: newHospitalData.newHospital,
+          })
+          .then((res) => {
+            if (res.status === 201) {
+              console.log("Hospital Registered Successfully");
+              navigate("/");
+            } else if(res.status === 409){
+              console.log("Hospital Already Exists");
+              
+            }  else {
+               console.log('else called....');
+              Promise.reject();
+            }
+          });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
-    <Box
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "40ch" },
-      }}
-      noValidate
-      autoComplete="off"
-    >
+    <>
+    <NavigationBar />
+      
+
       <div className="signup-div">
         <form onSubmit={handleSubmit(onsubmit)}>
-          <div className="form-control">
+          <Stack spacing={2} direction="row">
             <TextField
-              id="outlined-required"
+              id="hospitalName"
               label="Hospital Name *"
               placeholder="Apollo Hospital"
               variant="standard"
-              {...register("hospital", {
+              {...register("hospitalName", {
                 required: {
                   value: true,
                   message: "Hospital Name is required",
@@ -42,26 +71,126 @@ function HospitalRegistration() {
               error={!!errors.hospital}
               helperText={errors?.hospital?.message}
             />
-          </div>
-
-          <div className="form-control">
-            <TextField
-              id="outlined-required"
-              label="Hospital Registration No *"
-              placeholder="Apollo Hospital"
-              variant="standard"
-              {...register("hospital", {
-                required: {
-                  value: true,
-                  message: "Hospital Name is required",
-                },
-              })}
-              error={!!errors.hospital}
-              helperText={errors?.hospital?.message}
-            />
-          </div>
-
           
+            <TextField
+              id="hospitalRegnNo"
+              label="Hospital Registration No *"
+              placeholder="HOSP-123456"
+              variant="standard"
+              {...register("hospitalRegnNo", {
+                required: {
+                  value: true,
+                  message: "Hospital Name is required",
+                },
+              })}
+              error={!!errors.hospital}
+              helperText={errors?.hospital?.message}
+            />
+          </Stack>
+
+          <Stack spacing={2} direction="row">
+                <TextField
+                  className="patient-reg-text-field"
+                  id="contactNo"
+                  label="Contact No *"
+                  variant="standard"
+                  fullWidth
+                  {...register("contactNo", {
+                    required: {
+                      value: true,
+                      message: "Contact No. is required",
+                    },
+                  })}
+                  value={watch("contactNo") || ""}
+                  error={!!errors.contactNo}
+                  helperText={errors?.contactNo?.message}
+                />
+
+                <TextField
+                  className="patient-reg-text-field"
+                  id="faxNo"
+                  label="Fax "
+                  variant="standard"
+                  placeholder="456-7890. 123-456-7890"
+                  fullWidth
+                  {...register("faxNo")}
+                  value={watch("faxNo") || ""}
+                />
+              </Stack>
+
+          <Stack spacing={2} direction="row">
+                <TextField
+                  className="patient-reg-text-field"
+                  fullWidth
+                  id="country"
+                  select
+                  label="Country"
+                  variant="standard"
+                  {...register("country")}
+                  value={watch("country") || ""}
+                >
+                  {countryList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+
+                <TextField
+                  id="state"
+                  className="patient-reg-text-field"
+                  select
+                  label="State"
+                  fullWidth
+                  variant="standard"
+                  {...register("state")}
+                  value={watch("state") || ""}
+                >
+                  {stateList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Stack>
+
+              <Stack spacing={2} direction="row">
+                <TextField
+                  className="patient-reg-text-field"
+                  id="city"
+                  select
+                  label="Town/City"
+                  fullWidth
+                  variant="standard"
+                  {...register("city")}
+                  value={watch("city") || ""}
+                >
+                  {townCityList.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  id="pincode"
+                  label="Pincode"
+                  placeholder="000123"
+                  variant="standard"
+                  fullWidth
+                  {...register("pincode")}
+                  value={watch("pincode") || ""}
+                />
+              </Stack>
+
+              <TextField
+                id="address"
+                label="Address"
+                placeholder="Address"
+                variant="standard"
+                fullWidth
+                {...register("address")}
+                value={watch("address") || ""}
+              />
 
           <Button
             style={{
@@ -75,7 +204,7 @@ function HospitalRegistration() {
           </Button>
         </form>
       </div>
-    </Box>
+      </>
   );
 }
 
