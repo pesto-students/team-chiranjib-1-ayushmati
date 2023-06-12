@@ -2,63 +2,17 @@ import MaterialTable from "material-table";
 import { Button, ThemeProvider, createTheme } from "@mui/material";
 import tableIcons from "../../master/MaterialTableIcons";
 import NusrsePop from "./pop-up-componet";
+import { useState } from "react";
 
 export default function NurseDashboardTest() {
   const defaultMaterialTheme = createTheme();
-  const data = [
-    {
-      patientName: "Thiru",
-      WRB: "Ward 1/Room 1/Bed 2",
-      typeAndMedicine: "Tablet/Aptiom",
-      doctorInstructions: "Before lunch",
-      inTakeTime: "10.00 PM",
-      status: "Done",
-    },
-    {
-      patientName: "Sagar",
-      WRB: "Ward 1/Room 1/Bed 2",
-      typeAndMedicine: "Tablet/Aptiom",
-      doctorInstructions: "Before lunch",
-      inTakeTime: "10.00 PM",
-      status: "Pending",
-    },
-    {
-      patientName: "Chiranjib",
-      WRB: "Ward 1/Room 1/Bed 2",
-      typeAndMedicine: "Tablet/Aptiom",
-      doctorInstructions: "Before lunch",
-      inTakeTime: "10.00 PM",
-      status: "On Alert",
-    },
-    {
-      patientName: "Mahi",
-      WRB: "Ward 1/Room 1/Bed 2",
-      typeAndMedicine: "Tablet/Aptiom",
-      doctorInstructions: "Before lunch",
-      inTakeTime: "10.00 PM",
-      status: "On Alert",
-    },
-    {
-      patientName: "Virat",
-      WRB: "Ward 1/Room 1/Bed 2",
-      typeAndMedicine: "Tablet/Aptiom",
-      doctorInstructions: "Before lunch",
-      inTakeTime: "10.00 PM",
-      status: "Pending",
-    },
-    {
-      patientName: "Thiru",
-      WRB: "Ward 1/Room 1/Bed 2",
-      typeAndMedicine: "Tablet/Aptiom",
-      doctorInstructions: "Before lunch",
-      inTakeTime: "10.00 PM",
-      status: "Pending",
-    },
-  ];
+  const [data ,setData] = useState([]);
+
+  
 
   const columns = [
     { title: "Patient Name", field: "patientName" },
-    { title: "Ward/Room/Bed", field: "WRB" },
+    { title: "Ward/Room/Bed", field: "WRB[0].ward"},
     { title: "Type/Medicine", field: "typeAndMedicine" },
     { title: "Doctor Instruction", field: "doctorInstructions" },
     { title: "InTake time", field: "inTakeTime" },
@@ -100,3 +54,57 @@ export default function NurseDashboardTest() {
     </>
   );
 }
+
+
+
+
+// const data = [
+//   {
+//     patientName: "Thiru",
+//     // WRB: "Ward 1/Room 1/Bed 2",
+//     typeAndMedicine: "Tablet/Aptiom",
+//     doctorInstructions: "Before lunch",
+//     inTakeTime: "10.00 PM",
+//     status: "Done",
+//   },
+//   {
+//     patientName: "Sagar",
+//     // WRB: "Ward 1/Room 1/Bed 2",
+//     typeAndMedicine: "Tablet/Aptiom",
+//     doctorInstructions: "Before lunch",
+//     inTakeTime: "10.00 PM",
+//     status: "Pending",
+//   },
+//   {
+//     patientName: "Chiranjib",
+//     // WRB: "Ward 1/Room 1/Bed 2",
+//     typeAndMedicine: "Tablet/Aptiom",
+//     doctorInstructions: "Before lunch",
+//     inTakeTime: "10.00 PM",
+//     status: "On Alert",
+//   },
+//   {
+//     patientName: "Mahi",
+//     // WRB: "Ward 1/Room 1/Bed 2",
+//     typeAndMedicine: "Tablet/Aptiom",
+//     doctorInstructions: "Before lunch",
+//     inTakeTime: "10.00 PM",
+//     status: "On Alert",
+//   },
+//   {
+//     patientName: "Virat",
+//     // WRB: "Ward 1/Room 1/Bed 2",
+//     typeAndMedicine: "Tablet/Aptiom",
+//     doctorInstructions: "Before lunch",
+//     inTakeTime: "10.00 PM",
+//     status: "Pending",
+//   },
+//   {
+//     patientName: "Thiru",
+//     WRB: [{ward:"ward 1",room:"room 2"}],
+//     typeAndMedicine: "Tablet/Aptiom",
+//     doctorInstructions: "Before lunch",
+//     inTakeTime: "10.00 PM",
+//     status: "Pending",
+//   },
+// ];

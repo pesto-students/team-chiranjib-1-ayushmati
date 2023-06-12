@@ -77,7 +77,7 @@ function App() {
           {isAuthenticated && role === "Nurse" ? (
             <>
               <Route
-                path="/nurseDashTest"
+                path="/nurse"
                 element={<NurseDashboardWrapper />}
               />
             </>
@@ -85,7 +85,7 @@ function App() {
             <></>
           )}
 
-          <Route path="/nurse" element={<NurseDashboard />} />
+          <Route path="/nurseOld" element={<NurseDashboard />} />
 
           {/* <Route path="/loader" element={<Loader />} /> */}
           {/* <Route path="/receptionistDashboard" element = {<ReceptionistDashboardTestWrapper/>}/> */}

@@ -34,6 +34,17 @@ export default function TaskComponent(props) {
 
   const onTaskSubmit = (data) => {
     console.log(data);
+
+    const tempPrimaryNurse = primaryNurseList.filter((list)=>{
+            return list._id == watch2('primaryNurse')
+    })
+    
+    console.log(tempPrimaryNurse)
+
+    data.primaryNurse = tempPrimaryNurse[0].firstName;
+    data.primaryNurseID = tempPrimaryNurse[0]._id
+    console.log(data);
+
     try {
       data.patientID = id
         axios
@@ -141,7 +152,7 @@ export default function TaskComponent(props) {
             >
               {primaryNurseList.length > 0
                 ? primaryNurseList.map((option) => (
-                    <MenuItem key={option._id} value={option.firstName}>
+                    <MenuItem key={option._id} value={option._id}>
                       {option.firstName}
                     </MenuItem>
                   ))
