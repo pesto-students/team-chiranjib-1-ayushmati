@@ -1,23 +1,23 @@
 import HomePage from "./component/home/home-page";
-import Signup from "./component/authenticate/sign-up";
-import Login from "./component/authenticate/login";
+import Signup from "./component/authenticate/sign-up"
+import Login from "./component/authenticate/login"
 import NoRoute from "./component/no-route";
 import AboutUs from "./component/aboutUs/about-us";
 import ContactUs from "./component/contactUs/contact-us";
+import HospitalRegistration from "./component/hospital-registration/hospital-registration";
 import ReceptionistDashboard from "./component/dashboard/reception/reception-dashboard";
 import PatientRegistration from "./component/dashboard/reception/patient-registration";
 import DoctorDashboard from "./component/dashboard/doctor/doctor-dashboard";
 import NurseDashboard from "./component/dashboard/nurse/nurse-dashboard";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import wrapper from "./component/layoutHOC/layout";
-import PatientRegistrationTest from "./component/dashboard/reception/patient-registration";
-import ReceptionistDashboardTest from "./component/dashboard/reception/reception-dashboard";
 import PatientTask from "./component/dashboard/doctor/patient-task";
-import NurseDashboardTest from "./component/dashboard/nurse/nurse-dashboard-new";
-import Loader from "./component/master/loader";
 import { useSelector } from "react-redux";
+import NurseDashboardTest from "./component/dashboard/nurse/nurse-dashboard-new";
+
 
 function App() {
+
   const ReceptionistDashboardWrapper = wrapper(ReceptionistDashboard);
   const PatientRegistrationWrapper = wrapper(PatientRegistration);
   const DoctorDashboardWrapper = wrapper(DoctorDashboard);
@@ -34,6 +34,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/hospitalRegistration" element={<HospitalRegistration/>}/>
 
           {!isAuthenticated ? (
             <>
