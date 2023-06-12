@@ -34,38 +34,40 @@ function NavigationBar() {
             ContactUs
         </NavLink> */}
 
-        <Button
-          component={Link}
-          to={"/"}
-          sx={{
-            color: "black",
-            fontSize: "20px",
-            margin: "4px",
-            alignItems: "center",
-            flexGrow: 1,
-            font: "inherit",
-            borderRadius: 6,
-          }}
-        >
-          Home
-        </Button>
-
-        <Button
-          sx={{
-            color: "black",
-            fontSize: "20px",
-            margin: "4px",
-            alignItems: "center",
-            flexGrow: 1,
-            font: "inherit",
-            borderRadius: 6,
-          }}
-        >
-          NEW HOSPITAL
-        </Button>
-
         {!token ? (
           <>
+              <Button
+                component={Link}
+                to={"/"}
+                sx={{
+                  color: "black",
+                  fontSize: "20px",
+                  margin: "4px",
+                  alignItems: "center",
+                  flexGrow: 1,
+                  font: "inherit",
+                  borderRadius: 6,
+                }}
+              >
+                Home
+            </Button>
+          
+            <Button
+              component={Link}
+              to={"/hospitalRegistration"}
+              sx={{
+                color: "black",
+                fontSize: "20px",
+                margin: "4px",
+                alignItems: "center",
+                flexGrow: 1,
+                font: "inherit",
+                borderRadius: 6,
+              }}
+            >
+              NEW HOSPITAL
+            </Button>
+
             <Button
               component={Link}
               to={"/contactus"}
@@ -102,6 +104,7 @@ function NavigationBar() {
           <></>
         )}
         {role === "Receptionist" ? (
+          <>
           <Button
             component={Link}
             to={"/patientRegistration/"}
@@ -117,11 +120,7 @@ function NavigationBar() {
           >
             New Patient Registration
           </Button>
-        ) : (
-          <></>
-        )}
-
-{role === "Receptionist" ? (
+        
           <Button
             component={Link}
             to={"/receptionist/"}
@@ -137,6 +136,7 @@ function NavigationBar() {
           >
             My dashboard
           </Button>
+          </>
         ) : (
           <></>
         )}
@@ -160,6 +160,7 @@ function NavigationBar() {
         ) : (
           <></>
         )}
+
         {/* {role === "Nurse" ? (
           <Button
             component={Link}
@@ -238,28 +239,3 @@ function NavigationBar() {
 }
 
 export default NavigationBar;
-
-
-
-
-
-
-
-{/* <div
-            style={{
-              flexGrow: 1,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "end",
-              backgroundColor: "#DAF1FF",
-            }}
-          >
-            <p style={{ color: "black", padding: "1px", margin: "2px" }}>
-              {" "}
-              Hi {firstName}!
-            </p>
-            <p style={{ color: "black", padding: "1px", margin: "2px" }}>
-              {" "}
-              {role}
-            </p>
-          </div> */}

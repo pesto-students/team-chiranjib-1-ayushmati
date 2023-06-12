@@ -78,3 +78,6 @@ function HospitalRegistration() {
     </Box>
   );
 }
+
+export default HospitalRegistration;
+
