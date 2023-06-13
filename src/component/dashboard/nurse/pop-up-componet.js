@@ -5,6 +5,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle'
+import axios from "axios";
+import { API_URL } from "../../../utils/constant";
+
 
 export default function NusrsePop (props){
 
@@ -38,6 +41,24 @@ export default function NusrsePop (props){
       const handleClose = () => {
         setOpen(false);
       };
+      const handleYes = (data) => {
+
+        axios
+          .post(API_URL + `/patientTask/updateTask`, {
+            _id: data,
+          })
+          .then((res) => {
+            if (res.status === 201) {
+              console.log("patient details created successfully");
+            } else {
+              Promise.reject();
+            }
+          });
+
+        setOpen(false)
+        // console.log(data)
+        // setOpen(false)
+      };
 
     return (
         <>
@@ -55,7 +76,9 @@ export default function NusrsePop (props){
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>No</Button>
-          <Button onClick={handleClose} autoFocus>
+          <Button onClick={()=>{
+            handleYes(props.data._id)
+          }} autoFocus>
             Yes
           </Button>
         </DialogActions>

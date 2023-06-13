@@ -5,7 +5,7 @@ import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileMenu from "./profile";
-import Typography from '@mui/material/Typography';
+import Typography from "@mui/material/Typography";
 import { IconButton } from "@mui/material";
 
 import { NavLink } from "react-router-dom";
@@ -15,7 +15,7 @@ function NavigationBar() {
   const role = useSelector((state) => state.role);
   const firstName = useSelector((state) => state.firstName);
 
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
 
   return (
     <AppBar
@@ -34,24 +34,24 @@ function NavigationBar() {
             ContactUs
         </NavLink> */}
 
+        <Button
+          component={Link}
+          to={"/"}
+          sx={{
+            color: "black",
+            fontSize: "20px",
+            margin: "4px",
+            alignItems: "center",
+            flexGrow: 1,
+            font: "inherit",
+            borderRadius: 6,
+          }}
+        >
+          Home
+        </Button>
+
         {!token ? (
           <>
-              <Button
-                component={Link}
-                to={"/"}
-                sx={{
-                  color: "black",
-                  fontSize: "20px",
-                  margin: "4px",
-                  alignItems: "center",
-                  flexGrow: 1,
-                  font: "inherit",
-                  borderRadius: 6,
-                }}
-              >
-                Home
-            </Button>
-          
             <Button
               component={Link}
               to={"/hospitalRegistration"}
@@ -105,37 +105,37 @@ function NavigationBar() {
         )}
         {role === "Receptionist" ? (
           <>
-          <Button
-            component={Link}
-            to={"/patientRegistration/"}
-            sx={{
-              color: "black",
-              fontSize: "20px",
-              margin: "4px",
-              alignItems: "center",
-              flexGrow: 1,
-              font: "inherit",
-              borderRadius: 6,
-            }}
-          >
-            New Patient Registration
-          </Button>
-        
-          <Button
-            component={Link}
-            to={"/receptionist/"}
-            sx={{
-              color: "black",
-              fontSize: "20px",
-              margin: "4px",
-              alignItems: "center",
-              flexGrow: 1,
-              font: "inherit",
-              borderRadius: 6,
-            }}
-          >
-            My dashboard
-          </Button>
+            <Button
+              component={Link}
+              to={"/patientRegistration/"}
+              sx={{
+                color: "black",
+                fontSize: "20px",
+                margin: "4px",
+                alignItems: "center",
+                flexGrow: 1,
+                font: "inherit",
+                borderRadius: 6,
+              }}
+            >
+              New Patient Registration
+            </Button>
+
+            <Button
+              component={Link}
+              to={"/receptionist/"}
+              sx={{
+                color: "black",
+                fontSize: "20px",
+                margin: "4px",
+                alignItems: "center",
+                flexGrow: 1,
+                font: "inherit",
+                borderRadius: 6,
+              }}
+            >
+              My dashboard
+            </Button>
           </>
         ) : (
           <></>
@@ -218,20 +218,18 @@ function NavigationBar() {
             </Button>
           </>
         ) : (
-          <div style={{
-            borderRadius:"50px 0px 0px 50px",
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "end",
-            backgroundColor: "#27a2ee",
-          }}>
-
-            <ProfileMenu/>
-
+          <div
+            style={{
+              borderRadius: "50px 0px 0px 50px",
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "end",
+              backgroundColor: "#27a2ee",
+            }}
+          >
+            <ProfileMenu />
           </div>
-
-          
         )}
       </Toolbar>
     </AppBar>
