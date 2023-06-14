@@ -15,6 +15,8 @@ import TextField from "@mui/material/TextField";
 import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import SearchBar from "material-ui-search-bar";
+import { Button } from "@mui/material";
+ 
 export default function DoctorPatientTable(props){
 
     const [rows,setRows]= useState([]);
@@ -36,6 +38,25 @@ export default function DoctorPatientTable(props){
             console.error(error);
           });
       }, []);
+      
+    function StatusComp ({status}){
+      if(status=="Pending"){
+        return(
+            <Button sx={{backgroundColor:"#E57C23",color:"white"}} > {status} </Button>         
+        )       
+    }
+    else if(status=="Done"){
+        return(
+            <Button sx={{backgroundColor:"#54B435",color:"white"}}> {status}</Button>
+        )   
+    }
+    else if(status == "On Alert"){
+        return(
+            <Button sx={{backgroundColor:"#FC2947",color:"white",width:"auto"}}> {status}</Button>
+        )
+        
+    }
+    }
 
     return (
         <div className="doctor-patient-table-outer-div">
@@ -75,7 +96,7 @@ export default function DoctorPatientTable(props){
                     </TableCell>
                     <TableCell align="center">{row.doctorInstructions}</TableCell>
 
-                    {row.status === "COMPLETED" ? (
+                    {/* {row.status === "COMPLETED" ? (
                       <TableCell sx={{ color: "white" }} align="center">
                         <p className="admitted-status-div">{row.status} </p>
                       </TableCell>
@@ -83,7 +104,12 @@ export default function DoctorPatientTable(props){
                       <TableCell sx={{ color: "white" }} align="center">
                         <p className="discharged-status-div">{row.status} </p>
                       </TableCell>
-                    )}
+                    )} */}
+                    <TableCell align="center">
+                      <StatusComp status={row.status}/>  
+                    </TableCell>
+                    
+                    
 
                     
                   </TableRow>

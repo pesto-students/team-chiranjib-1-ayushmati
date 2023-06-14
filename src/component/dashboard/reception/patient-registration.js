@@ -24,15 +24,28 @@ import { useState } from "react";
 
 function PatienRegistration() {
   const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [diseaseList, setDiseaseList] = useState([]);
   const [wardList, setWardList] = useState([]);
   const [roomList, setRoomList] = useState([]);
   const [bedList, setBedList] = useState([]);
+  const [temp,setTemp]= useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
 
+  
+
   const hospitalName = localStorage.getItem("hospitalName");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+    reset,
+  } = useForm();
 
   useEffect(() => {
     if (id) {
@@ -53,7 +66,7 @@ function PatienRegistration() {
         setValue("country", response.data.country);
         setValue("state", response.data.state);
         setValue("city", response.data.city);
-        setValue("addresponses", response.data.addresponses);
+        setValue("address", response.data.address);
         setValue("primaryDoctor", response.data.primaryDoctor);
         setValue("weight", response.data.weight);
         setValue("height", response.data.height);
@@ -62,13 +75,20 @@ function PatienRegistration() {
         setValue("disease", response.data.disease);
         setValue("ward", response.data.ward);
         setValue("room", response.data.room);
+        setValue("pincode", response.data.pincode);
         setValue("bed", response.data.bed);
         setValue(
           "admissionDate",
           moment(response.data.admissionDate).format("YYYY-MM-DD")
         );
+
+        setDataLoaded(true);
       };
       getPatientData();
+    }
+    else{
+      setTemp(true);
+      reset({});
     }
   }, []);
 
@@ -145,13 +165,7 @@ function PatienRegistration() {
     }
   };
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    setValue,
-  } = useForm();
+  
 
   // const hospitalName = localStorage.getItem('hospitalName');
 
@@ -536,6 +550,7 @@ function PatienRegistration() {
                   variant="standard"
                   {...register("room")}
                   value={watch("room") || ""}
+                  // defaultValue={watch("room")||""}
                 >
                   {roomList.length > 0
                     ? roomList[0].rooms.map((option) => (
@@ -556,8 +571,8 @@ function PatienRegistration() {
                   select
                   label="Bed *"
                   variant="standard"
-                  {...register("bed")}
                   value={watch("bed") || ""}
+                  {...register("bed")}
                 >
                   {bedList.length > 0
                     ? bedList[0].rooms.map((option, roomIndex) =>
@@ -586,19 +601,39 @@ function PatienRegistration() {
             </div>
 
             <div className="signup-btn">
-              <Button
-                sx={{
-                  borderRadius: 20,
-                  backgroundColor: "#7EDD6F",
-                  justifyContent: "center",
-                  paddingLeft: "60px",
-                  paddingRight: "60px",
-                }}
-                variant="contained"
-                type="submit"
-              >
-                Register Now
-              </Button>
+              {dataLoaded ? (
+                <>
+                  <Button
+                    sx={{
+                      borderRadius: 20,
+                      backgroundColor: "#54B435",
+                      justifyContent: "center",
+                      paddingLeft: "60px",
+                      paddingRight: "60px",
+                    }}
+                    variant="contained"
+                    type="submit"
+                  >
+                    UPDATE NOW
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    sx={{
+                      borderRadius: 20,
+                      backgroundColor: "#54B435",
+                      justifyContent: "center",
+                      paddingLeft: "60px",
+                      paddingRight: "60px",
+                    }}
+                    variant="contained"
+                    type="submit"
+                  >
+                    Register Now
+                  </Button>
+                </>
+              )}
             </div>
           </form>
         </div>

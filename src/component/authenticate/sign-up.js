@@ -415,7 +415,7 @@ function Signup() {
                 <Button
                   sx={{
                     borderRadius: 20,
-                    backgroundColor: "#7EDD6F",
+                    backgroundColor: "#54B435",
                     justifyContent: "center",
                     paddingLeft: "60px",
                     paddingRight: "60px",

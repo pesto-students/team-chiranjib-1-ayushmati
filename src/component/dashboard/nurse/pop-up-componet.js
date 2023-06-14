@@ -11,6 +11,8 @@ import { API_URL } from "../../../utils/constant";
 
 export default function NusrsePop (props){
 
+  
+
     function ButtonItem ({status,clickFunction}){
 
         if(status=="Pending"){
@@ -49,7 +51,7 @@ export default function NusrsePop (props){
           })
           .then((res) => {
             if (res.status === 201) {
-              console.log("patient details created successfully");
+              console.log("patient task completed successfully");
             } else {
               Promise.reject();
             }
@@ -59,6 +61,8 @@ export default function NusrsePop (props){
         // console.log(data)
         // setOpen(false)
       };
+
+      // console.log(props.data);
 
     return (
         <>
@@ -72,7 +76,7 @@ export default function NusrsePop (props){
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {`Are you sure, Has ${props.data.patientName} taken the medicine?`}
+          {`Are you sure, Has ${props.data.patientData[0].patientName} taken the medicine?`}
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose}>No</Button>

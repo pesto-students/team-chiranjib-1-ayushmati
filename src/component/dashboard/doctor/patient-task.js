@@ -19,12 +19,19 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TaskComponent from "./task-component";
 import DoctorPatientTable from "./doctor-patient-table";
 import Loader from "../../master/loader";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 export default function PatientTask() {
   const [patientData, setPatientData] = useState();
   const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
   const [diseaseList, setDiseaseList] = useState([]);
-  const hospitalName = localStorage.getItem('hospitalName');
+  const hospitalName = localStorage.getItem("hospitalName");
   // const [medicineList, setmedicineList] = useState([]);
 
   const { id } = useParams();
@@ -55,7 +62,9 @@ export default function PatientTask() {
   useEffect(() => {
     const getPrimaryDoctorList = async () => {
       try {
-        const response = await axios.get(API_URL + `/user/listActiveDoctor/${hospitalName}`);
+        const response = await axios.get(
+          API_URL + `/user/listActiveDoctor/${hospitalName}`
+        );
         setPrimaryDoctorList(response.data);
         console.log(response.data);
       } catch (error) {
@@ -101,6 +110,15 @@ export default function PatientTask() {
       console.error(err);
     }
   };
+  // const [open,setOpen] = useState(false)
+
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   return (
     <>
@@ -252,6 +270,7 @@ export default function PatientTask() {
                   <Stack spacing={3} direction="row">
                     <TextField
                       className="patient-reg-text-field"
+                      disabled
                       id="ward"
                       fullWidth
                       label="Ward *"
@@ -263,6 +282,7 @@ export default function PatientTask() {
                     <TextField
                       id="room"
                       fullWidth
+                      disabled
                       label="Room *"
                       variant="standard"
                       {...register("room")}
@@ -271,6 +291,7 @@ export default function PatientTask() {
 
                     <TextField
                       id="bed"
+                      disabled
                       fullWidth
                       label="Bed *"
                       variant="standard"
@@ -297,7 +318,7 @@ export default function PatientTask() {
                   <Button
                     sx={{
                       borderRadius: 20,
-                      backgroundColor: "#7EDD6F",
+                      backgroundColor: "#54B435",
                       justifyContent: "center",
                       paddingLeft: "60px",
                       paddingRight: "60px",
@@ -305,18 +326,17 @@ export default function PatientTask() {
                     variant="contained"
                     type="submit"
                   >
-                    Register Now
+                    UPDATE NOW
                   </Button>
                 </div>
               </form>
             </div>
-            <TaskComponent id={id}/>
-            <DoctorPatientTable id={id}/>       
+            <TaskComponent id={id} />
           </div>
         </>
       ) : (
         <>
-          <Loader/>
+          <Loader />
         </>
       )}
     </>

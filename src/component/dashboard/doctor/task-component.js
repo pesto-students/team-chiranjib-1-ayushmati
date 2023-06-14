@@ -16,6 +16,10 @@ import {
   medicineList,
 } from "../../master/master-list";
 import Autocomplete from "@mui/material/Autocomplete";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import DoctorPatientTable from "./doctor-patient-table";
 
 export default function TaskComponent(props) {
   const [primaryNurseList, setPrimaryNurseList] = useState([]);
@@ -80,10 +84,22 @@ export default function TaskComponent(props) {
     };
     getPrimaryNurseList();
   }, []);
+
+
+  const [open,setOpen] = useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  }
   return (
     <div className="patientdata-inner-div">
       <form onSubmit={handleSubmit2(onTaskSubmit)}>
         <div>
+        <h2>Add new prescription?</h2>
           <Stack spacing={2} direction="row">
             <TextField
               className="patient-reg-text-field"
@@ -192,7 +208,7 @@ export default function TaskComponent(props) {
           <Button
             sx={{
               borderRadius: 20,
-              backgroundColor: "#7EDD6F",
+              backgroundColor: "#54B435",
               justifyContent: "center",
               paddingLeft: "60px",
               paddingRight: "60px",
@@ -200,9 +216,32 @@ export default function TaskComponent(props) {
             variant="contained"
             type="submit"
           >
-            ADD TASK
+            ADD Prescription
           </Button>
         </div>
+        <div className="signup-btn">
+              <Button sx={{
+              borderRadius: 20,
+              backgroundColor: "#27a2ee",
+              justifyContent: "center",
+              paddingLeft: "60px",
+              paddingRight: "60px",
+            }}
+            variant="contained"
+             onClick={handleClickOpen}>
+               Check Prescriptions
+              </Button>
+              <Dialog
+                open={open}
+                maxWidth
+                onClose={handleClose}
+                aria-labelledby="responsive-dialog-title"
+              >
+                <DialogActions>
+                <DoctorPatientTable id={id} />
+                </DialogActions>
+              </Dialog>
+            </div>
       </form>
     </div>
   );

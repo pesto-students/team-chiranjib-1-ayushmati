@@ -14,6 +14,7 @@ import wrapper from "./component/layoutHOC/layout";
 import PatientTask from "./component/dashboard/doctor/patient-task";
 import { useSelector } from "react-redux";
 import NurseDashboardTest from "./component/dashboard/nurse/nurse-dashboard-new";
+import { v4 as uuidv4 } from 'uuid';
 
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
 
   return (
     <>
-      <Router>
+      <Router >
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/aboutus" element={<AboutUs />} />
@@ -53,11 +54,11 @@ function App() {
               />
               <Route
                 path="/patientRegistration"
-                element={<PatientRegistrationWrapper />}
+                element={<PatientRegistrationWrapper key= {uuidv4()} />}
               />
               <Route
                 path="/patientRegistration/:id"
-                element={<PatientRegistrationWrapper />}
+                element={<PatientRegistrationWrapper key= {uuidv4()}/>}
               />
             </>
           ) : (

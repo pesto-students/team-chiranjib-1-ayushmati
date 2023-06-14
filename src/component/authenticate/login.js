@@ -128,7 +128,7 @@ function Login() {
                 <Button
                   sx={{
                     borderRadius: 8,
-                    backgroundColor: "#7EDD6F",
+                    backgroundColor: "#54B435",
                     paddingLeft: "60px",
                     paddingRight: "60px",
                   }}
