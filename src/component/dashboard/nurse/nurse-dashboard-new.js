@@ -1,13 +1,11 @@
 import MaterialTable from "material-table";
-import { Button, ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 import tableIcons from "../../master/MaterialTableIcons";
 import NusrsePop from "./pop-up-componet";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../../utils/constant";
 import axios from "axios";
 import moment from "moment";
-import { red } from "@mui/material/colors";
-import { alignProperty } from "@mui/material/styles/cssUtils";
 
 export default function NurseDashboardTest() {
   const defaultMaterialTheme = createTheme();
@@ -25,8 +23,6 @@ export default function NurseDashboardTest() {
         console.error(error);
       });
   }, []);
-
-
 
   const columns = [
     { title: "Patient Name", field: "patientData[0].patientName",
