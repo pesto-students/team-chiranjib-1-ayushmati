@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
@@ -9,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/constant";
 import { stateList, countryList, townCityList } from "../master/master-list";
 import NavigationBar from "../navgation/navigation-bar";
+import "../../css/common.css";
+
 
 function HospitalRegistration() {
   const {
@@ -54,8 +55,13 @@ function HospitalRegistration() {
     <NavigationBar />
       
 
-      <div className="signup-div">
+      <div className="common-backgroud">
+      <div className="form-background">
+          
         <form onSubmit={handleSubmit(onsubmit)}>
+        <div className="form-control">
+                <h1 className="page-heading">HOSPITAL REGISTRATION</h1>
+              </div>
           <Stack spacing={2} direction="row">
             <TextField
               id="hospitalName"
@@ -203,6 +209,7 @@ function HospitalRegistration() {
            Register Now
           </Button>
         </form>
+      </div>
       </div>
       </>
   );
