@@ -219,11 +219,11 @@ function NavigationBar() {
           <div
             style={{
               borderRadius: "50px 0px 0px 50px",
-              flexGrow: 1,
               display: "flex",
               flexDirection: "column",
               alignItems: "end",
               backgroundColor: "#27a2ee",
+              paddingLeft: "50px"
             }}
           >
             <ProfileMenu />

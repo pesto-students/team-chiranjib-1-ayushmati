@@ -41,7 +41,7 @@ export default function ProfileMenu() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <div style={{display:"flex", flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
+        <div style={{display:"flex",  flexDirection:"row",justifyContent:"center"}}>
         <div style={{display:"flex", flexDirection:"column",paddingRight:'2%'}}>
           <p style={{ color: "white", padding: "1px", margin: "2px" }}>
             {" "}
@@ -66,7 +66,7 @@ export default function ProfileMenu() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleLogOut}>Logout</MenuItem>
+        <MenuItem onClick={handleLogOut} style={{ float: "right"}} >Logout</MenuItem>
       </Menu>
     </div>
   );

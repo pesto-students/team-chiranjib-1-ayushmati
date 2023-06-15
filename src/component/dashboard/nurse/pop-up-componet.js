@@ -18,18 +18,18 @@ export default function NusrsePop (props){
 
         if(status=="Pending"){
             return(
-                <Button sx={{backgroundColor:"#E57C23",color:"white"}} onClick={clickFunction} > {status} </Button>
+                <Button sx={{backgroundColor:"#E57C23",color:"white", width:"100px"}} onClick={clickFunction} > {status} </Button>
             )
             
         }
         else if(status=="Done"){
             return(
-                <Button sx={{backgroundColor:"#54B435",color:"white"}}> {status}</Button>
+                <Button sx={{backgroundColor:"#54B435",color:"white", width:"100px"}}> {status}</Button>
             )   
         }
         else if(status == "On Alert"){
             return(
-                <Button sx={{backgroundColor:"#FC2947",color:"white"}} onClick={clickFunction}> {status}</Button>
+                <Button sx={{backgroundColor:"#FC2947",color:"white", width:"100px"}} onClick={clickFunction}> {status}</Button>
             )
             
         }

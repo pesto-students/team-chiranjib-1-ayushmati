@@ -20,6 +20,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import DoctorPatientTable from "./doctor-patient-table";
+import { useSelector } from "react-redux";
 
 export default function TaskComponent(props) {
   const [primaryNurseList, setPrimaryNurseList] = useState([]);
@@ -36,6 +37,8 @@ export default function TaskComponent(props) {
     reset:reset2
   } = useForm();
 
+  const doctorName =  useSelector((state) => state.firstName);
+    
   const onTaskSubmit = (data) => {
     console.log(data);
 
@@ -46,7 +49,8 @@ export default function TaskComponent(props) {
     console.log(tempPrimaryNurse)
 
     data.primaryNurse = tempPrimaryNurse[0].firstName;
-    data.primaryNurseID = tempPrimaryNurse[0]._id
+    data.primaryNurseID = tempPrimaryNurse[0]._id;
+    data.doctorInstructions = "By "+doctorName +" - "+ data.doctorInstructions;
     console.log(data);
 
     try {
