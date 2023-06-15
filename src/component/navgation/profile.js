@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function ProfileMenu() {
   const role = useSelector((state) => state.role);
-  const token = useSelector((state) => state.token);
   const firstName = useSelector((state) => state.firstName);
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -5,17 +5,11 @@ import logo from "../../images/logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileMenu from "./profile";
-import Typography from "@mui/material/Typography";
-import { IconButton } from "@mui/material";
-
-import { NavLink } from "react-router-dom";
 
 function NavigationBar() {
-  const emailId = useSelector((state) => state.emailId);
   const role = useSelector((state) => state.role);
-  const firstName = useSelector((state) => state.firstName);
-
   const token = localStorage.getItem("token");
+  const hospitalName = localStorage.getItem("hospitalName");
 
   return (
     <AppBar
@@ -25,14 +19,7 @@ function NavigationBar() {
       <Toolbar>
         <img src={logo} alt="this is logo " />
 
-        {/* <NavLink exact to="/" activeStyle={{ color:'#5754a8',fontSize:"5px" }}>
-        <IconButton>
-    <Typography>Home</Typography>
-  </IconButton>
-        </NavLink>
-        <NavLink  to="/contactus" activeStyle={{ color:'#5754a8' }} >
-            ContactUs
-        </NavLink> */}
+        <div style={{color: "black"}}>{hospitalName}</div>
 
         {!token ? (
           <>
