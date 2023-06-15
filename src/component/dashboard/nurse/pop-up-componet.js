@@ -7,11 +7,12 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle'
 import axios from "axios";
 import { API_URL } from "../../../utils/constant";
+import { useNavigate } from "react-router-dom";
 
 
 export default function NusrsePop (props){
 
-  
+  const navigate = useNavigate();
 
     function ButtonItem ({status,clickFunction}){
 
@@ -42,6 +43,7 @@ export default function NusrsePop (props){
     
       const handleClose = () => {
         setOpen(false);
+        
       };
       const handleYes = (data) => {
 
@@ -58,12 +60,10 @@ export default function NusrsePop (props){
           });
 
         setOpen(false)
-        // console.log(data)
-        // setOpen(false)
+        setTimeout(()=>{
+          navigate(0)
+        },2000)
       };
-
-      // console.log(props.data);
-
     return (
         <>
         

@@ -40,7 +40,6 @@ export default function NurseDashboardTest() {
     {
       title: "Medicine Type/Name",
       render: (rowData) => {
-        console.log(rowData);
         return (
           <>
             {rowData.medicineName}/{rowData.medicineType}
