@@ -19,6 +19,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/constant";
+import "../../css/common.css";
 
 function Signup() {
   const [hospitalList, setHospitalList] = useState([]);
@@ -123,7 +124,7 @@ function Signup() {
   return (
     <>
       <NavigationBar />
-      <div className="signup-outer-div">
+      <div className="common-backgroud">
         <div className="signup-inner-div">
           <Box
             sx={{
@@ -134,7 +135,7 @@ function Signup() {
           >
             <form onSubmit={handleSubmit(onsubmit)}>
               <div className="form-control">
-                <h1 className="login-text">SIGNUP</h1>
+                <h1 className="page-heading">SIGN UP</h1>
               </div>
 
               <Stack spacing={2} direction="row">

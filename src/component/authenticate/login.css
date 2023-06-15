@@ -1,11 +1,3 @@
-.login-outer-div{
-    background-color: #DAF1FF;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
 .MuiTextField-root{
     width: 60ch;
 }
@@ -14,20 +6,12 @@
     flex-direction: column;
 }
 
-.form-control{
-    padding: 10px ;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .form-control-password{
     display: flex;
     justify-content: right;
     align-items: flex-end;
     padding: 10px;
 }
-
 
 .login-inner-div{
     padding: 50px;
@@ -44,13 +28,5 @@
     font-style: italic;
     font-size: small;
     color: #323d43;
-}
-
-.login-text{
-    margin-top: 0;
-    margin-bottom: 0;
-    color: #27a2ee;
-    font:inherit;
-    font-size: 30px;
 }
 

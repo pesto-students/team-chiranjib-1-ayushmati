@@ -1,12 +1,3 @@
-.signup-outer-div{
-    background-color: #DAF1FF;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
 .signup-inner-div{
     margin: 50px;
     padding: 30px;

@@ -34,24 +34,24 @@ function NavigationBar() {
             ContactUs
         </NavLink> */}
 
-        <Button
-          component={Link}
-          to={"/"}
-          sx={{
-            color: "black",
-            fontSize: "20px",
-            margin: "4px",
-            alignItems: "center",
-            flexGrow: 1,
-            font: "inherit",
-            borderRadius: 6,
-          }}
-        >
-          Home
-        </Button>
-
         {!token ? (
           <>
+            <Button
+              component={Link}
+              to={"/"}
+              sx={{
+                color: "black",
+                fontSize: "20px",
+                margin: "4px",
+                alignItems: "center",
+                flexGrow: 1,
+                font: "inherit",
+                borderRadius: 6,
+              }}
+            >
+              Home
+            </Button>
+          
             <Button
               component={Link}
               to={"/hospitalRegistration"}
@@ -161,7 +161,7 @@ function NavigationBar() {
           <></>
         )}
 
-        {/* {role === "Nurse" ? (
+        { role === "Nurse" ? (
           <Button
             component={Link}
             to={"/nurse"}
@@ -174,12 +174,10 @@ function NavigationBar() {
               font: "inherit",
               borderRadius: 6,
             }}
-          >
-            Patient List
-          </Button>
+          />
         ) : (
           <></>
-        )} */}
+        )}
 
         {!token ? (
           <>

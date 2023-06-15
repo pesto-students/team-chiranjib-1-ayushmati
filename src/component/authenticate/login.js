@@ -10,6 +10,7 @@ import { userStateUpdate } from "../../action";
 import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../../utils/constant";
 import Loader from "../master/loader";
+import "../../css/common.css";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -76,11 +77,11 @@ function Login() {
           <Loader />
         </>
       ) : (
-        <div className="login-outer-div">
-          <div className="login-inner-div">
+        <div className="common-backgroud">
+          <div className="form-background">
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
               <div className="form-control">
-                <h1 className="login-text">LOGIN</h1>
+                <h1 className="page-heading">LOGIN</h1>
               </div>
               <div className="form-control">
                 <TextField
