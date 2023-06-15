@@ -6,7 +6,6 @@ import "./reception-dashboard.css";
 import MaterialTable from "material-table";
 import { ThemeProvider, createTheme } from "@mui/material";
 import tableIcons from "../../master/MaterialTableIcons";
-import { Button } from "@mui/material";
 
 export default function ReceptionistDashboardTest() {
   const defaultMaterialTheme = createTheme();
@@ -79,10 +78,15 @@ export default function ReceptionistDashboardTest() {
       render: row => (
         <>
         {(row.status === "ADMITTED") ? (
-          <div style={{backgroundColor:"#54B435", color:"white", borderRadius:"5px", textAlign:"center", padding:"7px", width:"100px"}}> {row.status}</div>
+            <div style={{ backgroundColor: "#54B435", color: "white", borderRadius: "5px", textAlign: "center", padding: "7px", width: "85px", fontFamily: "Roboto, Helvetica, Arial, sans-serif", fontWeight: "500", fontSize: "0.875rem" }}>
+              {row.status.toUpperCase()}
+            </div>  
         ) : (
-          <Button sx={{backgroundColor:"#E57C23",color:"white", borderRadius:"5px", textAlign:"center", padding:"7px", width:"100px"}}  > {row.status} </Button>
-          )}
+          <div style={{ backgroundColor: "#E57C23", color: "white", borderRadius: "5px", textAlign: "center", padding: "7px", width: "85px", fontFamily: "Roboto, Helvetica, Arial, sans-serif", fontWeight: "500", fontSize: "0.875rem" }}>
+            {row.status.toUpperCase()}
+          </div>
+        )
+        }
         </>
       )
     }

@@ -24,8 +24,10 @@ export default function NusrsePop (props){
         }
         else if(status=="Done"){
             return(
-                <Button sx={{backgroundColor:"#54B435",color:"white", width:"100px"}}> {status}</Button>
-            )   
+              <div style={{ backgroundColor: "#54B435", color: "white", borderRadius: "5px", textAlign: "center", padding: "7px", width: "85px", fontFamily: "Roboto, Helvetica, Arial, sans-serif", fontWeight: "500", fontSize: "0.875rem" }}>
+                {status.toUpperCase()}
+              </div>
+            )  
         }
         else if(status == "On Alert"){
             return(
