@@ -124,7 +124,7 @@ function Signup() {
   return (
     <>
       <NavigationBar />
-      <div className="common-backgroud">
+      <div className="signup-outer-div">
         <div className="signup-inner-div">
           <Box
             sx={{
