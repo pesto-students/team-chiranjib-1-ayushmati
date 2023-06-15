@@ -68,11 +68,11 @@ export default function NurseDashboardTest() {
   },
     { title: "InTake time", field: "inTakeTime", width: 50,
     render: (rowData) => {
-      let indianDate = new Date(Date.parse(rowData.inTakeTime));
-      indianDate = rowData.inTakeTime.toLocaleString();
+      // let indianDate = new Date(Date.parse(rowData.inTakeTime));
+      // indianDate = rowData.inTakeTime.toLocaleString();
       return(
       <>
-        {moment(indianDate).format("h:mm A")}
+        {moment.parseZone(rowData.inTakeTime).local(true).format("h:mm A")}
       </>
     )} },
 

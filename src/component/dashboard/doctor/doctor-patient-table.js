@@ -92,7 +92,8 @@ export default function DoctorPatientTable(props){
                     <TableCell align="center">{row.medicineName}</TableCell>
                     <TableCell align="center">{row.primaryNurse}</TableCell>
                     <TableCell align="center">
-                      {moment(row.inTakeTime).format("YYYY-MM-DD")}
+                      {/* {moment(row.inTakeTime).format("YYYY-MM-DD")} */}
+                     {moment.parseZone(row.inTakeTime).local(true).format("YYYY-MM-DD")}
                     </TableCell>
                     <TableCell align="center">{row.doctorInstructions}</TableCell>
 
