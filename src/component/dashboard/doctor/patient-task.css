@@ -43,3 +43,14 @@
     width: 100%;
     margin-top: 50px ;
 }
+
+.logo-header-Profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo-sub-heading{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}

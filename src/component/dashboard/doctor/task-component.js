@@ -16,13 +16,14 @@ import {
   medicineList,
 } from "../../master/master-list";
 import Autocomplete from "@mui/material/Autocomplete";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 import DoctorPatientTable from "./doctor-patient-table";
 import { useSelector } from "react-redux";
-import TableViewSharpIcon from '@mui/icons-material/TableViewSharp';
-import "./task-component.css"
+import TableViewSharpIcon from "@mui/icons-material/TableViewSharp";
+import "./task-component.css";
+import AddIcon from '@mui/icons-material/Add';
 
 export default function TaskComponent(props) {
   const [primaryNurseList, setPrimaryNurseList] = useState([]);
@@ -35,49 +36,49 @@ export default function TaskComponent(props) {
     watch: watch2,
     setValue: setValue2,
     control: control2,
-    reset:reset2
+    reset: reset2,
   } = useForm();
 
-  const doctorName =  useSelector((state) => state.firstName);
-    
+  const doctorName = useSelector((state) => state.firstName);
+
   const onTaskSubmit = (data) => {
-  
-    const tempPrimaryNurse = primaryNurseList.filter((list)=>{
-            return list._id == watch2('primaryNurse')
-    })
-    
+    const tempPrimaryNurse = primaryNurseList.filter((list) => {
+      return list._id == watch2("primaryNurse");
+    });
+
     data.primaryNurse = tempPrimaryNurse[0].firstName;
     data.primaryNurseID = tempPrimaryNurse[0]._id;
-    data.doctorInstructions = "By "+doctorName +" - "+ data.doctorInstructions;
-  
-    try {
-      data.patientID = id
-        axios
-          .post(API_URL+`/patientTask/createPatientTask`, {
-            newTask: data
-          })
-          .then((res) => {
-            if (res.status === 201) {
-              console.log("patient task created successfully")
-            } else {
-              Promise.reject();
-            }
-          });
-      } 
-      catch (err) {
-        console.error(err);
-      }
+    data.doctorInstructions =
+      "By " + doctorName + " - " + data.doctorInstructions;
 
-      reset2({})
+    try {
+      data.patientID = id;
+      axios
+        .post(API_URL + `/patientTask/createPatientTask`, {
+          newTask: data,
+        })
+        .then((res) => {
+          if (res.status === 201) {
+            console.log("patient task created successfully");
+          } else {
+            Promise.reject();
+          }
+        });
+    } catch (err) {
+      console.error(err);
     }
 
-    const hospitalName = useSelector((state) => state.hospitalName);
+    reset2({});
+  };
 
+  const hospitalName = useSelector((state) => state.hospitalName);
 
   useEffect(() => {
     const getPrimaryNurseList = async () => {
       try {
-        const response = await axios.get(API_URL + `/user/listActiveNurse/${hospitalName}`);
+        const response = await axios.get(
+          API_URL + `/user/listActiveNurse/${hospitalName}`
+        );
         setPrimaryNurseList(response.data);
         console.log(response.data);
       } catch (error) {
@@ -87,8 +88,7 @@ export default function TaskComponent(props) {
     getPrimaryNurseList();
   }, []);
 
-
-  const [open,setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -96,19 +96,29 @@ export default function TaskComponent(props) {
 
   const handleClose = () => {
     setOpen(false);
-  }
+  };
   return (
     <div className="patientdata-inner-div">
       <form onSubmit={handleSubmit2(onTaskSubmit)}>
         <div className="patient-prescription-header">
+        <div className="logo-Heading">
+        <AddIcon sx={{ fontSize: 40 }} />
         <h2>New Prescription </h2>
-        <div style={{display:"flex" ,justifyContent: "center",alignItems: "center"}}>
-          <TableViewSharpIcon onClick={handleClickOpen}/>
-          <p className="signup-link">Check previous prescriptions</p>
-        </div > 
+        
+        </div>
+         
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TableViewSharpIcon onClick={handleClickOpen} />
+            <p className="signup-link">Check previous prescriptions</p>
+          </div>
         </div>
         <div>
-        
           <Stack spacing={2} direction="row">
             <TextField
               className="patient-reg-text-field"
@@ -194,26 +204,27 @@ export default function TaskComponent(props) {
               value={watch2("doctorInstructions") || ""}
             />
             <TextField
-                  id="MedIntakeTime"
-                  InputLabelProps={{ shrink: true }}
-                  type="datetime-local"
-                  fullWidth
-                  variant="standard"
-                  label="Medicine Intake time *"
-                  className="patient-reg-text-field"
-                  {...register2("inTakeTime", {
-                    required: {
-                      value: true,
-                      message: " Medicine Intake time is required",
-                    },
-                  })}
-                  value={watch2('inTakeTime')|| ''}
-                  error={!!errors2.inTakeTime}
-                  helperText={errors2?.inTakeTime?.message}
-                />
+              id="MedIntakeTime"
+              InputLabelProps={{ shrink: true }}
+              type="datetime-local"
+              fullWidth
+              variant="standard"
+              label="Medicine Intake time *"
+              className="patient-reg-text-field"
+              {...register2("inTakeTime", {
+                required: {
+                  value: true,
+                  message: " Medicine Intake time is required",
+                },
+              })}
+              value={watch2("inTakeTime") || ""}
+              error={!!errors2.inTakeTime}
+              helperText={errors2?.inTakeTime?.message}
+            />
           </Stack>
         </div>
         <div className="signup-btn">
+         
           <Button
             sx={{
               borderRadius: 20,
@@ -228,17 +239,17 @@ export default function TaskComponent(props) {
             ADD Prescription
           </Button>
         </div>
-        
-              <Dialog
-                open={open}
-                maxWidth
-                onClose={handleClose}
-                aria-labelledby="responsive-dialog-title"
-              >
-                <DialogActions>
-                <DoctorPatientTable id={id} />
-                </DialogActions>
-              </Dialog>
+
+        <Dialog
+          open={open}
+          maxWidth
+          onClose={handleClose}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogActions>
+            <DoctorPatientTable id={id} />
+          </DialogActions>
+        </Dialog>
       </form>
     </div>
   );

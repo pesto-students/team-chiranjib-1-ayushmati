@@ -19,16 +19,22 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TaskComponent from "./task-component";
 import DoctorPatientTable from "./doctor-patient-table";
 import Loader from "../../master/loader";
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { BorderBottom } from "@mui/icons-material";
-import PeopleSharpIcon from '@mui/icons-material/PeopleSharp';
+import PeopleSharpIcon from "@mui/icons-material/PeopleSharp";
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import AccessibleIcon from "@mui/icons-material/Accessible";
+import { capitalize } from "@material-ui/core";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 
 export default function PatientTask() {
   const [patientData, setPatientData] = useState();
@@ -130,26 +136,80 @@ export default function PatientTask() {
         <>
           <div className="patientdata-background-div">
             <div className="patientdata-inner-div">
-            <h2><PeopleSharpIcon /> Patient Profile </h2>
+              <div className="logo-header-Profile">
+                <PeopleSharpIcon sx={{ fontSize: 40 }} />
+                <h2> Patient Profile </h2>
+              </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
-            <div style={{ width: '50%' }}>
-              <div>{patientData.patientName}</div>
-              <div>{patientData.mrn}</div>
-              <div>{patientData.contactNo}</div>
-            </div>
-            
-            <div style={{ width: '50%' }}>
-              <div>{patientData.ward} / {patientData.room} / {patientData.bed}</div>
-              <div>{patientData.sex} / {patientData.maritalStatus}</div>
-              <div></div>
-            </div>
-          </div>
-          <div style={{borderBottom: "1px solid rgba(0, 0, 0, 0.2)"}}></div>
-    
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "20px",
+                }}
+              >
+                <div style={{ width: "50%" }}>
+                  <div className="logo-sub-heading">
+                    <Typography
+                      variant="h4"
+                      gutterBottom
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: "0",
+                      }}
+                    >
+                      <InsertEmoticonIcon sx={{ fontSize: 40 }}/>
+                      {capitalize(patientData.patientName)}
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography sx={{ display: "flex" }}>
+                      <AssignmentIndIcon/>
+                      {patientData.mrn}
+                    </Typography>
+                  </div>
+
+                  <div className="logo-sub-heading">
+                  <Typography sx={{ display: "flex", justifyContent: "center",
+                        alignItems: "left",
+                        marginBottom: "0" }}>
+                          <PhoneIphoneIcon/>
+                      {patientData.contactNo}
+                    </Typography>
+                   </div>
+                </div>
+
+                <div
+                  style={{
+                    width: "50%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                  }}
+                >
+                  <div>
+                    {patientData.ward} / {patientData.room} / {patientData.bed}
+                  </div>
+                  <div>
+                    {patientData.sex} / {patientData.maritalStatus}
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+              <div
+                style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.2)" }}
+              ></div>
+
               <form onSubmit={handleSubmit(onsubmit)}>
                 <div className="patient-reg-details-div">
-                  <h2>Clinical Details</h2>
+                  <div className="logo-header-Profile">
+                    <LocalHospitalIcon sx={{ fontSize: 40 }} />
+                    <h2>Clinical Details</h2>
+                  </div>
+
                   <Stack spacing={2} direction="row">
                     <TextField
                       fullWidth
