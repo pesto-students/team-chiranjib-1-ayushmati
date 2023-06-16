@@ -41,6 +41,8 @@ export default function PatientTask() {
   const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
   const [diseaseList, setDiseaseList] = useState([]);
   const hospitalName = useSelector((state) => state.hospitalName);
+  const [isDischarged, setIsDischarged] = useState(false);
+
 
   // const [medicineList, setmedicineList] = useState([]);
 
@@ -64,6 +66,11 @@ export default function PatientTask() {
         "admissionDate",
         moment(response.data.admissionDate).format("YYYY-MM-DD")
       );
+
+      if(response.data.status === 'DISCHARGED'){
+        setIsDischarged(true);
+      }
+
       setPatientData(response.data);
     };
     getPatientData();
@@ -372,6 +379,8 @@ export default function PatientTask() {
                   </Stack>
                 </div>
 
+              
+            {!isDischarged ? (              
                 <div className="signup-btn">
                   <Button
                     sx={{
@@ -387,9 +396,11 @@ export default function PatientTask() {
                     UPDATE NOW
                   </Button>
                 </div>
+            ):<div style={{height: "20px"}}></div>}
+
               </form>
             </div>
-            <TaskComponent id={id} />
+            <TaskComponent id={id} isDischarged={isDischarged} />
           </div>
         </>
       ) : (

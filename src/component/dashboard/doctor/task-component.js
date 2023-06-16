@@ -28,6 +28,8 @@ import AddIcon from '@mui/icons-material/Add';
 export default function TaskComponent(props) {
   const [primaryNurseList, setPrimaryNurseList] = useState([]);
   const id = props.id;
+  const isDischarged = props.isDischarged;
+  
 
   const {
     register: register2,
@@ -223,8 +225,10 @@ export default function TaskComponent(props) {
             />
           </Stack>
         </div>
+        
+        {!isDischarged ? (              
+            
         <div className="signup-btn">
-         
           <Button
             sx={{
               borderRadius: 20,
@@ -239,6 +243,8 @@ export default function TaskComponent(props) {
             ADD Prescription
           </Button>
         </div>
+        ):<div style={{height: "20px"}}></div>}
+
 
         <Dialog
           open={open}
