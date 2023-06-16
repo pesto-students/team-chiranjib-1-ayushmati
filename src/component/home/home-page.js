@@ -10,11 +10,11 @@ function HomePage() {
       <NavigationBar />
       <div className="homediv">
         <div className="innerdiv1">
-          <div style={{fontFamily:"Copse", fontSize:"50px", color: "#3A4563" }}  >
+          <div style={{ fontSize:"6vh", color: "#3A4563"}}  >
             The Best Online Solution for Nursing And Patient Care.
           </div>
           <div  className="text2">
-            <ul style={{fontFamily:"Courier New", fontSize:"22px" }} >
+            <ul style={{ fontSize:"3vh",color: "#3A4563" }} >
               <li>
                 Identifying patients' care requirements, focus on their needs
                 and act on them.
@@ -27,15 +27,10 @@ function HomePage() {
             </ul>
             <Button
               component={Link}
+              size="large"
               to={"/contactus"}
               variant="contained"
               sx={{
-                color: "white",
-                fontSize: "20px",
-                margin: "4px",
-                alignItems: "center",
-                flexGrow: 1,
-                font: "inherit",
                 borderRadius: 8,
               }}
             >

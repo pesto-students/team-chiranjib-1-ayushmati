@@ -5,12 +5,11 @@
 }
 
 .innerdiv1{
-    height: 100vh;
     flex: 2;
     display: flex; 
     flex-direction: column; 
     padding-left: 5vh;
-    padding-top: 150px; 
+    padding-top: 30vh; 
 }
 
 .innerdiv2{
@@ -18,7 +17,7 @@
 }
 
 #nurseImage {
-    height: 100vh;
+    height: 100%;
     object-fit: contain
     
 }

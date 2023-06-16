@@ -81,7 +81,7 @@ function Login() {
         <div className="common-backgroud">
           <>
             <div style={{paddingRight:'50px'}}>
-              <img id="nurseImage" src={nurseImage} style={{transform:'scaleX(-1)'}}alt="This is nurse"></img>
+              <img  src={nurseImage} style={{transform:'scaleX(-1)',height:'100vh'}}alt="This is nurse"></img>
             </div>
           </>
           <div className="form-background" style={{width:"40%"}}>
