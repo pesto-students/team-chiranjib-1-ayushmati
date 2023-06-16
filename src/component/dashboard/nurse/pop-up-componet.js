@@ -8,6 +8,7 @@ import DialogTitle from '@mui/material/DialogTitle'
 import axios from "axios";
 import { API_URL } from "../../../utils/constant";
 import { useNavigate } from "react-router-dom";
+import TableViewSharpIcon from '@mui/icons-material/TableViewSharp';
 
 
 export default function NusrsePop (props){
@@ -80,6 +81,7 @@ export default function NusrsePop (props){
         <DialogTitle id="alert-dialog-title">
           {`Are you sure, Has ${props.data.patientData[0].patientName} taken the medicine?`}
         </DialogTitle>
+        
         <DialogActions>
           <Button onClick={handleClose}>No</Button>
           <Button onClick={()=>{

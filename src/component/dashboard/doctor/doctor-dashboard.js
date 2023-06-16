@@ -6,11 +6,13 @@ import moment from "moment";
 import MaterialTable from "material-table";
 import { ThemeProvider, createTheme } from "@mui/material";
 import tableIcons from "../../master/MaterialTableIcons";
+import { useSelector } from "react-redux";
 
 export default function DoctorDashboard() {
   const defaultMaterialTheme = createTheme();
   const [data, setData] = useState([]);
-  const hospitalName = localStorage.getItem('hospitalName');
+  const hospitalName = useSelector((state) => state.hospitalName);
+
   
   useEffect(() => {
     axios
@@ -89,24 +91,27 @@ export default function DoctorDashboard() {
   ];
 
 
+
   return (
     <>
+    <div className="dashboard-backgroud">
       <div
-          style={{
+        style={{
           width: "100%",
           display: "flex",
-          alignItems: "center",
+          alignItems: "top",
           justifyContent: "center",
         }}
       >
         <div
           style={{
             width: "90%",
-            alignItems: "center",
+            alignItems: "top",
             justifyContent: "center",
-            marginTop: "50px",
+            marginTop:"30px"
           }}
         >
+
           <ThemeProvider theme={defaultMaterialTheme}>
             <MaterialTable
               icons={tableIcons}
@@ -121,6 +126,7 @@ export default function DoctorDashboard() {
               }}
             />
           </ThemeProvider>
+          </div>
         </div>
       </div>
     </>

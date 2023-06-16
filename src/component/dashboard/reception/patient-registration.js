@@ -13,7 +13,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -21,31 +20,25 @@ import { API_URL } from "../../../utils/constant";
 import "./patient-registration.css";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function PatienRegistration() {
   const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
-  const [dataLoaded, setDataLoaded] = useState(false);
   const [diseaseList, setDiseaseList] = useState([]);
   const [wardList, setWardList] = useState([]);
   const [roomList, setRoomList] = useState([]);
   const [bedList, setBedList] = useState([]);
-  const [temp,setTemp]= useState(false);
+
+  const [oldWard, setOldWard] = useState('');
+  const [oldRoom, setOldRoom] = useState('');
+  const [oldBed, setOldBed] = useState('');
+  
 
   const { id } = useParams();
   const navigate = useNavigate();
 
-  
+  const hospitalName = useSelector((state) => state.hospitalName);
 
-  const hospitalName = localStorage.getItem("hospitalName");
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    setValue,
-    reset,
-  } = useForm();
 
   useEffect(() => {
     if (id) {
@@ -66,29 +59,26 @@ function PatienRegistration() {
         setValue("country", response.data.country);
         setValue("state", response.data.state);
         setValue("city", response.data.city);
-        setValue("address", response.data.address);
+        setValue("addresponses", response.data.addresponses);
         setValue("primaryDoctor", response.data.primaryDoctor);
         setValue("weight", response.data.weight);
         setValue("height", response.data.height);
         setValue("bloodGrp", response.data.bloodGrp);
         setValue("symtoms", response.data.symtoms);
         setValue("disease", response.data.disease);
-        setValue("ward", response.data.ward);
-        setValue("room", response.data.room);
-        setValue("pincode", response.data.pincode);
-        setValue("bed", response.data.bed);
+        
+        console.log('set ward ::::::::::::::::::::::; '+response.data.ward);
+
+        setOldWard(response.data.ward);
+        setOldRoom(response.data.room);
+        setOldBed(response.data.bed);
+
         setValue(
           "admissionDate",
           moment(response.data.admissionDate).format("YYYY-MM-DD")
         );
-
-        setDataLoaded(true);
       };
       getPatientData();
-    }
-    else{
-      setTemp(true);
-      reset({});
     }
   }, []);
 
@@ -132,7 +122,15 @@ function PatienRegistration() {
       }
     };
 
-    getWardList();
+    setTimeout(()=>{
+      getWardList();
+      if(id) {
+        console.log('old ward **************** '+ oldWard);
+        setValue("ward", oldWard);
+        getRoomList(oldWard);
+      }
+    },1000);
+
   }, []);
 
   const getRoomList = async (wardName) => {
@@ -145,6 +143,11 @@ function PatienRegistration() {
       console.log("rooms :::: " + response.data);
 
       setRoomList(response.data);
+      if(id){
+        setValue("room", oldRoom);
+        getBedList();
+      }
+
     } catch (error) {
       console.error(error);
     }
@@ -160,12 +163,21 @@ function PatienRegistration() {
       );
 
       setBedList(response.data);
+      if(id){
+        setValue("bed", oldBed);
+      }  
     } catch (error) {
       console.error(error);
     }
   };
 
-  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    setValue,
+  } = useForm();
 
   // const hospitalName = localStorage.getItem('hospitalName');
 
@@ -329,6 +341,7 @@ function PatienRegistration() {
                   value={watch("emergContactNo") || ""}
                 />
               </Stack>
+              
               <Stack spacing={2} direction="row">
                 <TextField
                   className="patient-reg-text-field"
@@ -550,7 +563,6 @@ function PatienRegistration() {
                   variant="standard"
                   {...register("room")}
                   value={watch("room") || ""}
-                  // defaultValue={watch("room")||""}
                 >
                   {roomList.length > 0
                     ? roomList[0].rooms.map((option) => (
@@ -571,8 +583,8 @@ function PatienRegistration() {
                   select
                   label="Bed *"
                   variant="standard"
-                  value={watch("bed") || ""}
                   {...register("bed")}
+                  value={watch("bed") || ""}
                 >
                   {bedList.length > 0
                     ? bedList[0].rooms.map((option, roomIndex) =>
@@ -601,39 +613,19 @@ function PatienRegistration() {
             </div>
 
             <div className="signup-btn">
-              {dataLoaded ? (
-                <>
-                  <Button
-                    sx={{
-                      borderRadius: 20,
-                      backgroundColor: "#54B435",
-                      justifyContent: "center",
-                      paddingLeft: "60px",
-                      paddingRight: "60px",
-                    }}
-                    variant="contained"
-                    type="submit"
-                  >
-                    UPDATE NOW
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    sx={{
-                      borderRadius: 20,
-                      backgroundColor: "#54B435",
-                      justifyContent: "center",
-                      paddingLeft: "60px",
-                      paddingRight: "60px",
-                    }}
-                    variant="contained"
-                    type="submit"
-                  >
-                    Register Now
-                  </Button>
-                </>
-              )}
+              <Button
+                sx={{
+                  borderRadius: 20,
+                  backgroundColor: "#7EDD6F",
+                  justifyContent: "center",
+                  paddingLeft: "60px",
+                  paddingRight: "60px",
+                }}
+                variant="contained"
+                type="submit"
+              >
+                Register Now
+              </Button>
             </div>
           </form>
         </div>

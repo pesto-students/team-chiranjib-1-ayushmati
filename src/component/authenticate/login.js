@@ -46,7 +46,7 @@ function Login() {
 
       if (response.status === 200) {
         localStorage.setItem("token", JSON.stringify(res.token));
-        localStorage.setItem("hospitalName", res.user.hospitalName);
+        //localStorage.setItem("hospitalName", res.user.hospitalName);
         // // console.log(response.user.hospitalName);
         // console.log(res.user.hospitalName);
 

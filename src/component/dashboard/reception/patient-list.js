@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import { API_URL } from "../../../utils/constant";
+import { useSelector } from "react-redux";
 
 const columns = [
   {
@@ -123,7 +124,8 @@ const tableStyles = {
     },
   },
 ];*/
-const hospitalName = localStorage.getItem('hospitalName');
+const hospitalName = useSelector((state) => state.hospitalName);
+
 
 const PatientList = () => {
   const [filterText, setFilterText] = useState("");

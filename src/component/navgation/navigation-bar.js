@@ -9,7 +9,8 @@ import ProfileMenu from "./profile";
 function NavigationBar() {
   const role = useSelector((state) => state.role);
   const token = localStorage.getItem("token");
-  const hospitalName = localStorage.getItem("hospitalName");
+  const hospitalName = useSelector((state) => state.hospitalName);
+  
 
   return (
     <AppBar
@@ -140,6 +141,7 @@ function NavigationBar() {
               flexGrow: 1,
               font: "inherit",
               borderRadius: 6,
+              width: "100px"
             }}
           >
             Patient List

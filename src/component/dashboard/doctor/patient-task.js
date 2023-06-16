@@ -26,12 +26,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { useSelector } from "react-redux";
+import { BorderBottom } from "@mui/icons-material";
+import PeopleSharpIcon from '@mui/icons-material/PeopleSharp';
 
 export default function PatientTask() {
   const [patientData, setPatientData] = useState();
   const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
   const [diseaseList, setDiseaseList] = useState([]);
-  const hospitalName = localStorage.getItem("hospitalName");
+  const hospitalName = useSelector((state) => state.hospitalName);
+
   // const [medicineList, setmedicineList] = useState([]);
 
   const { id } = useParams();
@@ -125,30 +129,24 @@ export default function PatientTask() {
       {patientData ? (
         <>
           <div className="patientdata-background-div">
-            <div className="patientdata-outer-div">
-              <h4 style={{ fontSize: "3vh", font: "icon" }}>
-                Patient Personal Details :
-              </h4>
-              <div className="patientdata-inner-left-div">
-                <h3 style={{ fontSize: "3vh", font: "icon" }}>
-                  {patientData.patientName}
-                  <br />
-                  {patientData.mrn}
-                  <br />
-                  {patientData.contactNo}
-                </h3>
-              </div>
-              <div className="patientdata-inner-left-div">
-                <h3 style={{ fontSize: "3vh", font: "icon" }}>
-                  {patientData.ward} /{patientData.room}/{patientData.bed}
-                  <br />
-                  {patientData.sex}/{patientData.maritalStatus}
-                  <br />
-                  {patientData.country}/{patientData.state}/{patientData.city}
-                </h3>
-              </div>
-            </div>
             <div className="patientdata-inner-div">
+            <h2><PeopleSharpIcon /> Patient Profile </h2>
+
+          <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+            <div style={{ width: '50%' }}>
+              <div>{patientData.patientName}</div>
+              <div>{patientData.mrn}</div>
+              <div>{patientData.contactNo}</div>
+            </div>
+            
+            <div style={{ width: '50%' }}>
+              <div>{patientData.ward} / {patientData.room} / {patientData.bed}</div>
+              <div>{patientData.sex} / {patientData.maritalStatus}</div>
+              <div></div>
+            </div>
+          </div>
+          <div style={{borderBottom: "1px solid rgba(0, 0, 0, 0.2)"}}></div>
+    
               <form onSubmit={handleSubmit(onsubmit)}>
                 <div className="patient-reg-details-div">
                   <h2>Clinical Details</h2>

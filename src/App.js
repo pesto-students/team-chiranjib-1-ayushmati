@@ -8,7 +8,6 @@ import HospitalRegistration from "./component/hospital-registration/hospital-reg
 import ReceptionistDashboard from "./component/dashboard/reception/reception-dashboard";
 import PatientRegistration from "./component/dashboard/reception/patient-registration";
 import DoctorDashboard from "./component/dashboard/doctor/doctor-dashboard";
-import NurseDashboard from "./component/dashboard/nurse/nurse-dashboard";
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import wrapper from "./component/layoutHOC/layout";
 import PatientTask from "./component/dashboard/doctor/patient-task";
@@ -86,8 +85,6 @@ function App() {
           ) : (
             <></>
           )}
-
-          <Route path="/nurseOld" element={<NurseDashboard />} />
 
           {/* <Route path="/loader" element={<Loader />} /> */}
           {/* <Route path="/receptionistDashboard" element = {<ReceptionistDashboardTestWrapper/>}/> */}

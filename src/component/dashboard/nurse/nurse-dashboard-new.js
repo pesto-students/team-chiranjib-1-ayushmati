@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { API_URL } from "../../../utils/constant";
 import axios from "axios";
 import moment from "moment";
+import "../../../css/common.css";
+import "../../../css/patient-table.css";
+
 
 export default function NurseDashboardTest() {
   const defaultMaterialTheme = createTheme();
@@ -50,7 +53,7 @@ export default function NurseDashboardTest() {
     {
       title: "Medicine Type/Name",
       cellStyle: {
-        width: "300px"
+        width: "400px"
       },
       sorting: false,
       render: (rowData) => {
@@ -66,7 +69,10 @@ export default function NurseDashboardTest() {
         width: "1000px"
       }
   },
-    { title: "InTake time", field: "inTakeTime", width: 50,
+    { title: "InTake time", field: "inTakeTime", 
+    cellStyle: {
+      width: "300px"
+    },
     render: (rowData) => {
       // let indianDate = new Date(Date.parse(rowData.inTakeTime));
       // indianDate = rowData.inTakeTime.toLocaleString();
@@ -94,22 +100,24 @@ export default function NurseDashboardTest() {
   ];
   return (
     <>
+    <div className="dashboard-backgroud">
       <div
         style={{
           width: "100%",
           display: "flex",
-          alignItems: "center",
+          alignItems: "top",
           justifyContent: "center",
         }}
       >
         <div
           style={{
             width: "90%",
-            alignItems: "center",
+            alignItems: "top",
             justifyContent: "center",
-            marginTop: "50px",
+            marginTop:"30px"
           }}
         >
+
           <ThemeProvider theme={defaultMaterialTheme}>
             <MaterialTable
               icons={tableIcons}
@@ -124,6 +132,7 @@ export default function NurseDashboardTest() {
               }}
             />
           </ThemeProvider>
+          </div>
         </div>
       </div>
     </>

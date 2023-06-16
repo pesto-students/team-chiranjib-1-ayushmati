@@ -8,6 +8,7 @@ const initalState = {
   firstName: "",
   userId: "",
   isAuthenticated: false,
+  hospitalName: ""
 };
 
 
@@ -29,6 +30,7 @@ const userLoginReducer = (state = initalState, action) => {
         firstName: action.user.firstName,
         userId: action.user.userId,
         isAuthenticated: true,
+        hospitalName: action.user.hospitalName
       };
 
     case "USERLOGOUT":

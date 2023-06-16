@@ -6,11 +6,12 @@ import "./reception-dashboard.css";
 import MaterialTable from "material-table";
 import { ThemeProvider, createTheme } from "@mui/material";
 import tableIcons from "../../master/MaterialTableIcons";
+import { useSelector } from "react-redux";
 
 export default function ReceptionistDashboardTest() {
   const defaultMaterialTheme = createTheme();
   const [data, setData] = useState([]);
-  const hospitalName = localStorage.getItem('hospitalName');
+  const hospitalName = useSelector((state) => state.hospitalName);
 
   useEffect(() => {
     axios
@@ -93,39 +94,43 @@ export default function ReceptionistDashboardTest() {
   ];
    
   return (
-    <>
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <>
+      <div className="dashboard-backgroud">
         <div
           style={{
-            width: "90%",
-            alignItems: "center",
+            width: "100%",
+            display: "flex",
+            alignItems: "top",
             justifyContent: "center",
-            marginTop: "50px",
           }}
         >
-          <ThemeProvider theme={defaultMaterialTheme}>
-            <MaterialTable
-              icons={tableIcons}
-              title={""}
-              columns={columns}
-              data={data}
-              options={{
-                headerStyle: {
-                  backgroundColor: "#27a2ee",
-                  color: "#FFF",
-                },
-              }}
-            />
-          </ThemeProvider>
+          <div
+            style={{
+              width: "90%",
+              alignItems: "top",
+              justifyContent: "center",
+              marginTop:"30px"
+            }}
+          >
+  
+            <ThemeProvider theme={defaultMaterialTheme}>
+              <MaterialTable
+                icons={tableIcons}
+                title={""}
+                columns={columns}
+                data={data}
+                options={{
+                  headerStyle: {
+                    backgroundColor: "#27a2ee",
+                    color: "#FFF",
+                  },
+                }}
+              />
+            </ThemeProvider>
+            </div>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  
 }

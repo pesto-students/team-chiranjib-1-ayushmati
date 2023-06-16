@@ -21,11 +21,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import DoctorPatientTable from "./doctor-patient-table";
 import { useSelector } from "react-redux";
+import TableViewSharpIcon from '@mui/icons-material/TableViewSharp';
+
 
 export default function TaskComponent(props) {
   const [primaryNurseList, setPrimaryNurseList] = useState([]);
   const id = props.id;
-  console.log(id);
 
   const {
     register: register2,
@@ -40,19 +41,15 @@ export default function TaskComponent(props) {
   const doctorName =  useSelector((state) => state.firstName);
     
   const onTaskSubmit = (data) => {
-    console.log(data);
-
+  
     const tempPrimaryNurse = primaryNurseList.filter((list)=>{
             return list._id == watch2('primaryNurse')
     })
     
-    console.log(tempPrimaryNurse)
-
     data.primaryNurse = tempPrimaryNurse[0].firstName;
     data.primaryNurseID = tempPrimaryNurse[0]._id;
     data.doctorInstructions = "By "+doctorName +" - "+ data.doctorInstructions;
-    console.log(data);
-
+  
     try {
       data.patientID = id
         axios
@@ -74,7 +71,8 @@ export default function TaskComponent(props) {
       reset2({})
     }
 
-    const hospitalName = localStorage.getItem('hospitalName');
+    const hospitalName = useSelector((state) => state.hospitalName);
+
 
   useEffect(() => {
     const getPrimaryNurseList = async () => {
@@ -103,7 +101,10 @@ export default function TaskComponent(props) {
     <div className="patientdata-inner-div">
       <form onSubmit={handleSubmit2(onTaskSubmit)}>
         <div>
-        <h2>Add new prescription?</h2>
+        <h2>New Prescription </h2>
+        <div>
+          <TableViewSharpIcon onClick={handleClickOpen} />
+        </div>
           <Stack spacing={2} direction="row">
             <TextField
               className="patient-reg-text-field"
@@ -223,18 +224,8 @@ export default function TaskComponent(props) {
             ADD Prescription
           </Button>
         </div>
+        
         <div className="signup-btn">
-              <Button sx={{
-              borderRadius: 20,
-              backgroundColor: "#27a2ee",
-              justifyContent: "center",
-              paddingLeft: "60px",
-              paddingRight: "60px",
-            }}
-            variant="contained"
-             onClick={handleClickOpen}>
-               Check Prescriptions
-              </Button>
               <Dialog
                 open={open}
                 maxWidth
