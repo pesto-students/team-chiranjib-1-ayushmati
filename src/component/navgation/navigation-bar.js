@@ -20,7 +20,7 @@ function NavigationBar() {
       <Toolbar>
         <img src={logo} alt="this is logo " />
 
-        <div style={{color: "black"}}>{hospitalName}</div>
+        <div style={{ fontFamily:"Corben", color: "#3A4563", fontSize:"50px"}}>{hospitalName}</div>
 
         {!token ? (
           <>
