@@ -78,18 +78,16 @@ function Login() {
         </>
       ) : (
         <div className="common-backgroud">
-          <div className="form-background">
+          <div className="form-background" style={{width:"50%"}}>
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
-              <div className="form-control">
-                <h1 className="page-heading">LOGIN</h1>
-              </div>
-              <div className="form-control">
+                <h1 className="page-heading" style={{display:"flex",justifyContent:"center"}}>LOGIN</h1>
                 <TextField
                   className="signup-text-field"
                   id="User-Number-Id"
                   label="Email ID *"
                   placeholder="APH123456"
                   variant="standard"
+                  fullWidth
                   {...register("userID", {
                     required: {
                       value: true,
@@ -99,12 +97,10 @@ function Login() {
                   error={!!errors.userID}
                   helperText={errors?.userID?.message}
                 />
-              </div>
-
-              <div className="form-control">
                 <TextField
                   className="signup-text-field"
                   id="Password-Id"
+                  fullWidth
                   label="Password *"
                   type="password"
                   variant="standard"
@@ -117,7 +113,6 @@ function Login() {
                   error={!!errors.password}
                   helperText={errors?.password?.message}
                 />
-              </div>
               <div className="form-control-password">
                 <Link className="signup-link" to="/signup">
                   {" "}

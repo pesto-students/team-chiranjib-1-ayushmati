@@ -126,26 +126,20 @@ function Signup() {
       <NavigationBar />
       <div className="signup-outer-div">
         <div className="signup-inner-div">
-          <Box 
-            sx={{
-              "& .MuiTextField-root": { p: "10px", width: "50ch" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <form onSubmit={handleSubmit(onsubmit)}>
+            <form style={{width:"100%"}}  onSubmit={handleSubmit(onsubmit)}>
               <div className="form-control">
                 <h1 className="page-heading">SIGN UP</h1>
               </div>
-
               <Stack spacing={2} direction="row">
-                <div className="sign-up-elements-div">
+               
                   <TextField
                     className="signup-text-field"
+                    fullWidth
                     id="outlined-required"
                     label="Hospital Name *"
                     placeholder="Apollo Hospital"
                     variant="standard"
+                    
                     select
                     {...register("hospital", {
                       required: {
@@ -166,13 +160,12 @@ function Signup() {
                     )}
 
                   </TextField>
-                </div>
 
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     id="outlined-select-currency"
                     select
+                    fullWidth
                     label="Role *"
                     variant="standard"
                     defaultValue=""
@@ -191,19 +184,17 @@ function Signup() {
                       </MenuItem>
                     ))}
                   </TextField>
-                </div>
-
               </Stack>
 
 
               <Stack spacing={2} direction="row">
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     id="User-Number-Id"
                     label="Doctor lisence No/Employee Id*"
                     placeholder="APH123456"
                     variant="standard"
+                    fullWidth
                     {...register("userID", {
                       required: {
                         value: true,
@@ -213,16 +204,15 @@ function Signup() {
                     error={!!errors.userID}
                     helperText={errors?.userID?.message}
                   />
-                </div>
 
                 {isWardNameRequired &&       
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     label="Ward Name *"
                     placeholder="General Ward"
                     variant="standard"
                     select
+                    fullWidth
                     {...register("wardName", {
                       required: {
                         value: isWardNameRequired,
@@ -243,19 +233,18 @@ function Signup() {
                     )}
 
                   </TextField>
-                </div>
                 }
 
               </Stack>
 
               <Stack spacing={2} direction="row">
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     id="First-Name-Id"
                     label="First Name *"
                     placeholder="Virat"
                     variant="standard"
+                    fullWidth
                     {...register("firstName", {
                       required: {
                         value: true,
@@ -265,22 +254,18 @@ function Signup() {
                     error={!!errors.firstName}
                     helperText={errors?.firstName?.message}
                   />
-                </div>
-
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     id="Last-Name-Id"
                     label="Last Name"
                     placeholder="Kholi"
                     variant="standard"
+                    fullWidth
                     {...register("lastName")}
                   />
-                </div>
               </Stack>
 
               <Stack spacing={2} direction="row">
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     id="Country-ID"
@@ -288,6 +273,7 @@ function Signup() {
                     label="Country"
                     variant="standard"
                     defaultValue=""
+                    fullWidth
                     {...register("country")}
                   >
                     {countryList.map((option) => (
@@ -296,9 +282,6 @@ function Signup() {
                       </MenuItem>
                     ))}
                   </TextField>
-                </div>
-
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     id="State-ID"
@@ -306,6 +289,7 @@ function Signup() {
                     label="State"
                     variant="standard"
                     defaultValue=""
+                    fullWidth
                     {...register("state")}
                   >
                     {stateList.map((option) => (
@@ -314,11 +298,9 @@ function Signup() {
                       </MenuItem>
                     ))}
                   </TextField>
-                </div>
               </Stack>
 
               <Stack spacing={2} direction="row">
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     id="Town-City-ID"
@@ -326,6 +308,7 @@ function Signup() {
                     label="Town/City"
                     variant="standard"
                     defaultValue=""
+                    fullWidth
                     {...register("townCity")}
                   >
                     {townCityList.map((option) => (
@@ -334,26 +317,23 @@ function Signup() {
                       </MenuItem>
                     ))}
                   </TextField>
-                </div>
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     id="Pincode-Id"
                     label="Pincode"
                     placeholder="000123"
                     variant="standard"
+                    fullWidth
                     {...register("pincode")}
                   />
-                </div>
               </Stack>
-
-              <div className="sign-up-elements-div">
                 <TextField
                   className="signup-text-field"
                   id="Email-Id"
                   label="Email Id *"
                   placeholder="abc123@gmail.com"
                   variant="standard"
+                  fullWidth
                   {...register("emailId", {
                     required: {
                       value: true,
@@ -367,16 +347,16 @@ function Signup() {
                   error={!!errors.emailId}
                   helperText={errors?.emailId?.message}
                 />
-              </div>
 
               <Stack spacing={2} direction="row">
-                <div className="sign-up-elements-div">
+
                   <TextField
                     className="signup-text-field"
                     id="Password-Id"
                     label="Password *"
                     type="password"
                     variant="standard"
+                    fullWidth
                     {...register("password", {
                       required: {
                         value: true,
@@ -386,15 +366,13 @@ function Signup() {
                     error={!!errors.password}
                     helperText={errors?.password?.message}
                   />
-                </div>
-
-                <div className="sign-up-elements-div">
                   <TextField
                     className="signup-text-field"
                     id="Confirm-Password-Id"
                     label="Comfirm Password *"
                     type="password"
                     variant="standard"
+                    fullWidth
                     {...register("confirmPassword", {
                       required: {
                         value: true,
@@ -409,7 +387,6 @@ function Signup() {
                     error={!!errors.confirmPassword}
                     helperText={errors?.confirmPassword?.message}
                   />
-                </div>
               </Stack>
 
               <div className="signup-btn">
@@ -437,7 +414,6 @@ function Signup() {
             </form>
 
             {isRegister && <div>User is registered successfully</div>}
-          </Box>
         </div>
       </div>
     </>

@@ -1,9 +1,8 @@
-.MuiTextField-root{
-    width: 60ch;
-}
+
 .login-form{
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .form-control-password{
