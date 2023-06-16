@@ -62,6 +62,8 @@ function Login() {
           navigate("/doctor");
         } else if (res.user.role === "Nurse") {
           navigate("/nurse");
+        } else if (res.user.role === "superadmin") {
+          navigate("/hospitalRegistration");
         } else {
           console.log("didnt enter other if");
         }

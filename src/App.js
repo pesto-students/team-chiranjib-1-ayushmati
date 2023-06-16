@@ -34,8 +34,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
-          <Route path="/hospitalRegistration" element={<HospitalRegistration/>}/>
-
+          
           {!isAuthenticated ? (
             <>
               <Route path="/signup" element={<Signup />} key= {uuidv4()} />
@@ -81,6 +80,13 @@ function App() {
                 path="/nurse"
                 element={<NurseDashboardWrapper />}
               />
+            </>
+          ) : (
+            <></>
+          )}
+          {isAuthenticated && role === "superadmin" ? (
+            <>
+                <Route path="/hospitalRegistration" element={<HospitalRegistration/>}/>
             </>
           ) : (
             <></>
