@@ -20,10 +20,12 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/constant";
 import "../../css/common.css";
+import Alert from '@mui/material/Alert';
 
 function Signup() {
   const [hospitalList, setHospitalList] = useState([]);
   const [wardList, setWardList] = useState([]);
+  const [errorMessage,setErrorMessage] = useState('')
   
   const [isRegister,setIsRegister] = useState(false);
   const [isWardNameRequired, setIsWardNameRequired] = useState(false);
@@ -84,14 +86,22 @@ function Signup() {
 
     try {
       const response = await fetch(path, obj);
+      console.log(response);
       const res = await response.json();
-      console.log(res);
-      if (res){
+      console.log(res.status);
+      if (response.status===201){
         setIsRegister(true)
 
         setTimeout(() => {
           navigate("/login")
         }, 2000);
+      }
+      else if(response.status==409){
+        setErrorMessage(res.error)
+
+        setTimeout(() => {
+          navigate(0)
+        }, 3000);
       }
       else{
         setIsRegister(false)
@@ -411,9 +421,14 @@ function Signup() {
                   Already a member?lets login!
                 </Link>
               </div>
+              {/* {isRegister && <div>User is registered successfully</div>} */}
+              {isRegister && <Alert severity="success">User is registered successfully</Alert>}
+              {/* {errorMessage && <div>EmailID Already exist,please login or use different emailID</div>} */}
+              {errorMessage && <Alert severity="error">EmailID Already exist,please login or use different emailID</Alert>}
+              
             </form>
 
-            {isRegister && <div>User is registered successfully</div>}
+            
         </div>
       </div>
     </>

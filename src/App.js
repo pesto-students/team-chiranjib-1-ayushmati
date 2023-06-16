@@ -38,7 +38,7 @@ function App() {
 
           {!isAuthenticated ? (
             <>
-              <Route path="/signup" element={<Signup />} />
+              <Route path="/signup" element={<Signup />} key= {uuidv4()} />
               <Route path="/login" element={<Login />} />
             </>
           ) : (
