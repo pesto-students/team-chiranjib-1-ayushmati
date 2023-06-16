@@ -29,11 +29,13 @@ function PatienRegistration() {
   const [wardList, setWardList] = useState([]);
   const [roomList, setRoomList] = useState([]);
   const [bedList, setBedList] = useState([]);
-  const [temp,setTemp]= useState(false);
-
+  
   const [oldWard, setOldWard] = useState('');
   const [oldRoom, setOldRoom] = useState('');
   const [oldBed, setOldBed] = useState('');
+
+  const [isDischarged, setIsDischarged] = useState(false);
+  
   
 
   const { id } = useParams();
@@ -88,11 +90,14 @@ function PatienRegistration() {
           );
         }
         
+        if(response.data.status === 'DISCHARGED'){
+          setIsDischarged(true);
+        }
+        
         setDataLoaded(true);
       };
       getPatientData();
     } else{
-      setTemp(true);
     }
   }, []);
 
@@ -637,41 +642,45 @@ function PatienRegistration() {
               </Stack>
             </div>
 
-            <div className="signup-btn">
-              {dataLoaded ? (
-                <>
-                  <Button
-                    sx={{
-                      borderRadius: 20,
-                      backgroundColor: "#54B435",
-                      justifyContent: "center",
-                      paddingLeft: "60px",
-                      paddingRight: "60px",
-                    }}
-                    variant="contained"
-                    type="submit"
-                  >
-                    UPDATE NOW
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    sx={{
-                      borderRadius: 20,
-                      backgroundColor: "#54B435",
-                      justifyContent: "center",
-                      paddingLeft: "60px",
-                      paddingRight: "60px",
-                    }}
-                    variant="contained"
-                    type="submit"
-                  >
-                    Register Now
-                  </Button>
-                </>
-              )}
-            </div>
+            {!isDischarged ? (
+              <div className="signup-btn">
+                {dataLoaded ? (
+                  <>
+                    <Button
+                      sx={{
+                        borderRadius: 20,
+                        backgroundColor: "#54B435",
+                        justifyContent: "center",
+                        paddingLeft: "60px",
+                        paddingRight: "60px",
+                      }}
+                      variant="contained"
+                      type="submit"
+                    >
+                      UPDATE NOW
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button
+                      sx={{
+                        borderRadius: 20,
+                        backgroundColor: "#54B435",
+                        justifyContent: "center",
+                        paddingLeft: "60px",
+                        paddingRight: "60px",
+                      }}
+                      variant="contained"
+                      type="submit"
+                    >
+                      Register Now
+                    </Button>
+                  </>
+                )}
+              </div>
+            ):[]}
+
+
           </form>
         </div>
       </div>

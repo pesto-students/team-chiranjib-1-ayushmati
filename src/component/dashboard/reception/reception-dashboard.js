@@ -79,11 +79,11 @@ export default function ReceptionistDashboardTest() {
       render: row => (
         <>
         {(row.status === "ADMITTED") ? (
-            <div style={{ backgroundColor: "#54B435", color: "white", borderRadius: "5px", textAlign: "center", padding: "7px", width: "85px", fontFamily: "Roboto, Helvetica, Arial, sans-serif", fontWeight: "500", fontSize: "0.875rem" }}>
+            <div style={{ backgroundColor: "#54B435", color: "white", borderRadius: "5px", textAlign: "center", padding: "7px", width: "90px", fontFamily: "Roboto, Helvetica, Arial, sans-serif", fontWeight: "500", fontSize: "0.875rem" }}>
               {row.status.toUpperCase()}
             </div>  
         ) : (
-          <div style={{ backgroundColor: "#E57C23", color: "white", borderRadius: "5px", textAlign: "center", padding: "7px", width: "85px", fontFamily: "Roboto, Helvetica, Arial, sans-serif", fontWeight: "500", fontSize: "0.875rem" }}>
+          <div style={{ backgroundColor: "#E57C23", color: "white", borderRadius: "5px", textAlign: "center", padding: "7px", width: "90px", fontFamily: "Roboto, Helvetica, Arial, sans-serif", fontWeight: "500", fontSize: "0.875rem" }}>
             {row.status.toUpperCase()}
           </div>
         )
