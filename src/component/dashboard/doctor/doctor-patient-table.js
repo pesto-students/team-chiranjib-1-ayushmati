@@ -59,10 +59,10 @@ export default function DoctorPatientTable(props){
     }
 
     return (
-        <div className="doctor-patient-table-outer-div">
+        <div  style={{height:"500px"}} className="doctor-patient-table-outer-div">
         <div className="doctor-patient-inner-div">
           
-          <TableContainer sx={{ borderRadius: "30px" }} component={Paper}>
+          <TableContainer sx={{  }} component={Paper}>
             <Table
               sx={{ minWidth: 400 }}
               size="small"
@@ -76,11 +76,11 @@ export default function DoctorPatientTable(props){
             >
               <TableHead>
                 <TableRow sx={{ background: "#4545453e" }}>
-                  <TableCell align="center">Medicine Type</TableCell>
-                  <TableCell align="center">Medicine</TableCell>
-                  <TableCell align="center">Primary Nurse</TableCell>
-                  <TableCell align="center">Medicine Intake time</TableCell>
-                  <TableCell align="center">Instructions</TableCell>
+                  <TableCell >Medicine Type</TableCell>
+                  <TableCell >Medicine</TableCell>
+                  <TableCell >Primary Nurse</TableCell>
+                  <TableCell >Medicine Intake time</TableCell>
+                  <TableCell >Instructions</TableCell>
                   <TableCell align="center">STATUS</TableCell>
                 </TableRow>
               </TableHead>
@@ -88,14 +88,14 @@ export default function DoctorPatientTable(props){
                 {rows.map((row) => (
                   <TableRow key={row._id}>
 
-                    <TableCell align="center">{row.medicineType}</TableCell>
-                    <TableCell align="center">{row.medicineName}</TableCell>
-                    <TableCell align="center">{row.primaryNurse}</TableCell>
-                    <TableCell align="center">
+                    <TableCell>{row.medicineType}</TableCell>
+                    <TableCell>{row.medicineName}</TableCell>
+                    <TableCell>{row.primaryNurse}</TableCell>
+                    <TableCell>
                       {/* {moment(row.inTakeTime).format("YYYY-MM-DD")} */}
-                     {moment.parseZone(row.inTakeTime).local(true).format("YYYY-MM-DD")}
+                     {moment.parseZone(row.inTakeTime).local(true).format("YYYY-MM-DD h:m:A")}
                     </TableCell>
-                    <TableCell align="center">{row.doctorInstructions}</TableCell>
+                    <TableCell >{row.doctorInstructions}</TableCell>
 
                     {/* {row.status === "COMPLETED" ? (
                       <TableCell sx={{ color: "white" }} align="center">
