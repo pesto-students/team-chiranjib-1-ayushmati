@@ -24,10 +24,12 @@ import { useSelector } from "react-redux";
 
 function PatienRegistration() {
   const [primaryDoctorList, setPrimaryDoctorList] = useState([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const [diseaseList, setDiseaseList] = useState([]);
   const [wardList, setWardList] = useState([]);
   const [roomList, setRoomList] = useState([]);
   const [bedList, setBedList] = useState([]);
+  const [temp,setTemp]= useState(false);
 
   const [oldWard, setOldWard] = useState('');
   const [oldRoom, setOldRoom] = useState('');
@@ -59,7 +61,8 @@ function PatienRegistration() {
         setValue("country", response.data.country);
         setValue("state", response.data.state);
         setValue("city", response.data.city);
-        setValue("addresponses", response.data.addresponses);
+        setValue("address", response.data.address);
+        setValue("pincode", response.data.pincode);
         setValue("primaryDoctor", response.data.primaryDoctor);
         setValue("weight", response.data.weight);
         setValue("height", response.data.height);
@@ -77,8 +80,19 @@ function PatienRegistration() {
           "admissionDate",
           moment(response.data.admissionDate).format("YYYY-MM-DD")
         );
+        
+        if(response.data.status != 'ADMITTED'){
+          setValue(
+            "dischargeDate",
+            moment(response.data.dischargeDate).format("YYYY-MM-DD")
+          );
+        }
+        
+        setDataLoaded(true);
       };
       getPatientData();
+    } else{
+      setTemp(true);
     }
   }, []);
 
@@ -609,23 +623,54 @@ function PatienRegistration() {
                   {...register("admissionDate")}
                   value={watch("admissionDate") || ""}
                 />
+                {dataLoaded ? (
+                <TextField
+                  InputLabelProps={{ shrink: true }}
+                  fullWidth
+                  id="dischargeDate"
+                  type="date"
+                  variant="standard"
+                  label="Discharge Date *"
+                  {...register("dischargeDate")}
+                  value={watch("dischargeDate") || ""}
+                />):[]}
               </Stack>
             </div>
 
             <div className="signup-btn">
-              <Button
-                sx={{
-                  borderRadius: 20,
-                  backgroundColor: "#7EDD6F",
-                  justifyContent: "center",
-                  paddingLeft: "60px",
-                  paddingRight: "60px",
-                }}
-                variant="contained"
-                type="submit"
-              >
-                Register Now
-              </Button>
+              {dataLoaded ? (
+                <>
+                  <Button
+                    sx={{
+                      borderRadius: 20,
+                      backgroundColor: "#54B435",
+                      justifyContent: "center",
+                      paddingLeft: "60px",
+                      paddingRight: "60px",
+                    }}
+                    variant="contained"
+                    type="submit"
+                  >
+                    UPDATE NOW
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    sx={{
+                      borderRadius: 20,
+                      backgroundColor: "#54B435",
+                      justifyContent: "center",
+                      paddingLeft: "60px",
+                      paddingRight: "60px",
+                    }}
+                    variant="contained"
+                    type="submit"
+                  >
+                    Register Now
+                  </Button>
+                </>
+              )}
             </div>
           </form>
         </div>
