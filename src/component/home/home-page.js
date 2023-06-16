@@ -10,11 +10,11 @@ function HomePage() {
       <NavigationBar />
       <div className="homediv">
         <div className="innerdiv1">
-          <div className="text1">
-            <h1>The Best Online Solution for Nursing And Patient Care.</h1>
+          <div style={{fontFamily:"Copse", fontSize:"50px", color: "#3A4563" }}  >
+            The Best Online Solution for Nursing And Patient Care.
           </div>
-          <div className="text2">
-            <ul>
+          <div  className="text2">
+            <ul style={{fontFamily:"Courier New", fontSize:"22px" }} >
               <li>
                 Identifying patients' care requirements, focus on their needs
                 and act on them.

@@ -1,14 +1,10 @@
 import { useForm } from "react-hook-form";
 import TextField from "@mui/material/TextField";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../utils/constant";
-import { stateList, countryList, townCityList } from "../master/master-list";
 import NavigationBar from "../navgation/navigation-bar";
-
 
 function ContactUs(){
     const {
@@ -21,11 +17,9 @@ function ContactUs(){
       const navigate = useNavigate();
     
       const onsubmit = async (data) => {
-        console.log(data);
-    
-    
-    
-        
+        alert("Ayushmati team will rech out to you shortly !");
+        /*
+
         const newHospitalData = { newHospital: data };
         try {
             axios
@@ -47,93 +41,112 @@ function ContactUs(){
         } catch (err) {
           console.error(err);
         }
+        */
       };
     
       return (
         <>
         <NavigationBar />
-          
-    
-          <div className="signup-div">
+        
+        <div className="signup-outer-div">
+          <div className="signup-inner-div">
             <form onSubmit={handleSubmit(onsubmit)}>
-              <Stack spacing={2} direction="row">
+              <div className="form-control">
+                <h1 className="page-heading">CONTACT US</h1>
+              </div>
+
                 <TextField
-                  id="fullName"
+                  className="patient-reg-text-field"
+                  id="message"
                   label="Full Name *"
-                  placeholder="Full Name"
                   variant="standard"
+                  fullWidth
                   {...register("fullName", {
                     required: {
                       value: true,
-                      message: "Name is required",
+                      message: "Full Name is required",
                     },
                   })}
-                  error={!!errors.fullName}
+                  value={watch("fullName") || ""}
+                  error={!!errors.message}
                   helperText={errors?.fullName?.message}
                 />
-              </Stack>
 
-              <Stack spacing={2} direction="row">
                 <TextField
+                  className="patient-reg-text-field"
                   id="message"
                   label="Message *"
-                  placeholder="Message"
                   variant="standard"
+                  fullWidth
                   {...register("message", {
                     required: {
                       value: true,
-                      message: "Name is required",
+                      message: "Message is required",
                     },
                   })}
+                  value={watch("message") || ""}
                   error={!!errors.message}
                   helperText={errors?.message?.message}
                 />
-              </Stack>
+    
+                <TextField
+                  className="patient-reg-text-field"
+                  id="contactNo"
+                  label="Contact No *"
+                  variant="standard"
+                  fullWidth
+                  {...register("contactNo", {
+                    required: {
+                      value: true,
+                      message: "Contact No. is required",
+                    },
+                  })}
+                  value={watch("contactNo") || ""}
+                  error={!!errors.contactNo}
+                  helperText={errors?.contactNo?.message}
+                />
 
-    
-              <Stack spacing={2} direction="row">
-                    <TextField
-                      className="patient-reg-text-field"
-                      id="contactNo"
-                      label="Contact No *"
-                      variant="standard"
-                      fullWidth
-                      {...register("contactNo", {
-                        required: {
-                          value: true,
-                          message: "Contact No. is required",
-                        },
-                      })}
-                      value={watch("contactNo") || ""}
-                      error={!!errors.contactNo}
-                      helperText={errors?.contactNo?.message}
-                    />
-    
-                  </Stack>
-    
-    
-                  <TextField
-                    id="address"
-                    label="Address"
-                    placeholder="Address"
-                    variant="standard"
-                    fullWidth
-                    {...register("address")}
-                    value={watch("address") || ""}
-                  />
-    
-              <Button
-                style={{
-                  borderRadius: 10,
-                  backgroundColor: "#7EDD6F",
-                }}
-                variant="contained"
-                type="submit"
-              >
-               Register Now
-              </Button>
-            </form>
-          </div>
+                <TextField
+                  className="signup-text-field"
+                  id="Email-Id"
+                  label="Email Id *"
+                  placeholder="abc123@gmail.com"
+                  variant="standard"
+                  fullWidth
+                  {...register("emailId", {
+                    required: {
+                      value: true,
+                      message: "Email ID is required",
+                    },
+                    pattern: {
+                      value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                      message: "Enter valid email id",
+                    },
+                  })}
+                  error={!!errors.emailId}
+                  helperText={errors?.emailId?.message}
+                />
+
+              <div className="signup-btn">
+                <Button
+                  sx={{
+                    borderRadius: 20,
+                    backgroundColor: "#54B435",
+                    justifyContent: "center",
+                    paddingLeft: "60px",
+                    paddingRight: "60px",
+                  }}
+                  variant="contained"
+                  type="submit"
+                >
+                  Submit
+                </Button>
+              </div>
+  
+              </form>
+        </div>
+        </div>
+
           </>
       );
     }
