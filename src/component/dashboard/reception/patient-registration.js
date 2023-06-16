@@ -12,7 +12,6 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -30,76 +29,13 @@ function PatienRegistration() {
   const [roomList, setRoomList] = useState([]);
   const [bedList, setBedList] = useState([]);
   
-  const [oldWard, setOldWard] = useState('');
-  const [oldRoom, setOldRoom] = useState('');
-  const [oldBed, setOldBed] = useState('');
-
   const [isDischarged, setIsDischarged] = useState(false);
   
-  
-
   const { id } = useParams();
   const navigate = useNavigate();
 
   const hospitalName = useSelector((state) => state.hospitalName);
 
-
-  useEffect(() => {
-    if (id) {
-      const getPatientData = async () => {
-        const response = await axios.get(
-          API_URL + `/patientRegistration/getPatient/${id}`
-        );
-        console.log(response.data);
-        setValue("patientName", response.data.patientName);
-        setValue(
-          "dateOfBirth",
-          moment(response.data.dateOfBirth).format("YYYY-MM-DD")
-        );
-        setValue("sex", response.data.sex);
-        setValue("maritalStatus", response.data.maritalStatus);
-        setValue("contactNo", response.data.contactNo);
-        setValue("emergContactNo", response.data.emergContactNo);
-        setValue("country", response.data.country);
-        setValue("state", response.data.state);
-        setValue("city", response.data.city);
-        setValue("address", response.data.address);
-        setValue("pincode", response.data.pincode);
-        setValue("primaryDoctor", response.data.primaryDoctor);
-        setValue("weight", response.data.weight);
-        setValue("height", response.data.height);
-        setValue("bloodGrp", response.data.bloodGrp);
-        setValue("symtoms", response.data.symtoms);
-        setValue("disease", response.data.disease);
-        
-        console.log('set ward ::::::::::::::::::::::; '+response.data.ward);
-
-        setOldWard(response.data.ward);
-        setOldRoom(response.data.room);
-        setOldBed(response.data.bed);
-
-        setValue(
-          "admissionDate",
-          moment(response.data.admissionDate).format("YYYY-MM-DD")
-        );
-        
-        if(response.data.status != 'ADMITTED'){
-          setValue(
-            "dischargeDate",
-            moment(response.data.dischargeDate).format("YYYY-MM-DD")
-          );
-        }
-        
-        if(response.data.status === 'DISCHARGED'){
-          setIsDischarged(true);
-        }
-        
-        setDataLoaded(true);
-      };
-      getPatientData();
-    } else{
-    }
-  }, []);
 
   useEffect(() => {
     const getPrimaryDoctorList = async () => {
@@ -141,15 +77,69 @@ function PatienRegistration() {
       }
     };
 
-    setTimeout(()=>{
-      getWardList();
-      if(id) {
-        console.log('old ward **************** '+ oldWard);
-        setValue("ward", oldWard);
-        getRoomList(oldWard);
-      }
-    },1000);
+    getWardList();
+    
+    if (id) {
+      const getPatientData = async () => {
+        const response = await axios.get(
+          API_URL + `/patientRegistration/getPatient/${id}`
+        );
+        console.log(response.data);
+        setValue("patientName", response.data.patientName);
+        setValue(
+          "dateOfBirth",
+          moment(response.data.dateOfBirth).format("YYYY-MM-DD")
+        );
+        setValue("sex", response.data.sex);
+        setValue("maritalStatus", response.data.maritalStatus);
+        setValue("contactNo", response.data.contactNo);
+        setValue("emergContactNo", response.data.emergContactNo);
+        setValue("country", response.data.country);
+        setValue("state", response.data.state);
+        setValue("city", response.data.city);
+        setValue("address", response.data.address);
+        setValue("pincode", response.data.pincode);
+        setValue("primaryDoctor", response.data.primaryDoctor);
+        setValue("weight", response.data.weight);
+        setValue("height", response.data.height);
+        setValue("bloodGrp", response.data.bloodGrp);
+        setValue("symtoms", response.data.symtoms);
+        setValue("disease", response.data.disease);
+        
+        setValue("ward", response.data.ward);
+        await getRoomList(response.data.ward);
 
+        setValue("room", response.data.room);
+
+        await getBedList(response.data.room);
+        setValue("bed", response.data.bed);
+
+        setValue(
+          "admissionDate",
+          moment(response.data.admissionDate).format("YYYY-MM-DD")
+        );
+        
+        if(response.data.status != 'ADMITTED'){
+          setValue(
+            "dischargeDate",
+            moment(response.data.dischargeDate).format("YYYY-MM-DD")
+          );
+        }
+        
+        if(response.data.status === 'DISCHARGED'){
+          setIsDischarged(true);
+        }
+        
+        setDataLoaded(true);
+      };
+      getPatientData();
+    } else{
+    }
+  }, []);
+
+  useEffect(() => {
+    
+    
   }, []);
 
   const getRoomList = async (wardName) => {
@@ -162,11 +152,6 @@ function PatienRegistration() {
       console.log("rooms :::: " + response.data);
 
       setRoomList(response.data);
-      if(id){
-        setValue("room", oldRoom);
-        getBedList();
-      }
-
     } catch (error) {
       console.error(error);
     }
@@ -182,9 +167,6 @@ function PatienRegistration() {
       );
 
       setBedList(response.data);
-      if(id){
-        setValue("bed", oldBed);
-      }  
     } catch (error) {
       console.error(error);
     }
