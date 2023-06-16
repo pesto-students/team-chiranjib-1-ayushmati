@@ -78,7 +78,7 @@ export default function NurseDashboardTest() {
       // indianDate = rowData.inTakeTime.toLocaleString();
       return(
       <>
-        {moment.parseZone(rowData.inTakeTime).local(true).format("h:mm A")}
+        {moment.parseZone(rowData.inTakeTime).local().format("h:mm A")}
       </>
     )} },
 
