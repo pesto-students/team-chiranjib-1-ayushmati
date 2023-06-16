@@ -18,6 +18,7 @@ function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const role = useSelector((state) => state.role);
+  const [errorMessage,setErrorMessage] = useState(''); 
 
   const {
     register,
@@ -65,7 +66,14 @@ function Login() {
           console.log("didnt enter other if");
         }
       }
+      else {
+        console.log("inside error")
+        console.log(res.error);
+        setLoading(false);
+        setErrorMessage(res.error)
+      }
     } catch (error) {
+      console.log("inside error")
       console.error(error);
     }
   };
@@ -146,7 +154,9 @@ function Login() {
                   Not a member? Register here
                 </Link>
               </div>
+              {errorMessage && <div>{errorMessage}</div>}
             </form>
+            
           </div>
         </div>
       )}
