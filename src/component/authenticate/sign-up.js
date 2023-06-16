@@ -124,9 +124,9 @@ function Signup() {
   return (
     <>
       <NavigationBar />
-      <div className="common-backgroud">
-        <div className="form-background">
-          <Box
+      <div className="signup-outer-div">
+        <div className="signup-inner-div">
+          <Box 
             sx={{
               "& .MuiTextField-root": { p: "10px", width: "50ch" },
             }}

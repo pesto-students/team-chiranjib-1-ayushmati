@@ -22,7 +22,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DoctorPatientTable from "./doctor-patient-table";
 import { useSelector } from "react-redux";
 import TableViewSharpIcon from '@mui/icons-material/TableViewSharp';
-
+import "./task-component.css"
 
 export default function TaskComponent(props) {
   const [primaryNurseList, setPrimaryNurseList] = useState([]);
@@ -100,11 +100,15 @@ export default function TaskComponent(props) {
   return (
     <div className="patientdata-inner-div">
       <form onSubmit={handleSubmit2(onTaskSubmit)}>
-        <div>
+        <div className="patient-prescription-header">
         <h2>New Prescription </h2>
-        <div>
-          <TableViewSharpIcon onClick={handleClickOpen} />
+        <div style={{display:"flex" ,justifyContent: "center",alignItems: "center"}}>
+          <TableViewSharpIcon onClick={handleClickOpen}/>
+          <p className="signup-link">Check previous prescriptions</p>
+        </div > 
         </div>
+        <div>
+        
           <Stack spacing={2} direction="row">
             <TextField
               className="patient-reg-text-field"
@@ -225,7 +229,6 @@ export default function TaskComponent(props) {
           </Button>
         </div>
         
-        <div className="signup-btn">
               <Dialog
                 open={open}
                 maxWidth
@@ -236,7 +239,6 @@ export default function TaskComponent(props) {
                 <DoctorPatientTable id={id} />
                 </DialogActions>
               </Dialog>
-            </div>
       </form>
     </div>
   );
