@@ -56,9 +56,9 @@ function HospitalRegistration() {
       
 
       <div className="common-backgroud">
-      <div className="form-background">
+      <div className="form-background" style={{width:'70%'}}>
           
-        <form onSubmit={handleSubmit(onsubmit)}>
+        <form onSubmit={handleSubmit(onsubmit) } style={{width:'100%'}}>
         <div className="form-control">
                 <h1 className="page-heading">HOSPITAL REGISTRATION</h1>
               </div>
@@ -67,6 +67,7 @@ function HospitalRegistration() {
               id="hospitalName"
               label="Hospital Name *"
               placeholder="Apollo Hospital"
+              fullWidth
               variant="standard"
               {...register("hospitalName", {
                 required: {
@@ -83,6 +84,7 @@ function HospitalRegistration() {
               label="Hospital Registration No *"
               placeholder="HOSP-123456"
               variant="standard"
+              fullWidth
               {...register("hospitalRegnNo", {
                 required: {
                   value: true,

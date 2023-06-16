@@ -48,9 +48,9 @@ function ContactUs(){
         <>
         <NavigationBar />
         
-        <div className="signup-outer-div">
-          <div className="signup-inner-div">
-            <form onSubmit={handleSubmit(onsubmit)}>
+        <div className="signup-outer-div" style={{height:'100vh'}}>
+          <div className="signup-inner-div" style={{width:'60%'}}>
+            <form onSubmit={handleSubmit(onsubmit)} style={{width:'100%'}}>
               <div className="form-control">
                 <h1 className="page-heading">CONTACT US</h1>
               </div>
