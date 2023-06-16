@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { API_URL } from "../../utils/constant";
 import Loader from "../master/loader";
 import "../../css/common.css";
+import nurseImage from "../../images/nurse.png";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -78,7 +79,12 @@ function Login() {
         </>
       ) : (
         <div className="common-backgroud">
-          <div className="form-background" style={{width:"50%"}}>
+          <>
+            <div style={{paddingRight:'50px'}}>
+              <img id="nurseImage" src={nurseImage} style={{transform:'scaleX(-1)'}}alt="This is nurse"></img>
+            </div>
+          </>
+          <div className="form-background" style={{width:"40%"}}>
             <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 <h1 className="page-heading" style={{display:"flex",justifyContent:"center"}}>LOGIN</h1>
                 <TextField
