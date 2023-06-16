@@ -122,7 +122,7 @@ function NavigationBar() {
                 borderRadius: 6,
               }}
             >
-              My dashboard
+              Patient List
             </Button>
           </>
         ) : (
