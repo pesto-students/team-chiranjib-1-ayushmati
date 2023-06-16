@@ -199,17 +199,18 @@ function HospitalRegistration() {
                 {...register("address")}
                 value={watch("address") || ""}
               />
-
-          <Button
-            style={{
-              borderRadius: 10,
-              backgroundColor: "#7EDD6F",
-            }}
-            variant="contained"
-            type="submit"
-          >
-           Register Now
-          </Button>
+              <div className="signup-btn">
+                <Button
+                  style={{
+                    borderRadius: 10,
+                    backgroundColor: "#7EDD6F",
+                  }}
+                  variant="contained"
+                  type="submit"
+                >
+                Register Now
+                </Button>
+              </div>
         </form>
       </div>
       </div>
