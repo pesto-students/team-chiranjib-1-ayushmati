@@ -40,21 +40,7 @@ function NavigationBar() {
               Home
             </Button>
           
-            <Button
-              component={Link}
-              to={"/hospitalRegistration"}
-              sx={{
-                color: "black",
-                fontSize: "20px",
-                margin: "4px",
-                alignItems: "center",
-                flexGrow: 1,
-                font: "inherit",
-                borderRadius: 6,
-              }}
-            >
-              NEW HOSPITAL
-            </Button>
+            
 
             <Button
               component={Link}
@@ -167,6 +153,29 @@ function NavigationBar() {
         ) : (
           <></>
         )}
+
+        { role === "superadmin" ? (
+            <Button
+            component={Link}
+            to={"/hospitalRegistration"}
+            sx={{
+              color: "black",
+              fontSize: "20px",
+              margin: "4px",
+              alignItems: "center",
+              flexGrow: 1,
+              font: "inherit",
+              borderRadius: 6,
+            }}
+          >
+            NEW HOSPITAL
+          </Button>
+
+        ) : (
+          <></>
+        )}
+
+
 
         {!token ? (
           <>
