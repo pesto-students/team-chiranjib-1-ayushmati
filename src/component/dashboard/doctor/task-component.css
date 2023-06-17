@@ -1,0 +1,10 @@
+.patient-prescription-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo-Heading{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}

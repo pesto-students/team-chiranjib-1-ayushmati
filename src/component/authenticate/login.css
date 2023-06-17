@@ -1,0 +1,31 @@
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-control-password{
+    display: flex;
+    justify-content: right;
+    align-items: flex-end;
+    padding: 10px;
+}
+
+.login-inner-div{
+    padding: 50px;
+    background-color:white;
+    border-radius: 60px;
+    justify-content: center;
+    display: flex;
+    align-content: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+} 
+
+.signup-link{
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: small;
+    color: #323d43;
+}
+
