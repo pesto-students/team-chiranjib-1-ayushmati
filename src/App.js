@@ -14,6 +14,8 @@ import PatientTask from "./component/dashboard/doctor/patient-task";
 import { useSelector } from "react-redux";
 import NurseDashboardTest from "./component/dashboard/nurse/nurse-dashboard-new";
 import { v4 as uuidv4 } from 'uuid';
+import PaymentSuccess from "./component/home/payment_success";
+import PaymentFailure from "./component/home/payment_failure";
 
 
 function App() {
@@ -34,7 +36,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/contactus" element={<ContactUs />} />
-          
+          <Route path="/PaymentSuccess" element={<PaymentSuccess/>}/>
+          <Route path="/PaymentFailure" element={<PaymentFailure/>}/>
+                    
           {!isAuthenticated ? (
             <>
               <Route path="/signup" element={<Signup />} key= {uuidv4()} />

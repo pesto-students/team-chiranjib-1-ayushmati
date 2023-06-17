@@ -9,6 +9,7 @@ import { API_URL } from "../../utils/constant";
 import { stateList, countryList, townCityList } from "../master/master-list";
 import NavigationBar from "../navgation/navigation-bar";
 import "../../css/common.css";
+import getStripe from "../../stripe/stripe";
 
 
 function HospitalRegistration() {
@@ -25,8 +26,23 @@ function HospitalRegistration() {
     console.log(data);
 
 
-
+    const stripe = await getStripe();
     
+    const { error } = await stripe.redirectToCheckout({
+      lineItems: [
+        {
+          price:'price_1NJtRQSCyckeC82wlVjyNzHb' ,
+          quantity: 1,
+        },
+      ],
+      mode: 'subscription',
+      successUrl: `${API_URL}/success`,
+      cancelUrl: `${API_URL}/cancel`,
+      customerEmail: 'rrthirumugilan18@gmail.com',
+    });
+
+    console.warn(error.message);
+ 
     const newHospitalData = { newHospital: data };
     try {
         axios
