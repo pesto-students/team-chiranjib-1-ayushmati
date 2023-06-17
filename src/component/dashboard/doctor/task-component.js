@@ -30,6 +30,7 @@ export default function TaskComponent(props) {
   const id = props.id;
   const isDischarged = props.isDischarged;
   
+  const currentDate = moment().format('YYYY-MM-DDTHH:mm');
 
   const {
     register: register2,
@@ -219,6 +220,11 @@ export default function TaskComponent(props) {
                   message: " Medicine Intake time is required",
                 },
               })}
+              InputProps={{
+                inputProps: {
+                  min: currentDate,
+                },
+              }}
               value={watch2("inTakeTime") || ""}
               error={!!errors2.inTakeTime}
               helperText={errors2?.inTakeTime?.message}
